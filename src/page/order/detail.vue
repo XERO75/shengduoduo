@@ -1,24 +1,23 @@
 <template>
   <div id="order-detail">
     <div class="address-container container" @click="onClickAddress">
-      <!-- <div><p class="noAddress">添加收货地址</p></div> -->
+      <!-- <div class="noAddress"><p>添加收货地址</p></div> -->
       <div class="defalutAddress">
         <p class="receiver">撒旦 135135454 <span>[默认]</span></p>
         <p class="address">按时发发生发发呆</p>
       </div>
     </div>
     <div class="product-container container">
-      <p class="productStatus title">荷兰阿卡就是点击<img src="./../../pic/top@2x.png"><span class="fr">待支付</span></p>
+      <p class="productStatus title">荷兰小店<i class="icon-right"></i><span class="fr">待支付</span></p>
       <div class="product-box">
         <img src="./../../pic/box.png">
         <div class="product-item">
           <div class="item-left">
-            <p class="item-name">考核会计阿斯加德库巴姬爱神的箭安康市道具卡含税单价卡时间的话卡萨丁按时间看大家
+            <p class="item-name">考核会计阿斯加德库巴姬爱神的箭安康市道具卡含
             </p>
-            <p>交换空间还款计划看空间客家话</p>
+            <p class="item-type">交换空间还</p>
           </div><div class="item-right">
             <p class="price">&yen;745</p>
-            <p class="count">X4545</p>
           </div>
         </div>
       </div>
@@ -43,7 +42,7 @@
       </div>
     </div>
     <div class="btn-container">
-      <p class="amount">实付金额：&yen; 500</p><p class="btn-cancel" @click="cancelOrder">取消</p><p class="btn-pay" @click="onClickToPay">立即支付</p>
+      <p class="amount">实付款：<span>&yen; 500</span></p><!-- <p class="btn-cancel" @click="cancelOrder">取消</p> --><p class="btn-pay" @click="onClickToPay">立即支付</p>
     </div>
     <van-popup class="getCoupon-popup" position="bottom" v-model="showGetCoupon">
       <div class="popup-box">
@@ -106,67 +105,9 @@
       </div>
     </van-popup>
 
-
-    <!-- 
-    <van-popup class="popup-pay" v-model="show">
-      <div class="pay-container">
-        <p class="box-title">微信支付</p>
-        <div class="agreement-container">
-            <p class="title">燕塘优鲜达微商城用户使用协议</p>
-            <p class="content">1、燕塘优鲜达微商城（以下简称"本平台"）为广东燕塘乳业股份有限公司旗下的电商平台，旨在为您提供更为便捷高效的订奶到家服务。指尖订奶，新鲜送到家。</p>
-            <p class="content">2、本平台所有展示商品均为"燕塘"品牌巴氏奶，须冷藏保存，请在保质期前饮用。</p>
-            <p class="content">3、本平台所有展示商品均为"燕塘"品牌巴氏奶，须冷藏保存，请在保质期前饮用。</p>
-            <p class="content">4、本平台所有展示商品均为"燕塘"品牌巴氏奶，须冷藏保存，请在保质期前饮用。</p>
-            <p class="content">5、本平台所有展示商品均为"燕塘"品牌巴氏奶，须冷藏保存，请在保质期前饮用。</p>
-        </div>
-        <van-checkbox v-model="checked">我已阅读并同意协议</van-checkbox>
-        <div class="van-checkbox">
-          <div class="van-checkbox__icon van-checkbox__icon--round" @click="checked=!checked">
-            <i class="van-icon van-icon-success"></i>
-            <i class="van-icon van-icon-success" :class="{noChecked:!checked,hasChecked:checked}"></i>
-          </div>
-          <span class="van-checkbox__label">我已阅读并同意协议</span>
-        </div>
-        <van-button class="btn-WXPay" v-if="!checked" style="background-color:#999;" disabled>微信支付</van-button>
-        <van-button class="btn-WXPay" v-else @click="payNow(info.sn)">微信支付</van-button>
-      </div>
-    </van-popup>
-    <van-popup class="popup-cancel" v-model="show1">
-      <p>取消原因</p>
-      <input type="text" placeholder="请填写订单的取消原因">
-      <textarea v-model="resason" placeholder="请填写订单的取消原因"></textarea>
-      <div class="popup-btn-container">
-        <van-row gutter="15">
-          <van-col span="12">
-            <van-button class="cancel-btn" @click="show1=false">取消</van-button>   
-          </van-col>
-          <van-col span="12">
-            <van-button class="submit-btn" type="danger" @click="cancelOrder">提交</van-button>
-          </van-col>
-        </van-row>
-      </div>
-    </van-popup>
-    <van-actionsheet v-model="show2" title="评价">
-      <p class="view">"{{view}}"</p>
-      <van-rate
-        v-model="starCount"
-        :size="27"
-        :count="5"
-        @change="changeStar"
-        color="#e70012"
-        void-color="#e5e5e5"
-      />
-      <div class="view-tabs">
-        <span v-for="(n,i) in AllTags[starCount-1]" class="view-tab" :class="{'active':i==0}" @click="onClickTag">{{n}}</span>
-        <div style="margin:0.133333rem;margin-top:0.266667rem">
-          <textarea placeholder="我还有其他话要说" v-model="comment"></textarea>
-          <van-button class="btn-view" @click="handleCommit">匿名提交</van-button>
-        </div>
-      </div>
-    </van-actionsheet>
     <div class="mask" v-if="loading">
       <van-loading color="white" />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -412,91 +353,110 @@ export default {
     }
   }
   .address-container{
-    padding: 0 10px;
     position: relative;
-    &:after{
-      content: '';
-      width: 15px;
-      height: 15px;
-      display: block;
-      background: url(./../../img/新增地址.png) no-repeat;
-      -webkit-background-size: 15px 15px;
-      background-size: 15px 15px;
-      position: absolute;
-      top: 50%;
-      margin-top: -7px;
-      right: 10px;
-    }
-    p.noAddress{
-      line-height: 2.0rem;
-      padding-left: 20px;
-      position: relative;
-      &:before{
-        content: '';
-        width: 15px;
-        height: 15px;
-        display: block;
-        background: url(./../../img/新增地址.png) no-repeat;
-        -webkit-background-size: 15px 15px;
-        background-size: 15px 15px;
-        position: absolute;
-        top: 50%;
-        margin-top: -7px;
-        left: 0;
+    padding: 0;
+    div.noAddress{
+      p{
+        line-height: 2.426667rem;
+        padding-left: 1.066667rem;
+        font-size: 0.426667rem;
+        color: #2d2d2d;
+        font-weight: bold;
+        position: relative;
+        &:before{
+          content: '';
+          width: 0.52rem;
+          height: 0.52rem;
+          display: block;
+          background: url(./../../image/添加地址@2x.png) no-repeat;
+          -webkit-background-size: 0.52rem 0.52rem;
+          background-size: 0.52rem 0.52rem;
+          position: absolute;
+          top: 50%;
+          margin-top: -0.266667rem;
+          left: 0.4rem;
+        }
       }
     }
     div.defalutAddress{
-      padding: 20px 0;
+      padding: 0.6rem 0.4rem;
+      &:after{
+        content: '';
+        width: 0.133333rem;
+        height: 0.24rem;
+        display: block;
+        background: url(./../../image/MORE@2x.png) no-repeat;
+        -webkit-background-size: 0.133333rem 0.24rem;
+        background-size: 0.133333rem 0.24rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -0.12rem;
+        right: 0.4rem;
+      }
       p.receiver{
-
+        font-size: 0.426667rem;
+        font-weight: bold;
+        color: #2d2d2d;
         span{
-          
+          font-size: 0.293333rem;
+          color: #e64a19;
+          line-height: 0.56rem;
+          vertical-align: top;
         }
       }
       p.address{
-        height: 50px;
+        padding-top: 0.266667rem;
+        font-size: 0.373333rem;
+        color: #666;
       }
     }
   }
   .product-container{
     .productStatus{
-      padding-left: 25px;
+      padding-left: 0.533333rem;
       position: relative;
       &:before{
         content: '';
-        width: 15px;
-        height: 15px;
+        width: 0.4rem;
+        height: 0.346667rem;
         display: inline-block;
-        background: url(./../../pic/edit.png) no-repeat;
-        -webkit-background-size: 15px 15px;
-        background-size: 15px 15px;
+        background: url(./../../image/订单详情-小店@2x.png) no-repeat;
+        -webkit-background-size: 0.4rem 0.346667rem;
+        background-size: 0.4rem 0.346667rem;
         position: absolute;
         top: 50%;
-        margin-top: -7px;
+        margin-top: -0.173333rem;
         left: 0;
       }
-      img{
-        width: 15px;
-        height: 15px;
-        padding-left: 5px;
+      i.icon-right{
+        width: 0.133333rem;
+        height: 0.24rem;
+        display: inline-block;
+        background: url(./../../image/订单相情，查看小店@2x.png) no-repeat;
+        -webkit-background-size: 0.133333rem 0.24rem;
+        background-size: 0.133333rem 0.24rem;
+        margin-left: 0.133333rem;
         vertical-align: middle;
       }
       span{
-        color: #999;
+        color: #e64a19;
+        font-size: 0.32rem;
         font-weight: normal;
       }
     }
     .product-box{
+      height: 2.933333rem;
       padding: 0.373333rem 0;
+      box-sizing: border-box;
       position: relative;
       border-bottom: 1px solid #f6f6f6;
       img{
         position: absolute;
-        width: 1.52rem;
-        height: 1.52rem;
+        width: 2.0rem;
+        height: 2.0rem;
       }
       .product-item{
-        padding-left: 70px;
+        padding-left: 2.48rem;
         height: 1.52rem;
         &:last-child{
           border-bottom: 0;
@@ -504,12 +464,25 @@ export default {
         .item-left{
           width: 75%;
           display: inline-block;
+          .item-name{
+            padding-top: 0.106667rem;
+            font-size: 0.4rem;
+            color: #2d2d2d;
+          }
+          .item-type{
+            padding-top: 0.106667rem;
+            font-size: 0.373333rem;
+            color: #999;
+          }
         }
         .item-right{
           vertical-align: top;
           width: 25%;
           display: inline-block;
           p{
+            font-size: 0.4rem;
+            font-weight: bold;
+            color: #e64a19;
             text-align: right;
           }
         }
@@ -519,8 +492,9 @@ export default {
       position: relative;
       height: 1.466667rem;
       p.title{
-        font-size: 0.346667rem;
-        color: #666;
+        font-size: 0.4rem;
+        font-weight: normal;
+        color: #2d2d2d;
         line-height: 1.466667rem;
       }
       div.count-box {
@@ -541,24 +515,26 @@ export default {
       height: 1.466667rem;
       &:after{
         content: '';
-        width: 15px;
-        height: 15px;
+        width: 0.133333rem;
+        height: 0.24rem;
         display: block;
-        background: url(./../../img/新增地址.png) no-repeat;
-        -webkit-background-size: 15px 15px;
-        background-size: 15px 15px;
+        background: url(./../../image/MORE@2x.png) no-repeat;
+        -webkit-background-size: 0.133333rem 0.24rem;
+        background-size: 0.133333rem 0.24rem;
         position: absolute;
         top: 50%;
-        margin-top: -7px;
+        margin-top: -0.12rem;
         right: 0;
       }
       p{
-        font-size: 0.346667rem;
-        color: #666;
+        font-size: 0.4rem;
+        color: #2d2d2d;
         line-height: 1.466667rem;
         span{
+          font-size: 0.373333rem;
+          color: #e64a19;
           float: right;
-          padding-right: 20px;
+          padding-right: 0.4rem;
         }
       }
     }
@@ -567,20 +543,20 @@ export default {
     padding: 0;
     border-bottom: 10px solid #f6f6f6;
     p.title{
-      padding-left: 35px;
+      padding-left: 1.066667rem;
       position: relative;
       &:before{
         content: '';
-        width: 15px;
-        height: 15px;
+        width: 0.533333rem;
+        height: 0.466667rem;
         display: block;
-        background: url(./../../pic/edit.png) no-repeat;
-        -webkit-background-size: 15px 15px;
-        background-size: 15px 15px;
+        background: url(./../../image/微信支付@2x.png) no-repeat;
+        -webkit-background-size: 0.533333rem 0.466667rem;
+        background-size: 0.533333rem 0.466667rem;
         position: absolute;
         top: 50%;
-        margin-top: -7px;
-        left: 15px;
+        margin-top: -0.226667rem;
+        left: 0.4rem;
       }
     }
     div.content{
@@ -590,21 +566,21 @@ export default {
         line-height: 1.2rem;
         border-bottom: 1px solid #f6f6f6;
         font-size: 0.4rem;
-        color: #202020;
+        color: #2d2d2d;
         &.select{
           position: relative;
           &:after{
             content: '';
-            width: 0.2rem;
-            height: 0.333333rem;
+            width: 0.133333rem;
+            height: 0.24rem;
             display: block;
-            background: url(./../../img/go@2x.png) no-repeat;
-            -webkit-background-size: 0.2rem 0.333333rem;
-            background-size: 0.2rem 0.333333rem;
+            background: url(./../../image/MORE@2x.png) no-repeat;
+            -webkit-background-size: 0.133333rem 0.24rem;
+            background-size: 0.133333rem 0.24rem;
             position: absolute;
             right: 0.4rem;
             top: 50%;
-            margin-top: -0.133333rem;
+            margin-top: -0.12rem;
           }
           span{
             padding-left: 37px;
@@ -626,7 +602,13 @@ export default {
           }
         }
         &.total{
+          font-size: 0.32rem;
           text-align: right;
+          span{
+            font-size: 0.4rem;
+            font-weight: bold;
+            color: #e64a19;
+          }
         }
       }
     }
@@ -635,33 +617,38 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 50px;
+    height: 1.306667rem;
     p.amount{
-      width: 40%;
+      width: 60%;
       height: 100%;
-      text-align: center;
+      padding-left: 0.4rem;
       display: inline-block;
-      line-height: 50px;
+      line-height: 1.306667rem;
+      font-size: 0.346667rem;
       background-color: #fff;
+      color: #2d2d2d;
       border-top: 1px solid #f6f6f6;
       box-sizing: border-box;
       span{
-
+        font-size: 0.48rem;
+        color: #e64a19;
+        font-weight: bold;
       }
     }
-    p.btn-cancel{
+    /*p.btn-cancel{
       width: 30%;
       height: 100%;
-      line-height: 50px;
+      line-height: 1.306667rem;
       text-align: center;
       display: inline-block;
       color: #fff;
       background-color: #c7c7c7;
-    }
+    }*/
     p.btn-pay{
-      width: 30%;
+      width: 40%;
       height: 100%;
-      line-height: 50px;
+      font-size: 0.4rem;
+      line-height: 1.306667rem;
       text-align: center;
       display: inline-block;
       color: #fff;

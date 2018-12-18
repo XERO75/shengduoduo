@@ -57,9 +57,9 @@ const routes = [
     }
   },
   {
-    path: '/home/store',
-    name: 'homeStore',
-    component: () => import('./page/home/store'),
+    path: '/sort/store',
+    name: 'sortStore',
+    component: () => import('./page/sort/store'),
     meta: {
       title: '米多多'
     }
@@ -190,6 +190,62 @@ const routes = [
     component: () => import('./page/afterSale/detail'),
     meta: {
       title: '退款 / 售后'
+    }
+  },
+  {
+    path: '/comments',
+    name: 'comments',
+    component: () => import('./page/comments/index.vue'),
+    meta: {
+      title: '我的评价'
+    }
+  },
+  {
+    path: '/bargain',
+    name: 'bargain',
+    component: () => import('./page/bargain/index.vue'),
+    meta: {
+      title: '砍价免费拿'
+    }
+  },
+  {
+    path: '/treasure',
+    name: 'treasure',
+    component: () => import('./page/treasure/index.vue'),
+    meta: {
+      title: '夺宝'
+    }
+  },
+  {
+    path: '/redPacket',
+    name: 'redPacket',
+    component: () => import('./page/redPacket/index.vue'),
+    meta: {
+      title: '红包'
+    }
+  },
+  {
+    path: '/oreYard',
+    name: 'oreYard',
+    component: () => import('./page/oreYard/index.vue'),
+    meta: {
+      title: '矿场'
+    }
+  },
+  {
+    path: '/customerService',
+    name: 'customerService',
+    component: () => import('./page/customerService/index.vue'),
+    meta: {
+      title: '客服'
+    }
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: () => import('./page/help/index.vue'),
+    meta: {
+      title: '帮助'
     }
   },
 ];

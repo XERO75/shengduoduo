@@ -301,31 +301,6 @@ textarea{
   background-color: #fff;
   width: 0.8rem;
 } 
-/* 商品详情轮播图 */
-// #shop-detail .van-swipe,
-// #pintuan .van-swipe{
-//   height: 7.52rem;
-//   position: relative;
-// }
-// #shop-detail .van-swipe .van-swipe-item img,
-// #pintuan .van-swipe .van-swipe-item img{
-//   width: 100%;
-//   height: 100%;
-// }
-// #pintuan .custom-indicator span,
-// #shop-detail .custom-indicator span{
-//   width: 1.066667rem;
-//   height: 0.56rem;
-//   display: block;
-//   position: absolute;
-//   right: 0.293333rem;
-//   bottom: 0.293333rem;
-//   color: #fff;
-//   font-size: 0.373333rem;
-//   text-align: center;
-//   border-radius: 0.28rem;
-//   background-color: rgba(32,32,32,.5);
-// }
 /* 顶部tab */
 .van-tabs .van-tabs__line {
   background-color: #fff;
@@ -421,10 +396,6 @@ textarea{
 .van-rate{
   text-align: center!important;
 }
-/* Dialog 底部button的 hairline */
-// .van-dialog__header--isolated {
-//   padding: 1.0666rem 0!important;
-// }
 /* input输入框的label */
 .van-cell__title span{
   font-weight: bold;
@@ -496,10 +467,6 @@ textarea{
   padding: 0.266667rem;
   border-radius: 0.16rem;
 }
-/* 弹出确认框 底部按钮文字颜色 */
-// .van-dialog__footer--buttons.van-dialog__footer .van-button__text {
-//   color: #e70012!important;
-// }
 /* switch按钮的颜色 */
 .van-switch--on {
   background-color: #e70012!important;

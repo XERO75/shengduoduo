@@ -11,19 +11,19 @@
       <p class="title">我的订单<span>查看更多</span></p>
       <div class="status-list">
         <div class="status-item">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/待评价@2x.png">
           <p>待付款</p>
         </div><div class="status-item">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/待分享@2x.png">
           <p>待分享</p>
         </div><div class="status-item">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/代发货@2x.png">
           <p>待发货</p>
         </div><div class="status-item">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/待收货@2x.png">
           <p>待收货</p>
         </div><div class="status-item">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/待评价@2x.png">
           <p>待评价</p>
         </div>
       </div>
@@ -31,74 +31,69 @@
     <div class="service-container container">
       <div class="service-list">
         <div class="service-item"  @click="onClickCoupon">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/优惠券@2x.png">
           <p>优惠券</p>
         </div><div class="service-item"  @click="onClickCollect">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/我的收藏@2x.png">
           <p>我的收藏</p>
         </div><div class="service-item"  @click="onClickCollect2">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/店铺收藏@2x.png">
           <p>店铺收藏</p>
         </div><div class="service-item"  @click="onClickHistory">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/历史浏览@2x.png">
           <p>历史浏览</p>
         </div><div class="service-item"  @click="onClickSale">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/退款售后@2x.png">
           <p>退款售后</p>
         </div>
       </div>
     </div>
     <div class="function-container container">
       <div class="function-list">
-        <div class="function-item">
-          <img src="./../../pic/o.png">
+        <div @click="onClickRedPacket" class="function-item">
+          <img src="./../../image/打卡@2x.png">
           <p>打卡领红包</p>
-        </div><div class="function-item">
-          <img src="./../../pic/o.png">
+        </div><div @click="onClickBargain" class="function-item">
+          <img src="./../../image/砍价@2x.png">
           <p>砍价免费拿</p>
-        </div><div class="function-item">
-          <img src="./../../pic/o.png">
+        </div><div @click="onClickTreasure" class="function-item">
+          <img src="./../../image/夺宝@2x.png">
           <p>每日夺宝</p>
-        </div><div class="function-item">
-          <img src="./../../pic/o.png">
+        </div><div @click="onClickOreYard" class="function-item">
+          <img src="./../../image/矿场@2x.png">
           <p>米多多矿场</p>
         </div>
       </div>
       <div class="function-list">
         <div class="function-item" @click="onClickAddress">
-          <img src="./../../pic/o.png">
+          <img src="./../../image/收货地址@2x.png">
           <p>收货地址</p>
-        </div><div class="function-item">
-          <img src="./../../pic/o.png">
+        </div><div @click="onClickCustomerService" class="function-item">
+          <img src="./../../image/官方客服@2x.png">
           <p>官方客服</p>
-        </div><div class="function-item">
-          <img src="./../../pic/o.png">
+        </div><div @click="onClickComments" class="function-item">
+          <img src="./../../image/我的评价@2x.png">
           <p>我的评价</p>
-        </div><div class="function-item">
-          <img src="./../../pic/o.png">
+        </div><div @click="onClickHelp" class="function-item">
+          <img src="./../../image/帮助@2x.png">
           <p>帮助</p>
         </div>
       </div>
-    </div>
-    <div class="bottom_tab">
-      <van-row>
-        <van-col span="6"><div @click="onClickHome"><img src="./../../pic/n1.png"></div></van-col>
-        <van-col span="6"><div @click=""><img src="./../../pic/n2.png"></div></van-col>
-        <van-col span="6"><div @click=""><img src="./../../pic/n2.png"></div></van-col>
-        <van-col span="6"><div><img src="./../../pic/n3.png"></div></van-col>
-      </van-row>
     </div>
   </div>
 </template>
 
 <script>
-import { Row, Col } from 'vant';
+import { Row, Col, NavBar, Badge, BadgeGroup } from 'vant';
 import { getUserInfo } from "@/api/mine";
 import { getMenu } from "@/api/menu";
 export default {
   components: {
     [Row.name]: Row,
     [Col.name]: Col,
+    [NavBar.name]: NavBar,
+    [Badge.name]: Badge,
+    [BadgeGroup.name]: BadgeGroup
   },
   data(){
     return{
@@ -131,6 +126,27 @@ export default {
     onClickSale() {
       this.$router.push({path:'/afterSale'});
     },
+    onClickComments() {
+      this.$router.push({path:'/comments'});
+    },
+    onClickBargain() {
+      this.$router.push({path:'/bargain'});
+    },
+    onClickTreasure() {
+      this.$router.push({path:'/treasure'});
+    },
+    onClickRedPacket() {
+      this.$router.push({path:'/redPacket'});
+    },
+    onClickOreYard() {
+      this.$router.push({path:'/oreYard'});
+    },
+    onClickCustomerService() {
+      this.$router.push({path:'/customerService'});
+    },
+    onClickHelp() {
+      this.$router.push({path:'/help'});
+    },
 
   },
   mounted(){
@@ -140,27 +156,32 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+$fzm: PingFang-SC-Medium;
+$fzr: PingFang-SC-Regular;
+$fzb: PingFang-SC-Bold;
 #mine{
   position: relative;
   height: 100%;
   background-color: #f6f6f6;
   .avatar-container{
-    height: 4.853333rem;
-    background: url(./../../img/我的背景@2x.png) no-repeat;
+    height: 2.666667rem;
+    background: url(./../../image/img_beijin@2x.png) no-repeat;
     background-size: 100%;
     position: relative;
-    border-bottom: 0.266667rem solid #f6f6f6;
+    // border-bottom: 0.266667rem solid #f6f6f6;
     .avatar-box{
       width: 100%;
-      padding-left: 0.586667rem;
+      padding-left: .4rem;
       box-sizing: border-box;
       position: absolute;
-      bottom: 1.04rem;
+      // bottom: 1.04rem;
+      top: 50%;
+      transform: translateY(-50%);
       img{
         width: 1.52rem;
         height: 1.52rem;
-        border-radius: 0.76rem;
-        border: 0.053333rem solid rgba(255,255,255,.45);
+        border-radius: 50%;
+        border: 0.053333rem solid #ffffff;
       }
       p{
         font-family: PingFangBold;
@@ -190,11 +211,14 @@ export default {
     background-color: #fff;
   }
   .order-container{
-    padding-left: 15px;
     p.title{
-      padding-right: 15px;
-      line-height: 40px;
+      padding: 0 15px;
+      height: 1.2rem;
+      line-height: 1.2rem;
+      font-family: $fzb;
+      font-size: .4rem;
       font-weight: bold;
+      color: #202020;
       position: relative;
       border-bottom: 1px solid #f6f6f6;
       &:after{
@@ -202,64 +226,101 @@ export default {
         width: 15px;
         height: 15px;
         display: block;
-        background: url(./../../img/新增地址.png) no-repeat;
+        background: url(./../../img/right.png) no-repeat;
         -webkit-background-size: 15px 15px;
         background-size: 15px 15px;
         position: absolute;
         top: 50%;
-        margin-top: -7px;
+        margin-top: -8px;
         right: 10px;
       }
       span{
+        font-family: $fzr;
+        font-size: .293333rem;
+        color: #666666;
         float: right;
-        padding-right: 20px;
+        padding-right: 10px;
         font-weight: normal;
       }
     }
     div.status-list{
-      padding-right: 15px;
+      // padding: 0 .533333rem;
+      height: 2.346667rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       .status-item{
         width: 20%;
-        display: inline-block;
+        // display: inline-block;
+        // text-align: center;
         text-align: center;
         img{
-
+          display: inline-block;
+          width: .8rem;
+          height: .8rem;
+          margin-bottom: .24rem;
         }
         p{
-
+          font-family: $fzr;
+          font-size: .32rem;
+          color: #2d2d2d;
         }
       }
     }
   } 
   .service-container{
-    padding: 0 15px;
     .service-list{
+      height: 2.346667rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       .service-item{
         width: 20%;
-        display: inline-block;
         text-align: center;
+        img{
+          display: inline-block;
+          width: .8rem;
+          height: .8rem;
+          margin-bottom: .24rem;
+        }
+        p{
+          font-family: $fzr;
+          font-size: .32rem;
+          color: #2d2d2d;
+        }
       }
     }
   }  
   .function-container{
     .function-list{
+      height: 2.56rem;
+      display: flex;
+      align-items: center;
       &:first-child{
         border-bottom: 1px solid #f6f6f6;
       }
       .function-item{
         width: 25%;
+        // height: 2.533333rem;
         display: inline-block;
         text-align: center;
         border-right: 1px solid #f6f6f6;
-        box-sizing: border-box;
         &:last-child{
           border-right: 0;
+        }
+        img{
+          display: inline-block;
+          width: .8rem;
+          height: .8rem;
+          margin-bottom: .24rem;
+        }
+        p{
+          font-family: $fzr;
+          font-size: .32rem;
+          color: #2d2d2d;
         }
       }
     }
   } 
-
-
-  
 }
 </style>
