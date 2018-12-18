@@ -9,6 +9,14 @@ const routes = [
   //   redirect: '/shop'
   // },
   {
+    path: '/',
+    name: 'index',
+    component: () => import('./page/home/index'),
+    meta: {
+      title: '米多多'
+    }
+  },
+  {
     path: '/index',
     name: 'index',
     component: () => import('./page/home/index'),
@@ -17,41 +25,33 @@ const routes = [
     }
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('./page/home/home'),
+    path: '/sort',
+    name: 'sort',
+    component: () => import('./page/sort'),
     meta: {
       title: '米多多'
     }
   },
   {
-    path: '/home/sort',
-    name: 'homeSort',
-    component: () => import('./page/home/sort'),
+    path: '/sort/second',
+    name: 'sortSecond',
+    component: () => import('./page/sort/second'),
     meta: {
       title: '米多多'
     }
   },
   {
-    path: '/home/second',
-    name: 'homeSecond',
-    component: () => import('./page/home/second'),
-    meta: {
-      title: '米多多'
-    }
-  },
-  {
-    path: '/home/detail',
-    name: 'homecomment',
-    component: () => import('./page/home/detail'),
+    path: '/sort/detail',
+    name: 'sortDetail',
+    component: () => import('./page/sort/detail'),
     meta: {
       title: '商品详情'
     }
   },
   {
-    path: '/home/comment',
-    name: 'homeComment',
-    component: () => import('./page/home/comment'),
+    path: '/sort/comment',
+    name: 'sortComment',
+    component: () => import('./page/sort/comment'),
     meta: {
       title: '全部评价'
     }
@@ -134,6 +134,62 @@ const routes = [
     component: () => import('./page/return/refund'),
     meta: {
       title: '申请退款'
+    }
+  },
+  {
+    path: '/coupon',
+    name: 'coupon',
+    component: () => import('./page/coupon/index.vue'),
+    meta: {
+      title: '我的优惠券'
+    }
+  },
+  {
+    path: '/coupon/center',
+    name: 'couponCenter',
+    component: () => import('./page/coupon/center'),
+    meta: {
+      title: '领券中心'
+    }
+  },
+  {
+    path: '/collect',
+    name: 'collect',
+    component: () => import('./page/collect'),
+    meta: {
+      title: '商品收藏'
+    }
+  },
+  {
+    path: '/collect/store',
+    name: 'collectStore',
+    component: () => import('./page/collect/store'),
+    meta: {
+      title: '商品收藏'
+    }
+  },
+  {
+    path: '/history',
+    name: 'history',
+    component: () => import('./page/history'),
+    meta: {
+      title: '历史浏览'
+    }
+  },
+  {
+    path: '/afterSale',
+    name: 'afterSale',
+    component: () => import('./page/afterSale'),
+    meta: {
+      title: '退款 / 售后'
+    }
+  },
+  {
+    path: '/afterSale/detail',
+    name: 'afterSaleDetail',
+    component: () => import('./page/afterSale/detail'),
+    meta: {
+      title: '退款 / 售后'
     }
   },
 ];

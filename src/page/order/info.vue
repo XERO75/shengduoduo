@@ -1,23 +1,23 @@
 <template>
   <div id="order-detail">
     <div class="img-container">
-      <img src="./../../img/分享获得红包.png">
+      <img src="./../../image/img_beijin@2x.png">
     </div>
     <div class="address-container container">
       <div class="defalutAddress">
         <p class="receiver">撒旦 135135454 <span>[默认]</span></p>
-        <p class="address">按时发发生发发呆</p>
+        <p class="address">天河</p>
       </div>
     </div>
     <div class="product-container container">
-      <p class="productStatus title">荷兰阿卡就是点击<img src="./../../pic/top@2x.png"></p>
+      <p class="productStatus title">美食小店<img src="./../../pic/top@2x.png"></p>
       <div class="product-box">
         <img src="./../../pic/box.png">
         <div class="product-item">
           <div class="item-left">
-            <p class="item-name">考核会计阿斯加德库巴姬爱神的箭安康市道具卡含税单价卡时间的话卡萨丁按时间看大家
+            <p class="item-name">台湾豌豆
             </p>
-            <p>交换空间还款计划看空间客家话</p>
+            <p>原味</p>
           </div><div class="item-right">
             <p class="price">&yen;745</p>
             <p class="count">X4545</p>
@@ -35,7 +35,7 @@
     </div>
     <div class="btn-container">
       <p>付款：&yen; 500</p>
-      <span class="btn-pay">立即支付</span>
+      <span class="btn-pay" @click="gotohome">立即支付</span>
       <span class="btn-cancel">取消订单</span>
     </div>
   </div>
@@ -71,7 +71,9 @@ export default {
         // on cancel
       });
     },
-
+    gotohome(){
+      this.$router.push({path:'/order/list'})
+    }
 
 
 
@@ -108,6 +110,7 @@ export default {
     img{
       width: 100%;
       height: 100%;
+      z-index: -1;
     }
   }
   .address-container{
@@ -243,6 +246,7 @@ export default {
       border-radius: 15px;
       text-align: center;
       float: right;
+      margin-top: 10px;
     }
     span.btn-pay{
       width: 70px;
@@ -256,6 +260,7 @@ export default {
       border-radius: 15px;
       text-align: center;
       float: right;
+      margin-top: 10px;
     }
   }
   

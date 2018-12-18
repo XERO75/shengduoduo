@@ -7,7 +7,8 @@ module.exports = {
     // index: path.resolve(__dirname, '../index.html'),
     index: path.resolve(__dirname, '../pack/dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../pack/dist'),
-    assetsSubDirectory: '',
+    // assetsSubDirectory: '',
+    assetsSubDirectory: 'static', // 1218
     // assetsPublicPath: '/vant-demo/dist/',
     assetsPublicPath: './',
     productionSourceMap: false,

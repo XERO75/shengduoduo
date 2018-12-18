@@ -4,43 +4,43 @@
       <van-tab title="全部">
         <div class="order-container">
           <div class="order-header">
-            <span class="orderSn">绝杀空间</span>
-            <span class="orderStatus fr">待付款</span>
+            <span class="store-name">绝杀空间</span>
+            <span class="order-status fr">待付款</span>
           </div>
           <div class="order-content">
             <div class="order-item">
-              <img src="./../../pic/box.png">
+              <img src="./../../pic/p2.png">
               <div class="item-right">
                 <div class="item-top clearfloat">
-                  <span class="item-name van-ellipsis fl">斯基大街斯柯达数据库和借款还款计划扩建接口会撒旦</span>
+                  <span class="item-name van-ellipsis fl">好好吃的苹果味饼干</span>
                   <span class="item-price fr">&yen;127</span>
                 </div>
                 <div class="item-bottom clearfloat">
-                  <span class="item-date fl">都撒娇和</span>
+                  <span class="item-date fl">原味</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="order-bottom">
             <van-button class="fr" type="primary" size="small" @click="onClickDetail">去支付</van-button> 
-            <span class="orderTotal fl">实付：<strong>&yen;&nbsp;546546</strong></span>
+            <span class="orderTotal fl">实付：<strong>&yen;&nbsp;546546（免邮费）</strong></span>
           </div>
         </div>
         <div class="order-container">
           <div class="order-header">
-            <span class="orderSn">绝杀空间</span>
-            <span class="orderStatus fr">待付款</span>
+            <span class="store-name">绝杀空间</span>
+            <span class="order-status fr">待付款</span>
           </div>
           <div class="order-content">
             <div class="order-item">
-              <img src="./../../pic/box.png">
+              <img src="./../../pic/p2.png">
               <div class="item-right">
                 <div class="item-top clearfloat">
-                  <span class="item-name van-ellipsis fl">斯基大街斯柯达数据库和借款还款计划扩建接口会撒旦</span>
+                  <span class="item-name van-ellipsis fl">好好吃的苹果味饼干</span>
                   <span class="item-price fr">&yen;127</span>
                 </div>
                 <div class="item-bottom clearfloat">
-                  <span class="item-date fl">都撒娇和</span>
+                  <span class="item-date fl">原味</span>
                 </div>
               </div>
             </div>
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     onClickDetail(sn) {
-      this.$router.push({path:'/order/detail',query:{sn:sn}});
+      this.$router.push({path:'/index'});
     },
     tabClick(index, title) {
       this.getOrderList(title);
@@ -127,7 +127,38 @@ export default {
       color: #666;
       padding: 0 0.4rem;
       border-bottom: 1px solid #f6f6f6;
-      .orderStatus{
+      .store-name{
+        padding-left: 25px;
+        display: inline-block;
+        position: relative;
+        &:before{
+          content: '';
+          width: 20px;
+          height: 20px;
+          display: block;
+          background: url(./../../img/addr-loc.png) no-repeat;
+          -webkit-background-size: 20px 20px;
+          background-size: 20px 20px;
+          position: absolute;
+          top: 50%;
+          margin-top: -10px;
+          left: 0;
+        }
+        &:after{
+          content: '';
+          width: 20px;
+          height: 20px;
+          display: block;
+          background: url(./../../img/addr-loc.png) no-repeat;
+          -webkit-background-size: 20px 20px;
+          background-size: 20px 20px;
+          position: absolute;
+          top: 50%;
+          margin-top: -10px;
+          right: -25px;
+        }
+      }
+      .order-status{
         font-weight: bold;
       }
     }
@@ -138,6 +169,7 @@ export default {
         padding: 0.3rem;
         border-bottom: 1px solid #f6f6f6;
         img{
+          height: 60px;
           position: absolute;
         }
         .item-right{

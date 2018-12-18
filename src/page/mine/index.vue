@@ -7,43 +7,43 @@
         <span class="btn-pin">拼单返现</span>
       </div>
     </div>
-    <div class="order-container container">
+    <div class="order-container container" @click="onClickOrder">
       <p class="title">我的订单<span>查看更多</span></p>
       <div class="status-list">
         <div class="status-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>待付款</p>
         </div><div class="status-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>待分享</p>
         </div><div class="status-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>待发货</p>
         </div><div class="status-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>待收货</p>
         </div><div class="status-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>待评价</p>
         </div>
       </div>
     </div>
     <div class="service-container container">
       <div class="service-list">
-        <div class="service-item">
-          <img src="./../../img/我的订单@2x.png">
+        <div class="service-item"  @click="onClickCoupon">
+          <img src="./../../pic/o.png">
           <p>优惠券</p>
-        </div><div class="service-item">
-          <img src="./../../img/我的订单@2x.png">
+        </div><div class="service-item"  @click="onClickCollect">
+          <img src="./../../pic/o.png">
           <p>我的收藏</p>
-        </div><div class="service-item">
-          <img src="./../../img/我的订单@2x.png">
+        </div><div class="service-item"  @click="onClickCollect2">
+          <img src="./../../pic/o.png">
           <p>店铺收藏</p>
-        </div><div class="service-item">
-          <img src="./../../img/我的订单@2x.png">
+        </div><div class="service-item"  @click="onClickHistory">
+          <img src="./../../pic/o.png">
           <p>历史浏览</p>
-        </div><div class="service-item">
-          <img src="./../../img/我的订单@2x.png">
+        </div><div class="service-item"  @click="onClickSale">
+          <img src="./../../pic/o.png">
           <p>退款售后</p>
         </div>
       </div>
@@ -51,43 +51,43 @@
     <div class="function-container container">
       <div class="function-list">
         <div class="function-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>打卡领红包</p>
         </div><div class="function-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>砍价免费拿</p>
         </div><div class="function-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>每日夺宝</p>
         </div><div class="function-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>米多多矿场</p>
         </div>
       </div>
       <div class="function-list">
-        <div class="function-item">
-          <img src="./../../img/我的订单@2x.png">
+        <div class="function-item" @click="onClickAddress">
+          <img src="./../../pic/o.png">
           <p>收货地址</p>
         </div><div class="function-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>官方客服</p>
         </div><div class="function-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>我的评价</p>
         </div><div class="function-item">
-          <img src="./../../img/我的订单@2x.png">
+          <img src="./../../pic/o.png">
           <p>帮助</p>
         </div>
       </div>
     </div>
-    <!-- <div class="bottom_tab">
+    <div class="bottom_tab">
       <van-row>
-        <van-col span="6"><div @click="onClickHome"><img :src="iconList.home"></div></van-col>
-        <van-col span="6"><div @click="onClickBook"><img :src="iconList.booking"></div></van-col>
-        <van-col span="6"><div @click="onClickVoucher"><img :src="iconList.giftCard"></div></van-col>
-        <van-col span="6"><div><img :src="iconList.myLight"></div></van-col>
+        <van-col span="6"><div @click="onClickHome"><img src="./../../pic/n1.png"></div></van-col>
+        <van-col span="6"><div @click=""><img src="./../../pic/n2.png"></div></van-col>
+        <van-col span="6"><div @click=""><img src="./../../pic/n2.png"></div></van-col>
+        <van-col span="6"><div><img src="./../../pic/n3.png"></div></van-col>
       </van-row>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -108,7 +108,28 @@ export default {
   },
   methods: {
     onClickOrder() {
-      this.$router.push({path:'/order'});
+      this.$router.push({path:'/order/list'});
+    },
+    onClickHome() {
+      this.$router.push({path:'/index'});
+    },
+    onClickAddress() {
+      this.$router.push({path:'/address'});
+    },
+    onClickCoupon() {
+      this.$router.push({path:'/coupon'});
+    },
+    onClickCollect() {
+      this.$router.push({path:'/collect'});
+    },
+    onClickCollect2() {
+      this.$router.push({path:'/collect/store'});
+    },
+    onClickHistory() {
+      this.$router.push({path:'/history'});
+    },
+    onClickSale() {
+      this.$router.push({path:'/afterSale'});
     },
 
   },
@@ -142,6 +163,7 @@ export default {
         border: 0.053333rem solid rgba(255,255,255,.45);
       }
       p{
+        font-family: PingFangBold;
         position: absolute;
         margin-left: 1.973333rem;
         top: 0.48rem;

@@ -1,0 +1,506 @@
+/* 主页&分类轮播图 */
+#home-index .van-swipe,
+#sort .van-swipe{
+  height: 4.986667rem;
+}
+#home-index .van-swipe .van-swipe-item img,
+#sort .van-swipe .van-swipe-item img{
+  width: 100%;
+  height: 4.986667rem;
+}
+#home-index .van-swipe .van-swipe__indicators,
+#sort .van-swipe .van-swipe__indicators {
+  bottom: 0.186667rem;
+}
+#home-index .van-swipe .van-swipe__indicator,
+#sort .van-swipe .van-swipe__indicator {
+  background-color: rgba(0,0,0,.8);
+}
+#home-index .van-swipe .van-swipe__indicator--active,
+#sort .van-swipe .van-swipe__indicator--active {
+  border-radius: 0.533333rem;
+}
+/* 首页搜索栏 */
+#home-index .van-search{
+  padding: 0.186667rem 1.12rem!important;
+} 
+#home-index .van-cell.van-cell--borderless.van-field{
+  border-radius: 0.533333rem;
+} 
+#home-index .van-search .van-cell{
+  height: 0.826667rem;
+}
+/* 分类页面tab */ 
+#sort .van-tabs--line .van-tabs__wrap{
+  height: 1.2rem;
+  position: fixed;
+  top: 1.2rem;
+  background-color: #fff;
+  z-index: 200;
+  border-bottom: 1px solid #f6f6f6;
+}
+#sort .van-tabs--line,
+#sort-second .van-tabs--line {
+  padding-top: 0; 
+}
+#sort .van-tabs__wrap--scrollable .van-tab{
+  flex-basis: 16.6666%!important;
+}
+/* 商品详情轮播图 */
+#sort-detail .van-swipe{
+  height: 6.666667rem;
+  position: relative;
+}
+#sort-detail .van-swipe .van-swipe-item img{
+  width: 100%;
+  height: 6.666667rem;
+}
+#sort-detail .custom-indicator span{
+  width: 1.066667rem;
+  height: 0.56rem;
+  display: block;
+  position: absolute;
+  right: 0.293333rem;
+  bottom: 0.293333rem;
+  color: #fff;
+  font-size: 0.373333rem;
+  text-align: center;
+  border-radius: 0.28rem;
+  background-color: rgba(32,32,32,.5);
+}
+/* 订单详情取消订单Dialog */
+.van-dialog{
+  border-radius: 15px!important;
+  width: 75%!important;
+}
+.van-dialog [class*=van-hairline]::after {
+  //border: 3px solid #e7e7e7!important;
+  border-color: #e7e7e7!important;
+}
+.van-dialog__footer .van-button__text{
+  color: #0288cd!important;
+}
+
+/* flex布局 */
+.f-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-space-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.f-vertical{
+  display: flex;
+  align-items: center;
+}
+
+.f-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.f-space-around{
+  display: flex;
+  justify-content: space-around;
+}
+
+.f-wrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.f-flex-end{
+  display: flex;
+  align-items: flex-end;
+}
+
+.f-direction-column{
+  display: flex;
+  flex-direction: column;
+}
+
+
+html{
+  width: 100%;
+  height: 100%;
+  /*font-size: 100px;*/
+  font-size: 50px;
+}
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+p{
+  margin: 0;
+}
+i, cite, em, var, address, dfn {
+  font-style: normal;
+}
+textarea{
+  margin: 0 auto;
+  padding: 0.266667rem;
+  box-sizing: border-box;
+  border: none;
+  border: 1px solid #d2d2d2;
+  border-radius: 0.133333rem;
+  resize: none;
+  background-color: #f5f5f5;
+}
+@font-face {
+  font-family: 'PingFangBold';
+  src:  url('./../fonts/PingFangBold.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PingFangRegular';
+  src:  url('./../fonts/PingFangRegular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'myIconfont';
+  src: url('./../fonts/myIconfont.ttf') format('truetype');
+}
+.van-icon {
+  font-family: 'vant-icon', 'myIconfont' !important;
+}
+.van-icon-close:before {
+  content: '\e900'!important;
+  font-size: 0.373333rem;
+}
+#app{
+  width: 100%;
+  height: 100%;
+  font-size: 0.26rem;
+  color: #202020;
+  font-family: PingFang Regular;
+}
+.clearfloat:after{
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
+}
+.clearfloat{
+  zoom: 1;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
+}
+.red{
+  color: #e70012;
+}
+.green{
+  color: #24af41;
+}
+/* 遮罩层 */
+.mask{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 6666;
+  background-color: rgba(0,0,0,.7);
+}
+.mask .van-loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+}
+/* 过渡动画 */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+/* 高德地图icon */
+.amap-icon img{
+  width: 0.786667rem;
+  height: 1.146667rem;
+}
+/* 积分兑换物品详情轮播图 */
+#points-detail .van-swipe__indicator {
+  background-color: inherit!important;
+  width: 4px!important;
+  height: 4px!important;
+  border: 2px solid #fff;
+}
+#points-detail .van-swipe__indicator.van-swipe__indicator--active {
+  background-color: #fff!important;
+}
+#points-detail .van-swipe__track{
+  width: 100%;
+  height: auto;
+}
+#points-detail .van-swipe-item{
+  width: 100%;
+  height: auto;
+}
+#points-detail .van-swipe-item img{
+  width: 100%;
+  height: auto;
+}
+/* 优鲜卡主页轮播图 */
+#voucher .van-swipe{
+  height: 5.413333rem;
+}
+#voucher .van-swipe .van-swipe-item img{
+  width: 100%;
+  height: auto;
+}
+#voucher .van-swipe .van-swipe__indicator {
+  border-radius: 0.053333rem;
+  background-color: #fff;
+  width: 0.48rem;
+  height: 0.106667rem;
+}
+#voucher .van-swipe .van-swipe__indicator--active {
+  background-color: #fff;
+  width: 0.8rem;
+} 
+/* 主页轮播图 */
+#shop .van-swipe{
+  height: auto;
+}
+#shop .van-swipe .van-swipe-item img{
+  width: 100%;
+  height: auto;
+}
+#shop .van-swipe .van-swipe__indicators {
+  bottom: 0.186667rem;
+}
+#shop .van-swipe .van-swipe__indicator {
+  border-radius: 0.053333rem;
+  background-color: #fff;
+  width: 0.48rem;
+  height: 0.106667rem;
+}
+#shop .van-swipe .van-swipe__indicator--active {
+  background-color: #fff;
+  width: 0.8rem;
+} 
+/* 商品详情轮播图 */
+// #shop-detail .van-swipe,
+// #pintuan .van-swipe{
+//   height: 7.52rem;
+//   position: relative;
+// }
+// #shop-detail .van-swipe .van-swipe-item img,
+// #pintuan .van-swipe .van-swipe-item img{
+//   width: 100%;
+//   height: 100%;
+// }
+// #pintuan .custom-indicator span,
+// #shop-detail .custom-indicator span{
+//   width: 1.066667rem;
+//   height: 0.56rem;
+//   display: block;
+//   position: absolute;
+//   right: 0.293333rem;
+//   bottom: 0.293333rem;
+//   color: #fff;
+//   font-size: 0.373333rem;
+//   text-align: center;
+//   border-radius: 0.28rem;
+//   background-color: rgba(32,32,32,.5);
+// }
+/* 顶部tab */
+.van-tabs .van-tabs__line {
+  background-color: #fff;
+}
+.van-tabs__wrap.van-hairline--top-bottom:after{
+  border: none;
+}
+.van-tabs .van-tab {
+  color: #333;
+  font-size: 0.4rem;
+  // font-weight: bold;
+}
+.van-tabs .van-tab--active {
+  color: #000;
+  font-size: 0.4rem;
+  font-weight: bold;
+}
+.van-tab.van-tab--active:after {
+  content: '';
+  width: 0.8rem;
+  height: 0.08rem;
+  border-radius: 0.08rem;
+  background-color: #e70012;
+  display: block;
+  bottom: 0.08rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -0.4rem;
+}
+#order-list .van-tabs__wrap{
+  position: fixed;
+  border-bottom: 2px solid #f6f6f6;
+}
+/* tab页的背景色 */
+#order-list .van-tab__pane{
+  background-color: #f6f6f6;
+}
+/* 商品详情tab间的hartline */
+#shop-detail .van-tabs__wrap,
+#pintuan .van-tabs__wrap{
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+#shop-detail .van-tabs--line,
+#pintuan .van-tabs--line{
+  padding-top: 0;
+}
+#shop-detail .van-tabs__wrap:after,
+#pintuan .van-tabs__wrap:after{
+  content: '';
+  width: 3px;
+  height: 0.8rem;
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin-top: -0.4rem;
+  left: 50%;
+  background-color: #eee;
+}
+#shop-detail .van-tabs .van-tab__pane,
+#pintuan .van-tabs .van-tab__pane{
+  padding: 0 0.4rem;
+}
+#shop-detail .van-tabs .tab-detail{
+  padding-top: 0.4rem;
+}
+/* 富文本样式调整 */
+#points-detail .detail-container .content table,
+#points-detail .detail-container .content img,
+#shop-detail .van-tabs .tab-detail table,
+#shop-detail .van-tabs .tab-detail img,
+#pintuan .van-tabs .tab-detail table,
+#pintuan .van-tabs .tab-detail img{
+  width: 100%!important;
+  display: block!important;
+}
+/* 按钮disabled */
+.van-button--disabled {
+  opacity: 1!important;
+}
+/* 评价弹出框 */
+.van-actionsheet .van-actionsheet__header div{
+  font-weight: bold;
+  font-size: 0.48rem;
+  color: #202020;
+  line-height: 1.333333rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* 评星 */
+.van-rate__item {
+  padding: 0 0.16rem!important;
+}
+.van-rate{
+  text-align: center!important;
+}
+/* Dialog 底部button的 hairline */
+// .van-dialog__header--isolated {
+//   padding: 1.0666rem 0!important;
+// }
+/* input输入框的label */
+.van-cell__title span{
+  font-weight: bold;
+  font-size: 0.373333rem;
+  color: #202020;
+}
+/* address的cell */
+#address-edit .van-cell.van-cell--clickable .van-cell__title{
+  width: 90px!important;
+  flex: none!important;
+}
+#address-edit .van-cell.van-cell--clickable .van-cell__value{
+  text-align: left!important;
+  color: #666;
+  font-size: 0.373333rem;
+}
+#address-edit .van-icon-arrow::before {
+  position: absolute;
+  top: 50%;
+  margin-top: -0.32rem;
+}
+#address-edit .van-field__control{
+  font-size: 0.373333rem;
+  line-height: 0.666667rem!important;
+  padding-top: 0.333333rem;
+}
+/* 时间选择器 */
+.van-picker .van-picker__cancel,
+.van-picker .van-picker__confirm{
+  color: #e70012!important;
+}
+/* 底部导航入口icon */
+.bottom_tab{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 1.28rem;
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
+}
+.bottom_tab .van-row{
+  height: 100%;
+}
+.bottom_tab .van-col--6{
+  text-align: center;
+  line-height: 1.28rem;
+  height: 100%;
+}
+.bottom_tab .van-col--6 > div{
+  height: 100%;
+}
+.bottom_tab .van-col--6 img{
+  vertical-align: middle;
+  height: 100%;
+}
+/* toast */
+.van-toast--text {
+  min-width: auto!important;
+}
+/* 切换地址时loading */
+.amap-container .van-loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -25px;
+  margin-top: -25px;    
+  z-index: 6666;
+  background-color: rgba(0,0,0,0.3);
+  padding: 0.266667rem;
+  border-radius: 0.16rem;
+}
+/* 弹出确认框 底部按钮文字颜色 */
+// .van-dialog__footer--buttons.van-dialog__footer .van-button__text {
+//   color: #e70012!important;
+// }
+/* switch按钮的颜色 */
+.van-switch--on {
+  background-color: #e70012!important;
+}

@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="btn-container">
-      <p class="amount">实付金额：&yen; 500</p><p class="btn-cancel" @click="cancelOrder">取消</p><p class="btn-pay">立即支付</p>
+      <p class="amount">实付金额：&yen; 500</p><p class="btn-cancel" @click="cancelOrder">取消</p><p class="btn-pay" @click="onClickToPay">立即支付</p>
     </div>
     <van-popup class="getCoupon-popup" position="bottom" v-model="showGetCoupon">
       <div class="popup-box">
@@ -239,6 +239,9 @@ export default {
     },
     onClickAddress(){
       this.$router.push({path:'/address'});
+    },
+    onClickToPay(){
+      this.$router.push({path:'/order/info'});
     },
 
 
