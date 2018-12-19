@@ -2,7 +2,7 @@
   <div id="order-list">
     <van-tabs v-model="active" :swipe-threshold="tabNum" @click="tabClick">
       <van-tab title="全部">
-        <div class="order-container">
+        <div class="order-container" @click="onClickInfo">
           <div class="order-header">
             <span class="store-name">绝杀空间</span>
             <span class="order-status fr">待付款</span>
@@ -105,6 +105,9 @@ export default {
         this.orderList = res.data.data;
       })
     },
+    onClickInfo() {
+      this.$router.push({path:'/order/info'});
+    }
   },
   mounted(){
     handleLogin();
@@ -128,7 +131,7 @@ export default {
       padding: 0 0.4rem;
       border-bottom: 1px solid #f6f6f6;
       .store-name{
-        padding-left: 25px;
+        padding-left: 16px;
         display: inline-block;
         position: relative;
         &:before{
@@ -138,10 +141,11 @@ export default {
           display: block;
           background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 20px 20px;
-          background-size: 20px 20px;
+          // background-size: 20px 20px;
+          background-size: 10px 16px;
           position: absolute;
           top: 50%;
-          margin-top: -10px;
+          margin-top: -9px;
           left: 0;
         }
         &:after{
@@ -151,10 +155,11 @@ export default {
           display: block;
           background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 20px 20px;
-          background-size: 20px 20px;
+          // background-size: 20px 20px;
+          background-size: 10px 16px;
           position: absolute;
           top: 50%;
-          margin-top: -10px;
+          margin-top: -9px;
           right: -25px;
         }
       }

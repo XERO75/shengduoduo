@@ -11,19 +11,29 @@
       <p class="title">我的订单<span>查看更多</span></p>
       <div class="status-list">
         <div class="status-item">
-          <img src="./../../image/待评价@2x.png">
+          <div class="img">
+            <img src="./../../image/待评价@2x.png">
+          </div>
           <p>待付款</p>
         </div><div class="status-item">
-          <img src="./../../image/待分享@2x.png">
+          <div class="img">
+            <img src="./../../image/待分享@2x.png">
+          </div>
           <p>待分享</p>
         </div><div class="status-item">
-          <img src="./../../image/代发货@2x.png">
+          <div class="img">
+            <img src="./../../image/代发货@2x.png">
+          </div>
           <p>待发货</p>
         </div><div class="status-item">
-          <img src="./../../image/待收货@2x.png">
+          <div class="img">
+            <img src="./../../image/待收货@2x.png">
+          </div>
           <p>待收货</p>
         </div><div class="status-item">
-          <img src="./../../image/待评价@2x.png">
+          <div class="img">
+            <img src="./../../image/待评价@2x.png">
+          </div>
           <p>待评价</p>
         </div>
       </div>
@@ -31,19 +41,29 @@
     <div class="service-container container">
       <div class="service-list">
         <div class="service-item"  @click="onClickCoupon">
-          <img src="./../../image/优惠券@2x.png">
+          <div class="img">
+            <img src="./../../image/优惠券@2x.png">
+          </div>
           <p>优惠券</p>
         </div><div class="service-item"  @click="onClickCollect">
-          <img src="./../../image/我的收藏@2x.png">
+          <div class="img">
+            <img src="./../../image/我的收藏@2x.png">
+          </div>
           <p>我的收藏</p>
         </div><div class="service-item"  @click="onClickCollect2">
-          <img src="./../../image/店铺收藏@2x.png">
+          <div class="img">
+            <img src="./../../image/店铺收藏@2x.png">
+          </div>
           <p>店铺收藏</p>
         </div><div class="service-item"  @click="onClickHistory">
-          <img src="./../../image/历史浏览@2x.png">
+          <div class="img">
+            <img src="./../../image/历史浏览@2x.png">
+          </div>
           <p>历史浏览</p>
         </div><div class="service-item"  @click="onClickSale">
-          <img src="./../../image/退款售后@2x.png">
+          <div class="img">
+            <img src="./../../image/退款售后@2x.png">
+          </div>
           <p>退款售后</p>
         </div>
       </div>
@@ -51,31 +71,47 @@
     <div class="function-container container">
       <div class="function-list">
         <div @click="onClickRedPacket" class="function-item">
-          <img src="./../../image/打卡@2x.png">
+          <div class="img">
+            <img src="./../../image/打卡@2x.png">
+          </div>
           <p>打卡领红包</p>
         </div><div @click="onClickBargain" class="function-item">
-          <img src="./../../image/砍价@2x.png">
+          <div class="img">
+            <img src="./../../image/砍价@2x.png">
+          </div>
           <p>砍价免费拿</p>
         </div><div @click="onClickTreasure" class="function-item">
-          <img src="./../../image/夺宝@2x.png">
+          <div class="img">
+            <img style="padding-top:.15rem; width:.7rem;" src="./../../image/夺宝@2x.png">
+          </div>
           <p>每日夺宝</p>
         </div><div @click="onClickOreYard" class="function-item">
-          <img src="./../../image/矿场@2x.png">
+          <div class="img">
+            <img style="width:.65rem;" src="./../../image/矿场@2x.png">
+          </div>
           <p>米多多矿场</p>
         </div>
       </div>
       <div class="function-list">
         <div class="function-item" @click="onClickAddress">
-          <img src="./../../image/收货地址@2x.png">
+          <div class="img">
+            <img src="./../../image/收货地址@2x.png">
+          </div>
           <p>收货地址</p>
         </div><div @click="onClickCustomerService" class="function-item">
-          <img src="./../../image/官方客服@2x.png">
+          <div class="img">
+            <img src="./../../image/官方客服@2x.png">
+          </div>
           <p>官方客服</p>
         </div><div @click="onClickComments" class="function-item">
-          <img src="./../../image/我的评价@2x.png">
+          <div class="img">
+            <img src="./../../image/我的评价@2x.png">
+          </div>
           <p>我的评价</p>
         </div><div @click="onClickHelp" class="function-item">
-          <img src="./../../image/帮助@2x.png">
+          <div class="img">
+            <img src="./../../image/帮助@2x.png">
+          </div>
           <p>帮助</p>
         </div>
       </div>
@@ -223,15 +259,15 @@ $fzb: PingFang-SC-Bold;
       border-bottom: 1px solid #f6f6f6;
       &:after{
         content: '';
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 11px;
         display: block;
         background: url(./../../image/MORE@2x.png) no-repeat;
-        -webkit-background-size: 15px 15px;
-        background-size: 15px 15px;
+        -webkit-background-size: 7px 11px;
+        background-size: 7px 11px;
         position: absolute;
         top: 50%;
-        margin-top: -8px;
+        margin-top: -6px;
         right: 10px;
       }
       span{
@@ -244,7 +280,6 @@ $fzb: PingFang-SC-Bold;
       }
     }
     div.status-list{
-      // padding: 0 .533333rem;
       height: 2.346667rem;
       display: flex;
       justify-content: space-between;
@@ -252,13 +287,15 @@ $fzb: PingFang-SC-Bold;
       .status-item{
         width: 20%;
         // display: inline-block;
-        // text-align: center;
         text-align: center;
-        img{
+        .img{
           display: inline-block;
-          width: .8rem;
-          height: .8rem;
+          width: .6rem;
+          height: .6rem;
           margin-bottom: .24rem;
+        }
+        img {
+          width: 100%;
         }
         p{
           font-family: $fzr;
@@ -270,18 +307,21 @@ $fzb: PingFang-SC-Bold;
   } 
   .service-container{
     .service-list{
-      height: 2.346667rem;
+      height: 2.346666rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       .service-item{
         width: 20%;
         text-align: center;
-        img{
+        .img{
           display: inline-block;
-          width: .8rem;
-          height: .8rem;
+          width: .6rem;
+          height: .6rem;
           margin-bottom: .24rem;
+        }
+        img {
+          width: 100%;
         }
         p{
           font-family: $fzr;
@@ -305,14 +345,19 @@ $fzb: PingFang-SC-Bold;
         display: inline-block;
         text-align: center;
         border-right: 1px solid #f6f6f6;
+        border-left: 1px solid transparent;
+        // box-sizing: border-box;
         &:last-child{
           border-right: 0;
         }
-        img{
+        .img{
           display: inline-block;
-          width: .8rem;
-          height: .8rem;
-          margin-bottom: .24rem;
+          width: .6rem;
+          height: .6rem;
+          margin-bottom: .45rem;
+        }
+        img {
+          width: 100%;
         }
         p{
           font-family: $fzr;
