@@ -1,8 +1,9 @@
 <template>
   <div id="sort-second">
-    <div class="header-bar">
+    <!-- <div class="header-bar">
       <p><i class="icon-back"></i>饮食<i class="icon-cart"></i><i class="icon-more"></i></p>
-    </div>
+    </div> -->
+    <HeaderBar title="饮食"></HeaderBar> 
     <div class="tabs-bar">
       <van-tabs v-model="active">
         <van-tab title="饼干糕点"></van-tab>
@@ -53,11 +54,13 @@
 <script>
 import { Tab, Tabs, } from 'vant';
 // import { getHomeInfo } from "@/api/shop";
+import HeaderBar from "@/components/HeaderBar";
 export default {
   components: {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     // [Loading.name]: Loading,
+    HeaderBar,
   },
   data(){
     return{

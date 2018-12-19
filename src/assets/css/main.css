@@ -80,6 +80,10 @@
 .van-dialog__footer .van-button__text{
   color: #0288cd!important;
 }
+/* switch按钮的颜色 */
+.van-switch--on {
+  background-color: #e64a19!important;
+}
 
 /* flex布局 */
 .f-center{
@@ -398,9 +402,8 @@ textarea{
 }
 /* input输入框的label */
 .van-cell__title span{
-  font-weight: bold;
   font-size: 0.373333rem;
-  color: #202020;
+  color: #666;
 }
 /* address的cell */
 #address-edit .van-cell.van-cell--clickable .van-cell__title{
@@ -466,8 +469,4 @@ textarea{
   background-color: rgba(0,0,0,0.3);
   padding: 0.266667rem;
   border-radius: 0.16rem;
-}
-/* switch按钮的颜色 */
-.van-switch--on {
-  background-color: #e70012!important;
 }

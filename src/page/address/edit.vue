@@ -2,20 +2,30 @@
   <div id="address-edit">
     <div class="input-container">
       <van-cell-group>
-        <!-- <van-cell :value="info.district" title="配送区域" is-link @click="showArea=true"></van-cell> -->
+        <van-field
+          v-model="info.contact"
+          label="收货人:"
+          placeholder=""
+        />
+        <van-field
+          v-model="info.phone"
+          label="联系电话:"
+          placeholder=""
+        />
+        <van-cell :value="info.district" title="选择地区" is-link @click="showArea=true"></van-cell>
           <!-- @input="getSearchList" -->
         <van-field
           v-if="!isEdit"
           v-model="inputAddress"
-          label="具体地址"
-          placeholder="请输入具体配送地址"
+          label="详细地址:"
+          placeholder="街道、门牌号等"
           @click="showAddress=true"
         />
         <van-field
           v-if="isEdit"
           v-model="inputAddress"
-          label="具体地址"
-          placeholder="不填代表不修改"
+          label="详细地址:"
+          placeholder=""
           @click="showAddress=true"
         />
         <div class="chooseItem" v-if="isChoosed">
@@ -23,21 +33,6 @@
           <p class="bottom">{{addr2}}</p>
           <i class="icon-addrDele" @click="deleteAddress"></i>
         </div>
-        <van-field
-          v-model="info.room"
-          label="门牌号"
-          placeholder="请输入具体的门牌号"
-        />
-        <van-field
-          v-model="info.contact"
-          label="收货人"
-          placeholder="请输入收货人姓名"
-        />
-        <van-field
-          v-model="info.phone"
-          label="联系方式"
-          placeholder="请输入收货人联系方式"
-        />
       </van-cell-group>
     </div>
     <div class="switch-container">
@@ -109,7 +104,7 @@ export default {
       isDefault: false,
       info: {
         contact: "",
-        district: "请选择",
+        district: "",
         gaodeAddress: "",
         room: "",
         id: "",
@@ -335,8 +330,8 @@ export default {
 #address-edit{
   min-height: 100%;
   box-sizing: border-box;
-  padding-top: 0.266667rem;
   background-color: #f6f6f6;
+  position: relative;
   [class*=van-hairline]::after {
     border: 0!important;
   }
@@ -378,7 +373,6 @@ export default {
       }
       p.top{
         font-size: 0.373333rem;
-        font-weight: bold;
       }
       p.bottom{
         font-size: 0.3rem;
@@ -393,7 +387,6 @@ export default {
   }
   .switch-container{
     font-size: 0.373333rem;
-    color: #e70012;
     padding: 0 0.4rem;
     margin-top: 0.266667rem;
     line-height: 1.333333rem;
@@ -404,15 +397,21 @@ export default {
     }
   }
   .btn-container{
-    margin: 0 0.4rem;
-    .van-button{
+    width: 100%;
+    height: 1.173333rem;
+    position: fixed;
+    bottom: 0.746667rem;
+    padding: 0 0.533333rem;
+    box-sizing: border-box;
+    button{
       width: 100%;
-      background-color:#e70012;
-      margin:20px 0 10px 0;
+      height: 100%;
+      background-color: #e64a19;
+      border-radius: 0.586667rem;
+      line-height: 1.173333rem;
+      text-align: center;
       color: #fff;
       font-size: 0.4rem;
-      height: 1.306667rem;
-      line-height: 1.306667rem;
     }
   }
   .van-popup{
@@ -428,8 +427,7 @@ export default {
       height: 1.333333rem;
       line-height: 1.333333rem;
       font-size: 0.373333rem;
-      font-weight: bold;
-      color: #202020;
+      color: #666;
       padding-left: 0.4rem;
       padding-right: 0.64rem;
       border-bottom: 1px solid #e5e5e5;
@@ -444,12 +442,10 @@ export default {
         font-size: 0.373333rem;
         color: #999;
         line-height: 1.333333rem;
-        font-weight: normal;
         //padding-left: 0.906667rem;
       }
       span.btn-search{
         position: absolute;
-        font-weight: normal;
         color: #fff;
         border: 1px solid #e70012;
         background-color: #e70012;
@@ -476,7 +472,7 @@ export default {
         // height: 1.333333rem;
         //line-height: 1.333333rem;
         padding-left: 0.56rem;
-        color: #202020;
+        color: #666;
         //font-size: 0.4rem;
         font-size: 0.373333rem;
         border-bottom: 1px solid #e5e5e5;
@@ -495,7 +491,7 @@ export default {
           margin-top: -0.213333rem;
         }
         p.top{
-          font-weight: bold;
+
         }
         p.bottom{
           color: #666!important;
@@ -515,7 +511,9 @@ export default {
         padding: 0.266667rem 0;
       }
     }
-
+  }
+  .van-switch{
+    border: 2px solid #e64a19;
   }
 }
 </style>
