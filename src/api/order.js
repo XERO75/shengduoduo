@@ -1,5 +1,4 @@
-// import axios from "axios";
-import axios from "./../request.js";
+import axios from "axios";
 var baseUrl = process.env.BASE_API;
 const urls = {
   list: '/app/member/myOrders.htm',
@@ -7,6 +6,9 @@ const urls = {
   cancel: '/app/order/refundOrder.htm',
   getComment: '/app/order/comment.htm',
   comment: '/app/order/commitComment.htm',
+  isPay: '/app/order/isPaid.htm',
+  isComment: '/app/order/isComment.htm',
+  isCancel: '/app/order/isCancel.htm',
 }
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -54,5 +56,29 @@ export const handleCommit = (param) => {
     method: 'post',
     data: param,
     params: axios.getData({})
+  });
+};
+// 是否支付完成
+export const isPay = (sn) => {
+  return axios({
+    url: apis.isPay,
+    method: 'get',
+    params: axios.getData({sn:sn})
+  });
+};
+// 是否完成评论
+export const isComment = (sn) => {
+  return axios({
+    url: apis.isComment,
+    method: 'get',
+    params: axios.getData({sn:sn})
+  });
+};
+// 是否完成取消
+export const isCancel = (sn) => {
+  return axios({
+    url: apis.isCancel,
+    method: 'get',
+    params: axios.getData({sn:sn})
   });
 };

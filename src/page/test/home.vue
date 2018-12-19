@@ -2,8 +2,8 @@
   <div id="home-index">
     <van-swipe :autoplay="3000">
       <!-- <van-swipe-item v-for="n in bannerList" :key="n.id"><a :href="n.h5Url" v-if="n.type=='Link'"><img :src="n.image"></a><img v-if="n.type=='H5'" :src="n.image" @click="onClickH5(n.id,0)"></van-swipe-item> -->
-      <van-swipe-item><a><img src="./../../img/banner.png"></a></van-swipe-item>
-      <van-swipe-item><a><img src="./../../img/banner.png"></a></van-swipe-item>
+      <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
+      <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
     </van-swipe>
     <div class="nav-container">
       <div class="nav" @click="">

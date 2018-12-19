@@ -18,9 +18,9 @@
         <img class="avator" src="./../../pic/user2.jpg">
         <div class="view-content">
           <p class="name">完全分为<span>2018-54-55</span></p>
-          <div class="star-container">
+          <!-- <div class="star-container">
             <img v-for="s1 in 4" src="./../../img/用户评价1@2x.png"><img v-for="s2 in 1" src="./../../img/用户评价2@2x.png">
-          </div>
+          </div> -->
           <p class="view">阿发沙发沙发无法为范围未发完涩费玩儿法违法染色费阿斯顿发生放大阿斯蒂芬阿斯蒂芬阿萨德阿斯蒂芬按时</p>
           <p class="product">按时打算多</p>
         </div>
@@ -29,9 +29,6 @@
         <img class="avator" src="./../../pic/user2.jpg">
         <div class="view-content">
           <p class="name">完全分为<span>2018-54-55</span></p>
-          <div class="star-container">
-            <img v-for="s1 in 4" src="./../../img/用户评价1@2x.png"><img v-for="s2 in 1" src="./../../img/用户评价2@2x.png">
-          </div>
           <p class="view">阿发沙发沙发无法为范围未发完涩费玩儿法违法染色费阿斯顿发生放大阿斯蒂芬阿斯蒂芬阿萨德阿斯蒂芬按时</p>
           <p class="product">按时打算多</p>
         </div>
@@ -51,13 +48,13 @@
     <div class="btn-container">
       <div class="tab-list">
         <div class="tab tab-home">
-          <img src="./../../img/填写地址-定位.png" alt="">
+          <img src="./../../image/添加地址@2x.png" alt="">
           <p>首页</p>
         </div><div class="tab tab-collect">
-          <img src="./../../img/填写地址-定位.png" alt="">
+          <img src="./../../image/添加地址@2x.png" alt="">
           <p>收藏</p>
         </div><div class="tab tab-client">
-          <img src="./../../img/填写地址-定位.png" alt="">
+          <img src="./../../image/添加地址@2x.png" alt="">
           <p>客服</p>
         </div>
       </div><div class="btn btn-buy">

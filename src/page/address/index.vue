@@ -112,7 +112,7 @@ export default {
       height: 0.373333rem;
       position: absolute;
       display: block;
-      background: url(./../../img/新增地址@2x.png) no-repeat;
+      background: url(./../../image/icon_dianpu@2x.png) no-repeat;
       -webkit-background-size: 0.373333rem 0.373333rem;
       background-size: 0.373333rem 0.373333rem;
       left: 0;
@@ -155,7 +155,7 @@ export default {
         i.icon-edit{
           width: 0.4rem;
           height: 0.4rem;
-          background: url(./../../img/编辑地址@2x.png) no-repeat;
+          background: url(./../../image/icon_dianpu@2x.png) no-repeat;
           -webkit-background-size: 0.4rem 0.4rem;
           background-size: 0.4rem 0.4rem;
           display: inline-block;
@@ -164,7 +164,7 @@ export default {
         i.icon-delete{
           width: 0.386667rem;
           height: 0.4rem;
-          background: url(./../../img/地址管理-删除地址@2x.png) no-repeat;
+          background: url(./../../image/icon_dianpu@2x.png) no-repeat;
           -webkit-background-size: 0.386667rem 0.4rem;
           background-size: 0.386667rem 0.4rem;
           display: inline-block;

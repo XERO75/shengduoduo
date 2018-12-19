@@ -6,10 +6,10 @@
       <i class="icon-more"></i>
     </div>
     <van-swipe @change="onChangeSwipe" :autoplay="3000">
-      <van-swipe-item><img src="./../../img/banner@2x.png"></van-swipe-item>
-      <van-swipe-item><img src="./../../img/banner@2x.png"></van-swipe-item>
-      <van-swipe-item><img src="./../../img/banner@2x.png"></van-swipe-item>
-      <van-swipe-item><img src="./../../img/banner@2x.png"></van-swipe-item>
+      <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
+      <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
+      <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
+      <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
       <div class="custom-indicator" slot="indicator">
         <span>{{ current + 1 }}/4</span>
       </div>

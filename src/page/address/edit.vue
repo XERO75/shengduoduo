@@ -356,7 +356,7 @@ export default {
         width: 0.533333rem;
         height: 0.533333rem;
         display: block;
-        background: url(./../../img/addr-loc.png) no-repeat;
+        background: url(./../../image/MORE@2x.png) no-repeat;
         -webkit-background-size: 0.533333rem 0.533333rem;
         background-size: 0.533333rem 0.533333rem;
         position: absolute;
@@ -368,7 +368,7 @@ export default {
         width: 0.533333rem;
         height: 0.533333rem;
         display: block;
-        background: url(./../../img/addr-dele.png) no-repeat;
+        background: url(./../../image/MORE@2x.png) no-repeat;
         -webkit-background-size: 0.533333rem 0.533333rem;
         background-size: 0.533333rem 0.533333rem;
         position: absolute;
@@ -486,7 +486,7 @@ export default {
           width: 0.373333rem;
           height: 0.44rem;
           display: block;
-          background: url('./../../img/新增地址-定位-灰@2x.png') no-repeat;
+          background: url('./../../image/添加地址@2x.png') no-repeat;
           -webkit-background-size: 0.373333rem 0.44rem;
           background-size: 0.373333rem 0.44rem;
           position: absolute;
@@ -504,7 +504,7 @@ export default {
       .address-item.active{
         color: #e70012;
         &:before{
-          background: url('./../../img/新增地址-定位-红@2x.png') no-repeat;
+          background: url('./../../image/添加地址@2x.png') no-repeat;
           -webkit-background-size: 0.373333rem 0.44rem;
           background-size: 0.373333rem 0.44rem;
         }

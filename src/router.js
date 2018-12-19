@@ -9,288 +9,97 @@ const routes = [
   //   redirect: '/shop'
   // },
   {
-    path: '/pintuan',
-    name: 'pintuan',
-    component: () => import('./view/pintuan'),
+    path: '/',
+    name: 'index',
+    component: () => import('./page/home/index'),
+    meta: {
+      title: '米多多'
+    }
+  },
+  {
+    path: '/index',
+    name: 'index',
+    component: () => import('./page/home/index'),
+    meta: {
+      title: '米多多'
+    }
+  },
+  {
+    path: '/sort',
+    name: 'sort',
+    component: () => import('./page/sort'),
+    meta: {
+      title: '米多多'
+    }
+  },
+  {
+    path: '/sort/second',
+    name: 'sortSecond',
+    component: () => import('./page/sort/second'),
+    meta: {
+      title: '米多多'
+    }
+  },
+  {
+    path: '/sort/detail',
+    name: 'sortDetail',
+    component: () => import('./page/sort/detail'),
     meta: {
       title: '商品详情'
     }
   },
   {
-    path: '/pintuan/configure',
-    name: 'pintuanConfigure',
-    component: () => import('./view/pintuan/configure'),
+    path: '/sort/comment',
+    name: 'sortComment',
+    component: () => import('./page/sort/comment'),
     meta: {
-      title: '配送设置'
+      title: '全部评价'
     }
   },
   {
-    path: '/pintuan/address',
-    name: 'pintuanAddress',
-    component: () => import('./view/pintuan/address'),
+    path: '/sort/store',
+    name: 'sortStore',
+    component: () => import('./page/sort/store'),
     meta: {
-      title: '填写地址'
-    }
-  },
-  {
-    path: '/pintuan/order',
-    name: 'pintuanOrder',
-    component: () => import('./view/pintuan/order'),
-    meta: {
-      title: '提交订单'
-    }
-  },
-  {
-    path: '/pintuan/success',
-    name: 'pintuanSuccess',
-    component: () => import('./view/pintuan/success'),
-    meta: {
-      title: '拼团成功'
-    }
-  },
-  {
-    path: '/test',
-    name: 'test',
-    component: () => import('./view/test'),
-    meta: {
-      title: '测试页面'
-    }
-  },
-  {
-    path: '/shop',
-    name: 'shop',
-    component: () => import('./view/shop'),
-    meta: {
-      title: '燕塘优鲜达'
-    }
-  },
-  {
-    path: '/shop/h5',
-    name: 'h5',
-    component: () => import('./view/shop/h5'),
-    meta: {
-      title: '燕塘优鲜达'
-    }
-  },
-  {
-    path: '/shop/sort',
-    name: 'shopSort',
-    component: () => import('./view/shop/sort'),
-    meta: {
-      title: '订奶服务'
-    }
-  },
-  {
-    path: '/shop/detail',
-    name: 'shopDetail',
-    component: () => import('./view/shop/detail'),
-    meta: {
-      title: '商品详情'
-    }
-  },
-  {
-    path: '/shop/configure',
-    name: 'shopConfigure',
-    component: () => import('./view/shop/configure'),
-    meta: {
-      title: '配送设置'
-    }
-  },
-  {
-    path: '/shop/address',
-    name: 'shopAddress',
-    component: () => import('./view/shop/address'),
-    meta: {
-      title: '填写地址'
-    }
-  },
-  {
-    path: '/shop/addAddress',
-    name: 'shopAddAddress',
-    component: () => import('./view/address/edit'),
-    meta: {
-      title: '新增地址'
-    }
-  },
-  {
-    path: '/shop/editAddress',
-    name: 'shopEditAddress',
-    component: () => import('./view/address/edit'),
-    meta: {
-      title: '编辑地址'
-    }
-  },
-  {
-    path: '/pintuan/addAddress',
-    name: 'pintuanAddAddress',
-    component: () => import('./view/address/edit'),
-    meta: {
-      title: '新增地址'
-    }
-  },
-  {
-    path: '/pintuan/editAddress',
-    name: 'pintuanEditAddress',
-    component: () => import('./view/address/edit'),
-    meta: {
-      title: '编辑地址'
-    }
-  },
-  {
-    path: '/shop/order',
-    name: 'shopOrder',
-    component: () => import('./view/shop/order'),
-    meta: {
-      title: '提交订单'
-    }
-  },
-  // {
-  //   path: '/shop/coupon',
-  //   name: 'shopCoupon',
-  //   component: () => import('./view/shop/coupon'),
-  //   meta: {
-  //     title: '选择优惠券'
-  //   }
-  // },
-  // {
-  //   path: '/shop/voucher',
-  //   name: 'shopVoucher',
-  //   component: () => import('./view/shop/voucher'),
-  //   meta: {
-  //     title: '选择优鲜卡'
-  //   }
-  // },
-  {
-    path: '/banner',
-    name: 'banner',
-    component: () => import('./view/banner'),
-    meta: {
-      title: '燕塘优鲜达'
-    }
-  },  {
-    path: '/banner/getPoints',
-    name: 'getPoints',
-    component: () => import('./view/banner/getPoints'),
-    meta: {
-      title: '燕塘优鲜达'
-    }
-  },
-  {
-    path: '/voucher',
-    name: 'voucher',
-    component: () => import('./view/voucher'),
-    meta: {
-      title: '优鲜卡'
-    }
-  },
-  {
-    path: '/voucher/detail',
-    name: 'voucherDetail',
-    component: () => import('./view/voucher/detail'),
-    meta: {
-      title: '优鲜卡详情'
-    }
-  },
-  {
-    path: '/voucher/success',
-    name: 'voucherSuccess',
-    component: () => import('./view/voucher/success'),
-    meta: {
-      title: '购买成功'
-    }
-  },
-  {
-    path: '/mine',
-    name: 'mine',
-    component: () => import('./view/mine'),
-    meta: {
-      title: '我的'
-    }
-  },
-  {
-    path: '/agreement',
-    name: 'agreement',
-    component: () => import('./view/mine/agreement'),
-    meta: {
-      title: '用户使用协议'
-    }
-  },
-  {
-    path: '/order',
-    name: 'order',
-    component: () => import('./view/order'),
-    meta: {
-      title: '我的订单'
+      title: '米多多'
     }
   },
   {
     path: '/order/detail',
     name: 'orderDetail',
-    component: () => import('./view/order/detail'),
+    component: () => import('./page/order/detail'),
     meta: {
       title: '订单详情'
     }
   },
   {
-    path: '/order/success',
-    name: 'orderSuccess',
-    component: () => import('./view/order/success'),
+    path: '/order/list',
+    name: 'orderList',
+    component: () => import('./page/order/list'),
     meta: {
-      title: '支付完成'
+      title: '我的订单'
     }
   },
   {
-    path: '/coupon',
-    name: 'coupon',
-    component: () => import('./view/coupon'),
+    path: '/order/info',
+    name: 'orderInfo',
+    component: () => import('./page/order/info'),
     meta: {
-      title: '我的优惠券'
+      title: '订单详情'
     }
   },
   {
-    path: '/myVoucher',
-    name: 'myVoucher',
-    component: () => import('./view/myVoucher'),
+    path: '/mine',
+    name: 'mine',
+    component: () => import('./page/mine'),
     meta: {
-      title: '我的优鲜卡'
-    }
-  },
-  {
-    path: '/myVoucher/detail',
-    name: 'myVoucherDetail',
-    component: () => import('./view/myVoucher/detail'),
-    meta: {
-      title: '优鲜卡详情'
-    }
-  },
-  {
-    path: '/myVoucher/success',
-    name: 'myVoucherSuccess',
-    component: () => import('./view/myVoucher/success'),
-    meta: {
-      title: '退卡'
-    }
-  },
-  {
-    path: '/myVoucher/return',
-    name: 'myVoucherReturn',
-    component: () => import('./view/myVoucher/return'),
-    meta: {
-      title: '我要退卡'
-    }
-  },
-  {
-    path: '/myVoucher/receive',
-    name: 'myVoucherReceive',
-    component: () => import('./view/myVoucher/receive'),
-    meta: {
-      title: '燕塘优鲜达'
+      title: '我'
     }
   },
   {
     path: '/address',
     name: 'address',
-    component: () => import('./view/address'),
+    component: () => import('./page/address'),
     meta: {
       title: '收货地址'
     }
@@ -298,81 +107,145 @@ const routes = [
   {
     path: '/address/add',
     name: 'addressAdd',
-    component: () => import('./view/address/edit'),
+    component: () => import('./page/address/edit'),
     meta: {
-      title: '新增地址'
+      title: '添加收货地址'
     }
   },
   {
     path: '/address/edit',
     name: 'addressEdit',
-    component: () => import('./view/address/edit'),
+    component: () => import('./page/address/edit'),
     meta: {
-      title: '编辑'
+      title: '编辑收货地址'
     }
   },
   {
-    path: '/points',
-    name: 'points',
-    component: () => import('./view/points'),
+    path: '/return',
+    name: 'return',
+    component: () => import('./page/return'),
     meta: {
-      title: '积分商城'
+      title: '退换'
     }
   },
   {
-    path: '/points/detail',
-    name: 'pointsDetail',
-    component: () => import('./view/points/detail'),
+    path: '/return/refund',
+    name: 'refund',
+    component: () => import('./page/return/refund'),
     meta: {
-      title: '兑换奖品'
+      title: '申请退款'
     }
   },
   {
-    path: '/points/order',
-    name: 'pointsOrder',
-    component: () => import('./view/points/order'),
+    path: '/coupon',
+    name: 'coupon',
+    component: () => import('./page/coupon/index.vue'),
     meta: {
-      title: '兑换奖品'
+      title: '我的优惠券'
     }
   },
   {
-    path: '/points/address',
-    name: 'pointsAddress',
-    component: () => import('./view/points/address'),
+    path: '/coupon/center',
+    name: 'couponCenter',
+    component: () => import('./page/coupon/center'),
     meta: {
-      title: '收货地址'
+      title: '领券中心'
     }
   },
   {
-    path: '/points/success',
-    name: 'pointsSuccess',
-    component: () => import('./view/points/success'),
+    path: '/collect',
+    name: 'collect',
+    component: () => import('./page/collect'),
     meta: {
-      title: '兑换奖品'
+      title: '商品收藏'
     }
   },
   {
-    path: '/points/coupon',
-    name: 'pointsCoupon',
-    component: () => import('./view/points/coupon'),
+    path: '/collect/store',
+    name: 'collectStore',
+    component: () => import('./page/collect/store'),
     meta: {
-      title: '兑换优惠券'
+      title: '商品收藏'
     }
   },
   {
-    path: '/points/history',
-    name: 'pointsHistory',
-    component: () => import('./view/points/history'),
+    path: '/history',
+    name: 'history',
+    component: () => import('./page/history'),
     meta: {
-      title: '历史兑换'
+      title: '历史浏览'
     }
   },
   {
-    path: '/points/sort',
-    name: 'pointsSort',
-    component: () => import('./view/points/sort'),
+    path: '/afterSale',
+    name: 'afterSale',
+    component: () => import('./page/afterSale'),
     meta: {
-      title: '兑换奖品'
+      title: '退款 / 售后'
+    }
+  },
+  {
+    path: '/afterSale/detail',
+    name: 'afterSaleDetail',
+    component: () => import('./page/afterSale/detail'),
+    meta: {
+      title: '退款 / 售后'
+    }
+  },
+  {
+    path: '/comments',
+    name: 'comments',
+    component: () => import('./page/comments/index.vue'),
+    meta: {
+      title: '我的评价'
+    }
+  },
+  {
+    path: '/bargain',
+    name: 'bargain',
+    component: () => import('./page/bargain/index.vue'),
+    meta: {
+      title: '砍价免费拿'
+    }
+  },
+  {
+    path: '/treasure',
+    name: 'treasure',
+    component: () => import('./page/treasure/index.vue'),
+    meta: {
+      title: '夺宝'
+    }
+  },
+  {
+    path: '/redPacket',
+    name: 'redPacket',
+    component: () => import('./page/redPacket/index.vue'),
+    meta: {
+      title: '红包'
+    }
+  },
+  {
+    path: '/oreYard',
+    name: 'oreYard',
+    component: () => import('./page/oreYard/index.vue'),
+    meta: {
+      title: '矿场'
+    }
+  },
+  {
+    path: '/customerService',
+    name: 'customerService',
+    component: () => import('./page/customerService/index.vue'),
+    meta: {
+      title: '客服'
+    }
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: () => import('./page/help/index.vue'),
+    meta: {
+      title: '帮助'
     }
   },
 ];

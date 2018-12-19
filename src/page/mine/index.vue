@@ -226,7 +226,7 @@ $fzb: PingFang-SC-Bold;
         width: 15px;
         height: 15px;
         display: block;
-        background: url(./../../img/right.png) no-repeat;
+        background: url(./../../image/MORE@2x.png) no-repeat;
         -webkit-background-size: 15px 15px;
         background-size: 15px 15px;
         position: absolute;

@@ -1,5 +1,4 @@
-// import axios from "axios";
-import axios from "./../request.js";
+import axios from "axios";
 var baseUrl = process.env.BASE_API;
 const urls = {
   list: '/app/member/myAddress.htm',
@@ -9,6 +8,7 @@ const urls = {
   delete: '/app/member_address/delete.htm',
   // area: '/app/service_department/allpolygon.htm', //(弃)
   search: '/app/member_address/findAddressInAllDepartments.htm',
+  location: '/app/member_address/findGeo.htm',
 }
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -75,5 +75,13 @@ export const getSearchList = (key) => {
     url: apis.search,
     method: 'get',
     params: axios.getData({key: key})
+  });
+};
+// 根据地址定位
+export const getLocation = (address) => {
+  return axios({
+    url: apis.location,
+    method: 'get',
+    params: axios.getData({address: address})
   });
 };

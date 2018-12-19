@@ -15,17 +15,17 @@
     </div>
     <div class="select-container">
       <div class="select-item">
-        <img src="./../../img/袋装.png">
+        <img src="./../../pic/p1.png">
         <p class="title">仅退款</p>
         <p class="tips">未收到货（包含未签收）或卖家协商同意前提下</p>
       </div>
       <div class="select-item">
-        <img src="./../../img/袋装.png">
+        <img src="./../../pic/p1.png">
         <p class="title">退款退货</p>
         <p class="tips">已收到货，需要退换已收到的货物</p>
       </div>
       <div class="select-item">
-        <img src="./../../img/袋装.png">
+        <img src="./../../pic/p1.png">
         <p class="title">换货</p>
         <p class="tips">已收到货，需要退换已收到的货物</p>
       </div>
@@ -106,7 +106,7 @@ export default {
         right: 10px;
         top: 50%;
         margin-top: -8px;
-        background: url(./../../img/addr-loc.png) no-repeat;
+        background: url(./../../image/MORE@2x.png) no-repeat;
         -webkit-background-size: 16px 16px;
         background-size: 16px 16px;
       }

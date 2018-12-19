@@ -136,7 +136,7 @@ export default {
           width: 20px;
           height: 20px;
           display: block;
-          background: url(./../../img/addr-loc.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 20px 20px;
           background-size: 20px 20px;
           position: absolute;
@@ -149,7 +149,7 @@ export default {
           width: 20px;
           height: 20px;
           display: block;
-          background: url(./../../img/addr-loc.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 20px 20px;
           background-size: 20px 20px;
           position: absolute;

@@ -174,7 +174,7 @@ export default {
 				position: absolute;
 				top: 15px;
 				right: 15px;
-				background: url(./../../img/addr-loc.png) no-repeat;
+				background: url(./../../image/MORE@2x.png) no-repeat;
 				-webkit-background-size: 20px 20px;
 				background-size: 20px 20px;
 			}

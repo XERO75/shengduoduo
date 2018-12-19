@@ -4,7 +4,7 @@
       <div class="comment-header">Lorem ipsum dolor sit amet.!</div>
       <div class="comment-content">
         <div class="comment-content__img">
-          <img src="./../../img/鲜奶@2x.png" alt="" >
+          <img src="./../../pic/p2.png">
         </div>
         <div class="comment-content__desc">
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, qui.</p><br/>

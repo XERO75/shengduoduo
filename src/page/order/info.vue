@@ -125,7 +125,7 @@ export default {
         width: 15px;
         height: 15px;
         display: block;
-        background: url(./../../img/新增地址.png) no-repeat;
+        background: url(./../../image/添加地址@2x.png) no-repeat;
         -webkit-background-size: 15px 15px;
         background-size: 15px 15px;
         position: absolute;
@@ -141,7 +141,7 @@ export default {
         width: 20px;
         height: 20px;
         display: block;
-        background: url(./../../img/新增地址.png) no-repeat;
+        background: url(./../../image/添加地址@2x.png) no-repeat;
         -webkit-background-size: 20px 20px;
         background-size: 20px 20px;
         position: absolute;
@@ -316,7 +316,7 @@ export default {
         position: absolute;
         top: 0.426667rem;
         left: 0;
-        background: url(./../../img/微信支付@2x.png) no-repeat;
+        background: url(./../../image/微信支付@2x.png) no-repeat;
         -webkit-background-size: 0.6rem 0.6rem;
         background-size: 0.6rem 0.6rem;
 

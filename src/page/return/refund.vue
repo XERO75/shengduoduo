@@ -44,7 +44,7 @@
               <img :src="n">
             </div>
             <div v-if="images.length<3" class="upload-box">
-              <img src="./../../img/addr-loc.png">
+              <img src="./../../image/MORE@2x.png">
               <p>上传凭证</p>
               <p>（最多3张）</p>
             </div>
@@ -166,7 +166,7 @@ export default {
           right: 15px;
           top: 50%;
           margin-top: -8px;
-          background: url(./../../img/addr-dele.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 16px 16px;
           background-size: 16px 16px;
         }
@@ -200,7 +200,7 @@ export default {
           width: 16px;
           height: 16px;
           display: block;
-          background: url(./../../img/go@2x.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 16px 16px;
           background-size: 16px 16px;
           position: absolute;
@@ -307,7 +307,7 @@ export default {
         right: 15px;
         top: 50%;
         margin-top: -7px;
-        background: url(./../../img/购物车删除.png) no-repeat;
+        background: url(./../../image/MORE@2x.png) no-repeat;
       }
     }
     .content{
@@ -321,7 +321,7 @@ export default {
           width: 17px;
           height: 17px;
           display: block;
-          background: url(./../../img/配送选择地址二@2x.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 17px 17px;
           background-size: 17px 17px;
           position: absolute;
@@ -334,7 +334,7 @@ export default {
           width: 17px;
           height: 17px;
           display: block;
-          background: url(./../../img/配送选择地址@2x.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 17px 17px;
           background-size: 17px 17px;
           position: absolute;

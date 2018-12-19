@@ -671,7 +671,7 @@ export default {
         right: 15px;
         top: 50%;
         margin-top: -7px;
-        background: url(./../../img/购物车删除.png) no-repeat;
+        background: url(./../../image/MORE@2x.png) no-repeat;
       }
     }
     .content{
@@ -685,7 +685,7 @@ export default {
           width: 17px;
           height: 17px;
           display: block;
-          background: url(./../../img/配送选择地址二@2x.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 17px 17px;
           background-size: 17px 17px;
           position: absolute;
@@ -698,7 +698,7 @@ export default {
           width: 17px;
           height: 17px;
           display: block;
-          background: url(./../../img/配送选择地址@2x.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 17px 17px;
           background-size: 17px 17px;
           position: absolute;
@@ -716,7 +716,7 @@ export default {
           width: 17px;
           height: 17px;
           display: block;
-          background: url(./../../img/配送选择地址二@2x.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 17px 17px;
           background-size: 17px 17px;
           position: absolute;
@@ -729,7 +729,7 @@ export default {
           width: 17px;
           height: 17px;
           display: block;
-          background: url(./../../img/配送选择地址@2x.png) no-repeat;
+          background: url(./../../image/MORE@2x.png) no-repeat;
           -webkit-background-size: 17px 17px;
           background-size: 17px 17px;
           position: absolute;
@@ -812,7 +812,7 @@ export default {
         position: absolute;
         top: 0.426667rem;
         left: 0;
-        background: url(./../../img/微信支付@2x.png) no-repeat;
+        background: url(./../../image/微信支付@2x.png) no-repeat;
         -webkit-background-size: 0.6rem 0.6rem;
         background-size: 0.6rem 0.6rem;
 

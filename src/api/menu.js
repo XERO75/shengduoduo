@@ -1,5 +1,4 @@
-// import axios from "axios";
-import axios from "./../request.js";
+import axios from "axios";
 var baseUrl = process.env.BASE_API;
 const urls = {
   icon: '/app/common/menu.htm',
