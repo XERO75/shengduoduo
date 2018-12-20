@@ -56,12 +56,6 @@
           </div>
           <span class="btn-join" @click="onClickPin">去拼单</span>
         </div>
-        <!-- <div class="team-container" v-for="n in orders">
-          <img :src="n.memberAvatar">
-          <div class="content">
-            <p class="name">匿名用户</p>
-          </div>
-        </div> -->
       </div>
     </div>
     <div class="comment-container">
@@ -74,10 +68,6 @@
           <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
           <span class="tag bad" @click="handleChooseView($event,i)"><span class="str">难喝</span>99</span>
         </div>
-        <!-- <div class="tag-container">
-          <span class="tag active" @click="handleChooseAllView">全部 ({{totalTags}})</span>
-          <span v-for="(n,i) in tags" class="tag" @click="handleChooseView($event,i)"><span class="str">{{n.tagname}}</span> ({{n.count}})</span>
-        </div> -->
         <div class="view-container">
           <img class="avator" src="./../../image/差评-灰色@2x.png">
           <div class="view-content">
@@ -117,11 +107,6 @@
         <span class="btn-in" @click="onClickStore">进入店铺</span>
       </div>
       <div class="product-box">
-        <!-- <div class="product-container" v-for="n in productList" :key="n.id" @click="onClickDetail(n.id)">
-          <div class="product-img"><p class="double" v-if="n.isDoublePoints=='true'">双倍积分</p><img :src="n.image"></div>
-          <p class="name van-ellipsis">{{n.name}}</p>
-          <p class="money">&yen; <span>{{n.isStraight=='true'?n.straightPrice:n.price}}</span><del v-if="n.isStraight=='true'">&yen;{{n.price}}</del></p>
-        </div> -->
         <div class="product-container">
           <div class="product-img"><img src="./../../pic/product.png"></div>
           <p class="name van-ellipsis">99598529</p>
@@ -160,7 +145,7 @@
         </div>
       </div>
       <div v-else>
-        <p class="btn-addCart">加入购物车</p><p class="btn-buyNow">立即购买</p>
+        <p class="btn-addCart" @click="addCart">加入购物车</p><p class="btn-buyNow">立即购买</p>
       </div>
     </div>
     <van-popup v-model="showBox" position="bottom">
@@ -245,6 +230,9 @@ export default {
     },
     onClickStore(){
       this.$router.push({path:'/sort/store'});
+    },
+    addCart(){
+
     },
     /* 获取浏览器被卷去的高度(兼容性处理) */
     getScrollTop() {

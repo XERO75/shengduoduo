@@ -1,10 +1,10 @@
 <template>
   <div id="mine">
-    <HeaderBar title="个人中心" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
+    <HeaderBar title="个人中心" @back="onClickBack" @cart="onClickCart"></HeaderBar>
     <div class="avatar-container">
       <div class="avatar-box">
-        <img src="./../../pic/user2.jpg">
-        <p class="van-ellipsis">3131321321</p>
+        <img :src="info.avatar">
+        <p class="van-ellipsis">{{info.nickName}}</p>
         <span class="btn-pin">拼单返现</span>
       </div>
     </div>
@@ -12,28 +12,32 @@
       <p class="title">我的订单<span>查看更多</span></p>
       <div class="status-list">
         <div class="status-item">
-          <div class="img">
+          <div class="status-img">
             <img src="./../../image/待评价@2x.png">
+            <span v-if="info.unPaidCount > 0" class="numberIcon">{{info.unPaidCount}}</span>
           </div>
           <p>待付款</p>
         </div><div class="status-item">
-          <div class="img">
+          <div class="status-img">
             <img src="./../../image/待分享@2x.png">
           </div>
           <p>待分享</p>
         </div><div class="status-item">
-          <div class="img">
+          <div class="status-img">
             <img src="./../../image/代发货@2x.png">
+            <span v-if="info.unSendCount > 0" class="numberIcon">{{info.unSendCount}}</span>
           </div>
           <p>待发货</p>
         </div><div class="status-item">
-          <div class="img">
+          <div class="status-img">
             <img src="./../../image/待收货@2x.png">
+            <span v-if="info.unSignCount > 0" class="numberIcon">{{info.unSignCount}}</span>
           </div>
           <p>待收货</p>
         </div><div class="status-item">
-          <div class="img">
+          <div class="status-img">
             <img src="./../../image/待评价@2x.png">
+            <span v-if="info.unCommentCount > 0" class="numberIcon">{{info.unCommentCount}}</span>
           </div>
           <p>待评价</p>
         </div>
@@ -42,27 +46,27 @@
     <div class="service-container container">
       <div class="service-list">
         <div class="service-item"  @click="onClickCoupon">
-          <div class="img">
+          <div class="service-img">
             <img src="./../../image/优惠券@2x.png">
           </div>
           <p>优惠券</p>
         </div><div class="service-item"  @click="onClickCollect">
-          <div class="img">
+          <div class="service-img">
             <img src="./../../image/我的收藏@2x.png">
           </div>
           <p>我的收藏</p>
         </div><div class="service-item"  @click="onClickCollect2">
-          <div class="img">
+          <div class="service-img">
             <img src="./../../image/店铺收藏@2x.png">
           </div>
           <p>店铺收藏</p>
         </div><div class="service-item"  @click="onClickHistory">
-          <div class="img">
+          <div class="service-img">
             <img src="./../../image/历史浏览@2x.png">
           </div>
           <p>历史浏览</p>
         </div><div class="service-item"  @click="onClickSale">
-          <div class="img">
+          <div class="service-img">
             <img src="./../../image/退款售后@2x.png">
           </div>
           <p>退款售后</p>
@@ -72,22 +76,22 @@
     <div class="function-container container">
       <div class="function-list">
         <div @click="onClickRedPacket" class="function-item">
-          <div class="img">
+          <div class="function-img">
             <img src="./../../image/打卡@2x.png">
           </div>
           <p>打卡领红包</p>
         </div><div @click="onClickBargain" class="function-item">
-          <div class="img">
+          <div class="function-img">
             <img src="./../../image/砍价@2x.png">
           </div>
           <p>砍价免费拿</p>
         </div><div @click="onClickTreasure" class="function-item">
-          <div class="img">
+          <div class="function-img">
             <img style="padding-top:.15rem; width:.7rem;" src="./../../image/夺宝@2x.png">
           </div>
           <p>每日夺宝</p>
         </div><div @click="onClickOreYard" class="function-item">
-          <div class="img">
+          <div class="function-img">
             <img style="width:.65rem;" src="./../../image/矿场@2x.png">
           </div>
           <p>米多多矿场</p>
@@ -95,22 +99,22 @@
       </div>
       <div class="function-list">
         <div class="function-item" @click="onClickAddress">
-          <div class="img">
+          <div class="function-img">
             <img src="./../../image/收货地址@2x.png">
           </div>
           <p>收货地址</p>
         </div><div @click="onClickCustomerService" class="function-item">
-          <div class="img">
+          <div class="function-img">
             <img src="./../../image/官方客服@2x.png">
           </div>
           <p>官方客服</p>
         </div><div @click="onClickComments" class="function-item">
-          <div class="img">
+          <div class="function-img">
             <img src="./../../image/我的评价@2x.png">
           </div>
           <p>我的评价</p>
         </div><div @click="onClickHelp" class="function-item">
-          <div class="img">
+          <div class="function-img">
             <img src="./../../image/帮助@2x.png">
           </div>
           <p>帮助</p>
@@ -121,13 +125,15 @@
 </template>
 
 <script>
-import { Row, Col, NavBar, Badge, BadgeGroup } from 'vant';
+import { Row, Col, NavBar, Badge, BadgeGroup, Toast } from 'vant';
 import HeaderBar from "@/components/HeaderBar";
+import { center } from '@/api/personal';
 
 // import { getUserInfo } from "@/api/mine";
 // import { getMenu } from "@/api/menu";
 export default {
   components: {
+    [Toast.name]: Toast,
     [Row.name]: Row,
     [Col.name]: Col,
     [NavBar.name]: NavBar,
@@ -142,6 +148,12 @@ export default {
     }
   },
   methods: {
+    onClickBack() {
+      this.$router.go(-1);
+    },
+    onClickCart() {
+      this.$router.push({path:'/cart'});
+    },
     onClickOrder() {
       this.$router.push({path:'/order/list'});
     },
@@ -187,10 +199,20 @@ export default {
     onClickHelp() {
       this.$router.push({path:'/help'});
     },
-
+    // 请求个人中心信息
+    async center() {
+      let that = this
+      await center().then(res => {
+        if (res.data.code === 0) {
+          that.info = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    }
   },
   mounted(){
-
+    this.center()
   }
 };
 </script>
@@ -232,7 +254,7 @@ $fzb: PingFang-SC-Bold;
         font-size: 0.48rem;
         color: #fff;
       }
-      span.btn-pin{    
+      span.btn-pin{
         position: absolute;
         border: 1px solid #fff;
         padding: 5px 10px;
@@ -243,7 +265,7 @@ $fzb: PingFang-SC-Bold;
         right: 10px;
         top: 50%;
         margin-top: -12px;
-      }     
+      }
     }
   }
   .container{
@@ -292,11 +314,12 @@ $fzb: PingFang-SC-Bold;
         width: 20%;
         // display: inline-block;
         text-align: center;
-        .img{
+        .status-img{
           display: inline-block;
           width: .6rem;
           height: .6rem;
           margin-bottom: .24rem;
+          position: relative;
         }
         img {
           width: 100%;
@@ -308,7 +331,7 @@ $fzb: PingFang-SC-Bold;
         }
       }
     }
-  } 
+  }
   .service-container{
     .service-list{
       height: 2.346666rem;
@@ -318,7 +341,7 @@ $fzb: PingFang-SC-Bold;
       .service-item{
         width: 20%;
         text-align: center;
-        .img{
+        .service-img{
           display: inline-block;
           width: .6rem;
           height: .6rem;
@@ -334,7 +357,7 @@ $fzb: PingFang-SC-Bold;
         }
       }
     }
-  }  
+  }
   .function-container{
     .function-list{
       height: 2.56rem;
@@ -354,7 +377,7 @@ $fzb: PingFang-SC-Bold;
         &:last-child{
           border-right: 0;
         }
-        .img{
+        .function-img{
           display: inline-block;
           width: .6rem;
           height: .6rem;
@@ -370,6 +393,19 @@ $fzb: PingFang-SC-Bold;
         }
       }
     }
-  } 
+  }
+}
+// 圆形数字icon
+.numberIcon{
+  background-color: #fff;
+  border: 1px solid #e64a19;
+  border-radius: 50%;
+  height: .346667rem;
+  width: .346667rem;
+  font-size: .266667rem;
+  color: #e64a19;
+  position: absolute;
+  top: -30%;
+  right: -36%;
 }
 </style>

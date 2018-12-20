@@ -51,7 +51,7 @@ export default {
   p{
     line-height: 1.2rem;
     text-align: center;
-    font-size: 0.48rem;
+    font-size: 0.4rem;
     position: relative;
     i.icon-back{
       width: 0.28rem;

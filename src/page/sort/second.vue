@@ -49,11 +49,13 @@
 </template>
 
 <script>
-import { Tab, Tabs, } from 'vant';
+import { Tab, Tabs, Toast } from 'vant';
+import { findProductByCategoryId } from '@/api/sort'
 // import { getHomeInfo } from "@/api/shop";
 import HeaderBar from "@/components/HeaderBar";
 export default {
   components: {
+    [Toast.name]: Toast,
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     // [Loading.name]: Loading,
@@ -63,6 +65,8 @@ export default {
     return{
       active: 0,
       show: false,
+      memberProductCategoryId: null,
+      products: []
     }
   },
   methods: {
@@ -78,10 +82,24 @@ export default {
     onClickDetail(id) {
       this.$router.push({path:'/shop/sort',query:{productId:id}});
       // this.$router.push({path:'/shop/sort',query:''});
+    },
+    // 根据分类id获取分类信息
+    async findProductByCategoryId() {
+      let that = this
+      await findProductByCategoryId(this.memberProductCategoryId).then(res => {
+        if (res.data.code === 0) {
+          that.products = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
     }
   },
   mounted(){
-
+    if (this.$route.query.id) {
+      this.memberProductCategoryId = this.$route.query.id
+      this.findProductByCategoryId()
+    }
   }
 };
 </script>

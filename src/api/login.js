@@ -4,7 +4,6 @@ const urls = {
   autoLogin: '/app/member/simulate',
   login: '/app/member/login'
 };
-
 // 合并请求链接
 const apis = Object.keys(urls)
   .reduce((acc, url) => {
@@ -19,7 +18,6 @@ export const autoLogin = () => {
     method: 'post'
   });
 };
-
 // 登陆
 export const handleLogin = (param) => {
   return axios({
@@ -28,4 +26,3 @@ export const handleLogin = (param) => {
     data: param
   });
 };
-
