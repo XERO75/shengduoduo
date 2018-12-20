@@ -1,8 +1,8 @@
 import axios from 'axios';
 var baseUrl = process.env.BASE_API;
 const urls = {
-  autoLogin: '/app/member/simulate',
-  login: '/app/member/login'
+  mbAddress: '/app/memberAddress/list',
+  add: '/app/memberAddress/save'
 };
 
 // 合并请求链接
@@ -12,18 +12,18 @@ const apis = Object.keys(urls)
     return acc;
   }, {});
 
-// 快速登录
-export const autoLogin = () => {
+// 获取地址
+export const getAddress = () => {
   return axios({
-    url: apis.autoLogin,
-    method: 'post'
+    url: apis.mbAddress,
+    method: 'get'
   });
 };
 
-// 登陆
-export const handleLogin = (param) => {
+// 添加地址
+export const handleAdd = (param) => {
   return axios({
-    url: apis.login,
+    url: apis.add,
     method: 'post',
     data: param
   });

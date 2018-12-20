@@ -14,7 +14,7 @@
         <button class="sign-button">立即注册</button>
       </form>
     </div>
-    <p class="sign-tips">
+    <p @click="onClickLogin" class="sign-tips">
       已有账号，直接登录
     </p>
     <div class="sign-contract">
@@ -46,6 +46,9 @@ export default {
               clearInterval(auth_timetimer);
           }
       }, 1000);
+    },
+    onClickLogin() {
+      this.$router.push({path:'/login'})
     }
   }
 }

@@ -19,6 +19,7 @@
           v-model="inputAddress"
           label="详细地址:"
           placeholder="街道、门牌号等"
+          @click="showAddress=true"
         />
         <van-field
           v-if="isEdit"
@@ -45,6 +46,24 @@
     <van-actionsheet v-model="showArea">
       <van-area :area-list="areaList" @confirm="onAreaConfirm" @cancel="onreaCancel"/>
     </van-actionsheet>
+    <van-popup v-model="showAddress">
+      <div class="address-box">
+        <p class="title"><span>具体地址</span><input type="text" v-model="inputAddress" placeholder="请输入具体配送地址"><span class="btn-search" @click="getSearchList">搜索</span></p>
+        <div class="address-list">
+          <div class="loading-box" v-if="loading"><van-loading /></div>
+          <div v-if="searchList.length&&!loading" class="address-item" :class="{'active':i==0}" v-for="(n,i) in searchList" :key="i" @click="chooseAddress(i)">
+            <p class="top">{{n.name}}</p>
+            <p class="bottom">{{n.pname+n.cityname+n.adname+n.address}}</p>
+          </div>
+          <div v-if="!searchList.length&&!isNull&&!loading" class="nodata">
+            <p>请输入正确的地址</p>
+          </div>
+          <div v-if="!searchList.length&&isNull&&!loading" class="nodata">
+            <p style="color:#e70012">该地址不在配送范围内</p>
+          </div>
+        </div>
+      </div>
+    </van-popup>
     <div id="container"></div>
     <div id="result"></div>
   </div>
@@ -55,7 +74,6 @@
 <script>
 import { Toast, Cell, CellGroup, Field, Switch, Button, Actionsheet, Area, Popup, Loading } from 'vant';
 import { areaList } from './../../common/areaList.js'
-import { handleAdd } from '@/api/address.js'
 export default {
   components: {
     [Toast.name]: Toast,
@@ -73,13 +91,15 @@ export default {
     return{
       isEdit: false,
       showArea: false,
-      isDefault: false,
+      showAddress: false,
+      // showList: false,
       areaList,
       data: {
         province: '',
         city: '',
         county: '',
       },
+      isDefault: false,
       info: {
         contact: "",
         district: "",
@@ -91,6 +111,9 @@ export default {
         specificAddress: "",
       },
       inputAddress: '',
+      // distributors: [], // 所有的配送员
+      // isInArea: false,
+      // resultList: [],
       searchList: [],
       addr1: '',
       addr2: '',
@@ -224,11 +247,63 @@ export default {
         this.loading = false;
       })
     },
+    /* 判断地址是是否在所有多边形区域内 (弃) */  
+    // checkArea(){
+    //   if(this.info.specificAddress){
+    //     this.resultList = [];
+    //     let map = new AMap.Map("container", {
+    //       resizeEnable: true
+    //     });
+    //     let that = this;
+    //     AMap.service(["AMap.PlaceSearch"], function() {
+    //       let placeSearch = new AMap.PlaceSearch({ //构造地点查询类
+    //         pageSize: 5, // 单页显示结果条数
+    //         pageIndex: 1, // 页码
+    //         city: "020", // 兴趣点城市
+    //         citylimit: true,  //是否强制限制在设置的城市内搜索
+    //         map: map, // 展现结果的地图实例
+    //         // panel: "result", // 结果列表将在此容器中进行展示。
+    //         autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+    //       });
+    //       for(let i=0;i<that.distributors.length;i++) {
+    //         let polygon = new AMap.Polygon({
+    //           path: that.distributors[i],//设置多边形边界路径
+    //           // path: polygonArr,//设置多边形边界路径
+    //           strokeColor: "#FF33FF", //线颜色
+    //           strokeOpacity: 0.2, //线透明度
+    //           strokeWeight: 3,    //线宽
+    //           fillColor: "#1791fc", //填充色
+    //           fillOpacity: 0.35,//填充透明度
+    //           hidden: true
+    //         });
+    //         placeSearch.searchInBounds(that.info.specificAddress);
+    //       }
+    //     });
+    //   }
+    // }
   },
   mounted(){
-    if (this.$route.name === 'addressEdit') {
-      this.isEdit = true
-    }
+    // handleLogin();
+    //   if(this.$route.name=="addressAdd"||this.$route.name=="shopAddAddress"||this.$route.name=="pintuanAddAddress"){
+    //     this.isEdit = false;
+    //   }else if(this.$route.name=="addressEdit"||this.$route.name=="shopEditAddress"||this.$route.name=="pintuanEditAddress"){
+    //     this.isEdit = true;
+    //     getEditInfo(this.$route.query.id).then(res=>{
+    //       this.info = res.data.data;
+    //       this.isChoosed = true;
+    //       this.addr1 = this.info.specificAddress;
+    //       if(this.info.gaodeAddress){
+    //         this.addr2 = this.info.district + this.info.gaodeAddress;
+    //       }else{
+    //         this.addr2 = this.info.district;
+    //       }
+    //       if(this.info.isDefault == 'true'){
+    //         this.isDefault = true;
+    //       }else{
+    //         this.isDefault = false;
+    //       }
+    //     })
+    //   }
   }
 };
 </script>
