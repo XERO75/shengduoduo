@@ -1,9 +1,22 @@
 <template>
   <div id="cart">
     <HeaderBar title="购物车" @back="onClickBack"></HeaderBar>
-    <div class="cart-item" v-for="n in cartList">
-      <p class="store-name"><i class="icon-store"></i>{{n.shopName}} <i class="icon-right"></i><span @click="show=true">领券</span></p>
-      <div class="product-item" :class="{'checked':p.isSelected}" v-for="p in n.cartItems">
+    <div class="cart-item" v-for="(n,i) in cartList">
+      <p class="store-name">
+        <!-- <div @click="handleStoreCheck"> -->
+          <i v-if="n.isSelected" class="icon-checked"></i>
+          <i v-else class="icon-nocheck"></i>
+        <!-- </div> -->
+        <i class="icon-store"></i>
+        {{n.shopName}} 
+        <i class="icon-right"></i>
+        <span @click="show=true">领券</span>
+      </p>
+      <div class="product-item" v-for="(p,j) in n.cartItems">
+        <div @click="handleProductCheck(i,j)">
+          <i v-if="p.isSelected" class="icon-checked"></i>
+          <i v-else class="icon-nocheck"></i>
+        </div>
         <img :src="n.img">
         <p class="product-name overTwoLine">{{p.productName}}<i class="icon-delete" @click="deleteCartItem(p.id)"></i></p>
         <div class="change">
@@ -17,6 +30,10 @@
     </div>
     <div class="btn-container">
       <div class="btn-left">
+        <div @click="handleAllCheck">
+          <i v-if="allSelected" class="icon-checked"></i>
+          <i v-else class="icon-nocheck"></i>
+        </div>
         <span>全选</span>
         <span class="fr">合计：<strong>&yen; {{totalPrice}}</strong></span>
       </div><div class="btn-pay">立即支付</div>
@@ -64,7 +81,7 @@
 <script>
 import { Toast, Stepper, Dialog, Popup } from 'vant';
 import HeaderBar from '@/components/HeaderBar';
-import { getCartList, deleteCart } from '@/api/cart';
+import { getCartList, deleteCart, checkProduct, checkStore, checkAll } from '@/api/cart';
 export default {
   components: {
     [Toast.name]: Toast,
@@ -79,22 +96,58 @@ export default {
       show: false,
       cartList: [],
       totalPrice: 0,
+      allSelected: false,
     }
   },
   methods: {
     onClickBack(){
       this.$router.go(-1)
     },
+    handleProductCheck(i,j){
+      let id = this.cartList[i].cartItems[j].id;
+      this.cartList[i].cartItems[j].isSelected = !this.cartList[i].cartItems[j].isSelected;
+      let formdata = new FormData();
+      formdata.append('cartItemId',id);
+      checkProduct(formdata).then(res=>{
+        console.log(res);
+        if(res.data.code===0){
+          this.totalPrice = res.data.data;
+        }else{
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    handleStoreCheck(){
+
+    },
+    handleAllCheck(){
+
+    },
     getCartList(){
       getCartList().then(res=>{
         if(res.data.code==0){
           this.cartList = res.data.data.shopItemVos;
-          this.totalPrice = 0;
+          this.totalPrice = res.data.data.totalPrice;
+          // for (let i = 0; i < this.cartList.length; i++) {
+          //   for (let j = 0; j < this.cartList[i].cartItems.length; j++) {
+          //     if(this.cartList[i].cartItems[j].isSelected){
+          //       this.totalPrice += this.cartList[i].cartItems[j].price;
+          //     }
+          //   }
+          // }
           for (let i = 0; i < this.cartList.length; i++) {
             for (let j = 0; j < this.cartList[i].cartItems.length; j++) {
-              if(this.cartList[i].cartItems[j].isSelected){
-                this.totalPrice += this.cartList[i].cartItems[j].price;
+              if(this.cartList[i].cartItems[j].isSelected==false){
+                this.cartList[i].isSelected = false;
+                break;
               }
+              this.cartList[i].isSelected = true;
+            }
+            if(this.cartList[i].isSelected==false){
+              this.allSelected = false;
+              break;
+            }else{
+              this.allSelected = true;
             }
           }
         }else{
@@ -134,6 +187,23 @@ export default {
   box-sizing: border-box;
   position: relative;
   background-color: #f6f6f6;
+  i.icon-nocheck{
+    width: 0.48rem;
+    height: 0.48rem;
+    display: inline-block;
+    background: url(./../../image/未选择@2x.png) no-repeat;
+    -webkit-background-size: 0.48rem 0.48rem;
+    background-size: 0.48rem 0.48rem;
+    position: absolute;
+    left: 0;
+    top: 1.0rem;
+  }
+  i.icon-checked{
+    @extend i.icon-nocheck;
+    background: url(./../../image/选择@2x.png) no-repeat;
+    -webkit-background-size: 0.48rem 0.48rem;
+    background-size: 0.48rem 0.48rem;
+  }
   .cart-item{
     padding-left: 0.32rem;
     border-top: 0.266667rem solid #f6f6f6;
@@ -149,29 +219,8 @@ export default {
         float: right;
         padding-right: 0.32rem; 
       }
-      &:before{
-        content: '';
-        width: 0.48rem;
-        height: 0.48rem;
-        display: inline-block;
-        background: url(./../../image/未选择@2x.png) no-repeat;
-        -webkit-background-size: 0.48rem 0.48rem;
-        background-size: 0.48rem 0.48rem;
-        position: absolute;
-        left: 0;
-        top: 50%;
-        margin-top: -0.24rem;
-      }
-      &.checkedAll:before{
-        content: '';
-        width: 0.48rem;
-        height: 0.48rem;
-        display: inline-block;
-        background: url(./../../image/选择@2x.png) no-repeat;
-        -webkit-background-size: 0.48rem 0.48rem;
-        background-size: 0.48rem 0.48rem;
-        position: absolute;
-        left: 0;
+      i.icon-nocheck,
+      i.icon-checked{
         top: 50%;
         margin-top: -0.24rem;
       }
@@ -203,30 +252,6 @@ export default {
       border-bottom: 1px solid #f6f6f6;
       &:last-child{
         border-bottom: 0;
-      }
-      &:before{
-        content: '';
-        width: 0.48rem;
-        height: 0.48rem;
-        display: inline-block;
-        background: url(./../../image/未选择@2x.png) no-repeat;
-        -webkit-background-size: 0.48rem 0.48rem;
-        background-size: 0.48rem 0.48rem;
-        position: absolute;
-        left: 0;
-        top: 1.0rem;
-      }
-      &.checked:before{
-        content: '';
-        width: 0.48rem;
-        height: 0.48rem;
-        display: inline-block;
-        background: url(./../../image/选择@2x.png) no-repeat;
-        -webkit-background-size: 0.48rem 0.48rem;
-        background-size: 0.48rem 0.48rem;
-        position: absolute;
-        left: 0;
-        top: 1.0rem;
       }
       img{
         width: 2.0rem;
@@ -300,15 +325,8 @@ export default {
     height: 1.306667rem;
     position: fixed;
     bottom: 0;
-    &:before{
-      content: '';
-      width: 0.48rem;
-      height: 0.48rem;
-      display: inline-block;
-      background: url(./../../image/未选择@2x.png) no-repeat;
-      -webkit-background-size: 0.48rem 0.48rem;
-      background-size: 0.48rem 0.48rem;
-      position: absolute;
+    i.icon-nocheck,
+    i.icon-checked{
       top: 50%;
       margin-top: -0.24rem;
       left: 0.32rem;
