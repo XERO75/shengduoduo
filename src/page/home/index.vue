@@ -1,9 +1,9 @@
 <template>
   <div id="home-index">
     <div class="search-bar">
-      <img class="icon-item" @click="onClickSort" src="./../../image/分类@2x.png">
-      <van-search 
-        placeholder="搜索" 
+      <img class="icon-item" @click="onClickSort" src="../../image/分类@2x.png">
+      <van-search
+        placeholder="搜索"
         v-model="value"
         background="#e64a19"
       />
@@ -142,6 +142,16 @@ export default {
 };
 </script>
 
+<style lang="scss">
+#home-index{
+  .van-search .van-icon-search{
+    left: 14% !important;
+  }
+  .van-search .van-cell{
+    border-radius: 16px;
+  }
+}
+</style>
 <style rel="stylesheet/scss" lang="scss" scoped>
 #home-index{
   padding-top: 1.2rem;
@@ -165,6 +175,7 @@ export default {
       margin-top: -0.233333rem;
     }*/
     img.icon-item{
+      z-index: 999;
       width: 0.506667rem;
       height: 0.466667rem;
       position: absolute;

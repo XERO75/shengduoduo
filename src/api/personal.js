@@ -1,8 +1,7 @@
 import axios from 'axios';
-// import axios from "./../request.js";
 var baseUrl = process.env.BASE_API;
 const urls = {
-  product: '/app/index/findProductIsShow'
+  center: '/app/member/center'
 };
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -10,10 +9,10 @@ const apis = Object.keys(urls)
     acc[url] = baseUrl + urls[url];
     return acc;
   }, {});
-// 首页推荐商品
-export const getProductList = () => {
+// 个人中心
+export const center = () => {
   return axios({
-    url: apis.product,
+    url: apis.center,
     method: 'get'
   });
 };

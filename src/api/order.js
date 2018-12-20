@@ -1,8 +1,7 @@
 import axios from 'axios';
 var baseUrl = process.env.BASE_API;
 const urls = {
-  list: '/app/member/myCart',
-  delete: '/app/cartItem/removeFromCart'
+  initOrders: '/app/orders/initOrders'
 };
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -11,17 +10,9 @@ const apis = Object.keys(urls)
     return acc;
   }, {});
 // 快速登录
-export const getCartList = () => {
+export const initOrders = () => {
   return axios({
-    url: apis.list,
+    url: apis.initOrders,
     method: 'get'
-  });
-};
-// 删除购物车
-export const deleteCart = (id) => {
-  return axios({
-    url: apis.delete,
-    method: 'get',
-    params: { cartItemId: id }
   });
 };
