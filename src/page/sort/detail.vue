@@ -142,29 +142,65 @@
       <div class="content"></div>
     </div>
     <div class="btn-container">
-      <div class="tab-home">
-        <img src="./../../image/首页@2x.png">
-        <p>首页</p>
-      </div><div class="btn-list">
-        <div class="btn btn-vip" @click="onClickPin">
-          <p class="money">&yen; 60+50e币</p>
-          <p class="text">会员价</p>
-        </div><div class="btn btn-buy" @click="onClickPin">
-          <p class="money">&yen; 150</p>
-          <p class="text">单独购买</p>
-        </div><div class="btn btn-pin" @click="onClickPin">
-          <p class="money">&yen; 23</p>
-          <p class="text">发起拼单(5人)</p>
+      <div v-if="!showBox">
+        <div class="tab-home">
+          <img src="./../../image/首页@2x.png">
+          <p>首页</p>
+        </div><div class="btn-list">
+          <div class="btn btn-vip" @click="onClickPin">
+            <p class="money">&yen; 60+50e币</p>
+            <p class="text">会员价</p>
+          </div><div class="btn btn-buy" @click="showBox=true">
+            <p class="money">&yen; 150</p>
+            <p class="text">单独购买</p>
+          </div><div class="btn btn-pin" @click="onClickPin">
+            <p class="money">&yen; 23</p>
+            <p class="text">发起拼单(5人)</p>
+          </div>
         </div>
       </div>
+      <div v-else>
+        <p class="btn-addCart">加入购物车</p><p class="btn-buyNow">立即购买</p>
+      </div>
     </div>
+    <van-popup v-model="showBox" position="bottom">
+      <i class="icon-close" @click="close"></i>
+      <div class="box-product">
+        <img src="./../../pic/iphone.png">
+        <p class="price">&yen; 9.9 <del>&yen; 25.2</del></p>
+        <p class="stock">库存36525件</p>
+        <p class="choose">已选：原味 ; 500g</p>
+      </div>
+      <div class="box-item">
+        <p>口味</p>
+        <div class="type-list">
+          <span class="active">原味</span>
+          <span class="">骚烤</span>
+          <span class="">麻辣</span>
+        </div>
+      </div>
+      <div class="box-item">
+        <p>重量</p>
+        <div class="type-list">
+          <span class="active">500g</span>
+          <span class="">700g</span>
+          <span class="">900g</span>
+        </div>
+      </div>
+      <div class="box-count">
+        <p>购买数量</p>
+        <div class="stepper-container">
+          <van-stepper v-model="count" integer :min="1" />
+        </div>
+      </div>
+    </van-popup>
     <!-- 放回顶部 -->
     <div class="toTop" @click="gotoTop"></div>
   </div>
 </template>
 
 <script>
-import { Swipe, SwipeItem, Tab, Tabs, Button } from 'vant';
+import { Swipe, SwipeItem, Tab, Tabs, Button, Popup, Stepper } from 'vant';
 // import { getInfo } from "@/api/pintuan";
 // import { getProductDetail, getCommentsByTag } from "@/api/shop";
 // import { handleLogin } from "@/api/login";
@@ -175,19 +211,26 @@ export default {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Button.name]: Button,
+    [Popup.name]: Popup,
+    [Stepper.name]: Stepper,
 
   },
   data(){
     return{
       current: 0,
       timer: null,
-
+      showBox: true,
+      count: 1,
     }
   },
   computed: {
 
   },
   methods: {
+    close(){
+      this.showBox = false;
+      console.log(this.showBox);
+    },
     onClickPin(){
       this.$router.push({path:'/order/detail'});
     },
@@ -683,6 +726,7 @@ export default {
     height: 1.306667rem;
     position: fixed;
     bottom: 0;
+    z-index: 6000;
     .tab-home{
       width: 1.36rem;
       height: 100%;
@@ -736,6 +780,28 @@ export default {
         }
       }
     }
+    p.btn-addCart{
+      width: 50%;
+      height: 100%;
+      display: inline-block;
+      font-size: 0.4rem;
+      color: #fff;
+      text-align: center;
+      line-height: 1.306667rem;
+      vertical-align: top;
+      background-color: #ffb548;
+    }
+    p.btn-buyNow{
+      width: 50%;
+      height: 100%;
+      display: inline-block;
+      font-size: 0.4rem;
+      color: #fff;
+      text-align: center;
+      line-height: 1.306667rem;
+      vertical-align: top;
+      background-color: #e64a19;
+    }
   }
   .toTop{
     width: 1.04rem;
@@ -747,6 +813,103 @@ export default {
     z-index: 200;
     background: url(./../../image/置顶@2x.png) no-repeat;
     background-size: 1.04rem 1.04rem;
+  }
+  .van-popup{
+    width: 100%;
+    height: 70%;
+    border-radius: 0.106667rem 0.106667rem 0 0;
+    padding: 0 0.4rem;
+    padding-top: 0.533333rem;
+    box-sizing: border-box;
+    bottom: 1.306667rem;
+    i.icon-close{
+      width: 0.373333rem;
+      height: 0.373333rem;
+      display: inline-block;
+      background: url(./../../image/close.png) no-repeat;
+      -webkit-background-size: 0.373333rem 0.373333rem;
+      background-size: 0.373333rem 0.373333rem;
+      position: absolute;
+      top: 0.426667rem;
+      right: 0.4rem;
+    }
+    .box-product{
+      position: relative;
+      padding-left: 3.466667rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #f6f6f6;
+      img{
+        width: 2.933333rem;
+        height: 2.933333rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 0.053333rem;
+      }
+      p.price{
+        padding-top: 0.8rem;
+        font-size: 0.64rem;
+        color: #e64a19;
+        font-weight: bold;
+        del{
+          font-size: 0.48rem;
+          color: #999;
+          font-weight: normal;
+        }
+      }
+      p.stock{
+        padding-top: 0.186667rem;
+        font-size: 0.373333rem;
+        color: #999;
+      }
+      p.choose{
+        font-size: 0.426667rem;
+        color: #2d2d2d;
+      }
+    }
+    .box-item{
+      padding-top: 0.4rem;
+      padding-bottom: 0.48rem;
+      border-bottom: 1px solid #f6f6f6;
+      p{
+        padding-bottom: 0.213333rem;
+        font-size: 0.373333rem;
+        color: #2d2d2d;
+      }
+      div.type-list{
+        span{
+          height: 0.8rem;
+          padding: 0 0.8rem;
+          display: inline-block;
+          font-size: 0.373333rem;
+          color: #2d2d2d;
+          line-height: 0.8rem;
+          text-align: center;
+          border: 1px solid #eee;
+          border-radius: 0.053333rem;
+          margin-right: 0.133333rem;
+          &.active{
+            color: #e64a19;
+            border-color: #e64a19;
+          }
+        }
+      }
+    }
+    .box-count{
+      border-bottom: 1px solid #f6f6f6;
+      position: relative;
+      p{
+        line-height: 1.6rem;
+        font-size: 0.373333rem;
+        color: #2d2d2d;
+      }
+      .stepper-container{
+        position: absolute;
+        top: 50%;
+        margin-top: -15px;
+        right: 0;
+      }
+    }
   }
 
 }

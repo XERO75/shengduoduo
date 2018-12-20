@@ -33,6 +33,14 @@ const routes = [
     }
   },
   {
+    path: '/cart',
+    name: 'cart',
+    component: () => import('./page/cart'),
+    meta: {
+      title: '米多多'
+    }
+  },
+  {
     path: '/sort/second',
     name: 'sortSecond',
     component: () => import('./page/sort/second'),

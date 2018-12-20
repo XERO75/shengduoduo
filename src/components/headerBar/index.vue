@@ -37,7 +37,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 7000;
+  z-index: 1500;
   p{
     line-height: 1.2rem;
     text-align: center;

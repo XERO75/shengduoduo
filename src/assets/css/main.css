@@ -128,6 +128,14 @@
   flex-direction: column;
 }
 
+/* 两行溢出显示... */
+.overTwoLine{
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  display:-webkit-box; 
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2; 
+}
 
 html{
   width: 100%;
