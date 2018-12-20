@@ -1,5 +1,6 @@
 <template>
   <div id="comments">
+    <HeaderBar title="我的评价" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
     <div class="comment-wrapper" v-for="(item, index) in 3" :key="index">
       <div class="comment-header">Lorem ipsum dolor sit amet.!</div>
       <div class="comment-content">
@@ -14,13 +15,22 @@
     </div>
   </div>
 </template>
+<script>
+import HeaderBar from "@/components/HeaderBar";
+
+export default {
+  components: {
+    HeaderBar
+  }
+}
+</script>
 <style rel="stylesheet/scss" lang="scss" scoped>
   $fzm: PingFang-SC-Medium;
   $fzr: PingFang-SC-Medium;
   #comments {
+    padding-top: 1.2rem;
+    box-sizing: border-box;
     position: relative;
-    height: 100%;
-    background-color: #fff;
     .comment-wrapper {
       margin: .8rem;
     }

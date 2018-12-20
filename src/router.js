@@ -289,6 +289,22 @@ const routes = [
       title: '帮助'
     }
   },
+  {
+    path: '/login',
+    name: 'login',
+    component: resolve => require(['./page/login/login.vue'], resolve),
+    meta: {
+      title: '登录'
+    }
+  },
+  {
+    path: '/sign',
+    name: 'sign',
+    component: resolve => require(['./page/sign/sign.vue'], resolve),
+    meta: {
+      title: '注册'
+    }
+  }
 ];
 
 // add route path

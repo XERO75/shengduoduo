@@ -1,5 +1,6 @@
 <template>
   <div id="mine">
+    <HeaderBar title="个人中心" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
     <div class="avatar-container">
       <div class="avatar-box">
         <img src="./../../pic/user2.jpg">
@@ -121,6 +122,8 @@
 
 <script>
 import { Row, Col, NavBar, Badge, BadgeGroup } from 'vant';
+import HeaderBar from "@/components/HeaderBar";
+
 // import { getUserInfo } from "@/api/mine";
 // import { getMenu } from "@/api/menu";
 export default {
@@ -129,7 +132,8 @@ export default {
     [Col.name]: Col,
     [NavBar.name]: NavBar,
     [Badge.name]: Badge,
-    [BadgeGroup.name]: BadgeGroup
+    [BadgeGroup.name]: BadgeGroup,
+    HeaderBar
   },
   data(){
     return{
@@ -196,9 +200,9 @@ $fzm: PingFang-SC-Medium;
 $fzr: PingFang-SC-Regular;
 $fzb: PingFang-SC-Bold;
 #mine{
+  padding-top: 1.2rem;
+  box-sizing: border-box;
   position: relative;
-  height: 100%;
-  background-color: #f6f6f6;
   .avatar-container{
     height: 2.666667rem;
     background: url(./../../image/img_beijin@2x.png) no-repeat;
