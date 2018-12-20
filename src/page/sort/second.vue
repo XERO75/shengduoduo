@@ -1,9 +1,6 @@
 <template>
   <div id="sort-second">
-    <!-- <div class="header-bar">
-      <p><i class="icon-back"></i>饮食<i class="icon-cart"></i><i class="icon-more"></i></p>
-    </div> -->
-    <HeaderBar title="饮食"></HeaderBar> 
+    <HeaderBar title="饮食" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
     <div class="tabs-bar">
       <van-tabs v-model="active">
         <van-tab title="饼干糕点"></van-tab>
@@ -69,17 +66,11 @@ export default {
     }
   },
   methods: {
-    onClickH5(id,type) {
-      this.$router.push({path:'/shop/h5',query:{id:id,type:type}});
+    onClickBack() {
+      this.$router.go(-1);
     },
-    onClickSort(i) {
-      this.$router.push({path:'/shop/sort',query:{categoryIndex:i}});
-    },
-    onClickBook() {
-      this.$router.push({path:'/shop/sort'});
-    },
-    onClickVoucher() {
-      this.$router.push({path:'/voucher'});
+    onClickCart() {
+      this.$router.push({path:'/cart'});
     },
     onClickMine() {
       this.$router.push({path:'/mine'});

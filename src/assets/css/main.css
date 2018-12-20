@@ -6,6 +6,10 @@
 #home-index .van-swipe .van-swipe-item img,
 #sort .van-swipe .van-swipe-item img{
   width: 100%;
+}
+#home-index .van-swipe .van-swipe-item img,
+#sort .van-swipe .van-swipe-item img{
+  width: 100%!important;
   height: 4.986667rem;
 }
 #home-index .van-swipe .van-swipe__indicators,

@@ -36,8 +36,6 @@
 
 <script>
 import { Dialog, Button } from 'vant';
-import { getAdressList, deleteAddress } from "@/api/address";
-import { handleLogin } from "@/api/login";
 export default {
   components: {
     [Dialog.name]: Dialog,
