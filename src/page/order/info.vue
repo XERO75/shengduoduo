@@ -1,931 +1,269 @@
 <template>
-  <div id="order-detail">
-    <div class="address-container container" @click="onClickAddress">
-      <div class="noAddress"><p>添加收货地址</p></div>
-    </div>
-    <div class="product-container container">
-      <p class="productStatus shopTitle">荷兰小店<i class="icon-right"></i><span class="fr">待支付</span></p>
-      <div class="product-box">
-        <img src="./../../pic/box.png">
-        <div class="product-item">
-          <div class="item-left">
-            <p class="item-name">考核会计阿斯加德库巴姬爱神的箭安康市道具卡含
-            </p>
-            <p class="item-type">交换空间还</p>
-          </div><div class="item-right">
-            <p class="price">&yen;745</p>
-          </div>
+  <div id="order-info" class="orderinfo">
+    <HeaderBar title="订单详情" @back="onClickBack" @cart="onClickCart"></HeaderBar>
+    <!-- 等待商家付款倒计时部分 -->
+    <div class="orderinfo-second">
+      <div class="orderinfo-second-content f-space-between">
+        <div class="orderinfo-second-text f-column">
+          <p>等待卖家付款</p>
+          <p>剩23小时59分自动关闭</p>
         </div>
+        <img class="orderinfo-second-pic" mode="widthFix" src="../../image/待付款@2x.png"/>
       </div>
-      <div class="product-count">
-        <p class="title">购买数量</p>
-        <div class="count-box">
-          <van-stepper v-model="count" integer :min="1" :max="99" />
-        </div>    
-      </div>
-      <div class="product-coupon">
-        <p>店铺优惠券<span @click="showGetCoupon=true">领取优惠券</span></p>
+      <img class="orderinfo-second-bg" mode="widthFix" src="../../image/顶部背景@2x.png"/>
+    </div>
+    <!-- 用户地址部分 -->
+    <div class="orderinfo-third f-vertical">
+      <img mode="widthFix" src="../../image/地址-@2x.png"/>
+      <div class="orderinfo-third-text f-column">
+        <p>王文莉</p>
+        <p>广州市天河区金穗路8号星汇国际大厦1202</p>
       </div>
     </div>
-    <div class="pay-container container">
-      <p class="title">微信支付</p>
-      <div class="content">
-        <p class="select" @click="showUseCoupon=true">使用优惠券</p>
-        <p class="input">使用e币<input type="number" placeholder="输入使用e币，当前可用780"></p>
-        <p class="select" @click="showDelivery=true">配送方式<span>快递 免邮费</span></p>
-        <p class="input">买家留言<input type="text" placeholder="填写内容和卖家协商确定"></p>
-        <P class="total">共2件商品 合计：<span>&yen; 500</span></P>
+    <!-- 商家、商品、各种数据部分 -->
+    <div class="orderinfo-fourth f-column">
+      <!-- 商户名 -->
+      <div class="orderinfo-fourth-bname f-vertical">
+        <img mode="widthFix" src="../../image/订单详情-小店@2x.png"/>
+        <p>河南美食小店</p>
+      </div>
+      <!-- 商品 -->
+      <div class="orderinfo-fourth-prod f-space-between">
+        <img mode="widthFix" src="./../../pic/box.png"/>
+        <div class="prod-text">
+          <p class="overTwoLine">台湾豌豆小吃办公室小零食办公室小吃零食休闲食品啊啊啊啊啊啊啊啊啊啊</p>
+          <p>原味</p>
+        </div>
+        <div class="prod-price">
+          <p>&yen; 13.6</p>
+          <p>&times;2</p>
+        </div>
+      </div>
+      <!-- 数据详情 -->
+      <div class="orderinfo-fourth-detail f-column f-space-around">
+        <div class="f-space-between"><p>商品总价</p><p>&yen;500</p></div>
+        <div class="f-space-between"><p>运费</p><p>&yen;23</p></div>
+        <div class="f-space-between"><p>优惠券</p><p>满10减3</p></div>
+        <div class="f-space-between"><p>使用e币</p><p>2个</p></div>
+        <div class="f-space-between"><p>买家留言</p><p>无</p></div> <!-- 此处以后必有坑 -->
+      </div>
+      <!-- 需付款 -->
+      <div class="orderinfo-fourth-needpay f-space-between">
+        <p>需付款</p>
+        <p>&yen;500</p>
       </div>
     </div>
-    <div class="btn-container">
-      <p>付款：&yen; 500</p>
-      <span class="btn-pay" @click="gotohome">立即支付</span>
-      <span class="btn-cancel">取消订单</span>
-    </div>
-    <van-popup class="getCoupon-popup" position="bottom" v-model="showGetCoupon">
-      <div class="popup-box">
-        <p class="title">河南小店<i class="icon-close" @click="showGetCoupon=false"></i></p>
-        <div class="content">
-          <div class="coupon-container">
-            <div class="coupon-left">
-              <p class="price">&yen; 5</p>
-              <p class="tips">满100可用</p>
-            </div>
-            <div class="coupon-right">
-              <p class="name">爱仕达东方</p>
-              <p class="date">有效期 2018.09.01-2018.09.01-</p>
-              <span class="btn-get">立即领取</span>
-            </div>
-          </div>
-          <div class="coupon-container">
-            <div class="coupon-left">
-              <p class="price">&yen; 5</p>
-              <p class="tips">满100可用</p>
-            </div>
-            <div class="coupon-right">
-              <p class="name">爱仕达东方</p>
-              <p class="date">有效期 2018.09.01-2018.09.01-</p>
-              <span class="btn-got">已领取</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </van-popup>
-    <van-popup class="delivery-popup" position="bottom" v-model="showDelivery">
-      <div class="popup-box">
-        <p class="title">配送方式</p>
-        <div class="content">
-          <p class="type checked">快递 免运费</p>
-          <p class="type">顺便快递 10元</p>
-          <p class="type">大碗快递 100元</p>
-        </div>
-        <van-button @click="showDelivery=false">关闭</van-button>
-      </div>
-    </van-popup>
-    <van-popup class="useCoupon-popup" position="bottom" v-model="showUseCoupon">
-      <div class="popup-box">
-        <p class="title">优惠券</p>
-        <div class="content">
-          <div class="coupon checked">
-            <p class="value">满100减5</p>
-            <p class="name">店铺优惠券</p>
-          </div>
-          <div class="coupon">
-            <p class="value">满100减15</p>
-            <p class="name">店铺优惠券</p>
-          </div>
-          <div class="coupon">
-            <p class="value">满100减50</p>
-            <p class="name">店铺优惠券</p>
-          </div>
-        </div>
-        <van-button @click="showUseCoupon=false">确定</van-button>
-      </div>
-    </van-popup>
-
-    <div class="mask" v-if="loading">
-      <van-loading color="white" />
+    <!-- 取消订单、立即支付 -->
+    <div class="orderinfo-fifth f-space-between">
+      <div class="orderinfo-fifth-text f-vertical"><p>付款:&nbsp;</p><p>&yen;500</p></div>
+      <div class="orderinfo-fifth-btn f-vertical"><span class="f-center">取消订单</span><span class="f-center">立即支付</span></div>
     </div>
   </div>
 </template>
 
 <script>
-import { Toast, Stepper, Dialog, Popup, Button, Checkbox, Loading } from 'vant';
-// import { getDetail, cancelOrder, getComment, handleCommit } from "@/api/order";
-// import { handleLogin } from "@/api/login";
-// import { WXPay, payFree } from "@/api/pay";
+import HeaderBar from '@/components/HeaderBar';
+
 export default {
   components: {
-    [Toast.name]: Toast,
-    [Stepper.name]: Stepper,
-    [Dialog.name]: Dialog,
-    [Popup.name]: Popup,
-    [Button.name]: Button,
-    [Checkbox.name]: Checkbox,
-    [Loading.name]: Loading,
+    HeaderBar
   },
-  data(){
-    return{
-      showDelivery: false,
-      showUseCoupon: false,
-      showGetCoupon: false,
-      count: 1,
-      
-      checked: false,
-      show: false,
-      show1: false,
-      show2: false,
-      loading: false,
-      starCount: 5,
 
-      info: [],
-      phones: [],
-      calls: [],
-
-      //取消订单
-      resason: '',
-
-      /* 微信支付配置参数 */
-      appId: undefined,
-      timeStamp: undefined,
-      nonceStr: undefined,
-      package: undefined,
-      signType: undefined,
-      paySign: undefined,
-
-      /* 评价 */
-      AllTags: [],
-      comment: '',
-      view: '',
-      views: ['非常不满意，各方面都很差','不满意，比较差','一般，还需改善','比较满意，仍可改善','非常满意，无可挑剔'],
-    }
-  },
-  computed: {
-    phoneCall(){
-      return 'tel:' + this.info.memberPhone;
-    }
-  },
   methods: {
-    cancelOrder(){
-      Dialog.confirm({
-        title: '确认取消订单？',
-        // message: '弹窗内容'
-      }).then(() => {
-        // on confirm
-      }).catch(() => {
-        // on cancel
-      });
+    onClickBack() {
+      this.$router.go(-1);
     },
-    gotohome(){
-      this.$router.push({path:'/order/list'})
+    onClickCart() {
+      this.$router.push({path:'/cart'});
     },
-
-    onClickAddress(){
-      this.$router.push({path:'/address'});
-    },
-    onClickToPay(){
-      this.$router.push({path:'/order/info'});
-    },
-
-
-
-    onClickTag(event) {
-      let currentTag = event.currentTarget;
-      if(currentTag.classList.contains("active")){
-        currentTag.classList.remove("active");
-      }else{
-        currentTag.classList.add("active");
-      }
-    },
-    showCommentBox(){
-      this.show2 = true;
-      getComment().then(res=>{
-        // console.log(res);
-        this.AllTags = res.data.data;
-      })
-    },
-    changeStar(){
-      // console.log(this.starCount);
-      if(this.starCount>=1){
-        this.view = this.views[this.starCount-1];
-        console.log(this.starCount);
-        console.log(this.view);
-      }
-      let checkedTags = document.querySelectorAll('.view-tab.active');
-      for(let i=0;i<checkedTags.length;i++) {
-        checkedTags[i].classList.remove('active');
-      }
-      checkedTags[0].classList.add('active');
-    },
-    handleCommit(){
-      this.show2 = false;
-      if(!this.loading){
-        this.loading = true;
-        let checkedTags = document.querySelectorAll('.view-tab.active');
-        let tags = [];
-        for(let i=0;i<checkedTags.length;i++) {
-          tags.push(checkedTags[i].innerText);
-        }
-        if(tags.length){
-          let formdata = new FormData();
-          formdata.append('sn',this.$route.query.sn);
-          formdata.append('star',this.starCount);
-          formdata.append('tags',tags);
-          formdata.append('comment',this.comment);
-          handleCommit(formdata).then(res=>{
-            this.loading = false;
-            // console.log(res)
-            if(res.data.code==0){
-              Toast('评价成功');
-              window.reload();
-            }else{
-              Toast(res.data.errmsg);
-            }
-          })
-        }else{
-          Toast('请选择至少一条评语');
-        }
-      }
-    },
-    payNow(sn){
-      if(this.checked){
-        this.show = false;
-        this.loading = true;
-        let formdata = new FormData();
-        formdata.append('sn',sn);
-        if(Number(this.info.actualPay)==0){
-          payFree(formdata).then(res=>{
-            if(res.data.code==0){
-              window.reload();
-            }else{
-              Toast("支付失败");
-              window.reload();
-              // location.href = '?WX_TYPE=OfficialAccount#/order';
-            }
-          })
-        }else{
-          WXPay(formdata).then(res=>{
-            this.appId = res.data.data.appId;
-            this.timeStamp = res.data.data.timeStamp;
-            this.nonceStr = res.data.data.nonceStr;
-            this.package = res.data.data.package;
-            this.signType = res.data.data.signType;
-            this.paySign = res.data.data.paySign;
-            this.pay();
-          })
-        }
-      }else{
-        Toast('请阅读并同意协议');
-      }
-    },
-    pay() {
-      if (typeof WeixinJSBridge == "undefined"){
-        if( document.addEventListener ){
-          document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-        }else if (document.attachEvent){
-          document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-          document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-        }
-      }else{
-        this.onBridgeReady();
-      }    
-    },
-    onBridgeReady(){
-      let that = this;
-      let sn = this.$route.query.sn; 
-      WeixinJSBridge.invoke(
-        'getBrandWCPayRequest', {
-            "appId" : this.appId,     //公众号名称，由商户传入     
-            "timeStamp": this.timeStamp,         //时间戳，自1970年以来的秒数     
-            "nonceStr" : this.nonceStr, //随机串     
-            "package" : this.package,     
-            "signType" : "MD5",         //微信签名方式:     
-            "paySign" : this.paySign    //微信签名 
-        },
-        function(res){
-          // that.loading = false;
-         if(res.err_msg == "get_brand_wcpay_request:ok"){  
-            // this.$router.push({path:"/course/success",query:{id:this.$route.query.id}}); 
-            // location.href = 'http://dydbuy.cn/wechat/?#/course/success?id='+this.$route.query.id;
-
-            that.timer = setTimeout(function(){
-              that.loading = false;
-              location.href = '?WX_TYPE=OfficialAccount#/order/success?sn='+ sn;
-            }, 1000);
-            // location.href = '?WX_TYPE=OfficialAccount#/order/success?sn='+ sn;
-         }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
-            that.loading = false;
-            Toast("用户取消支付");
-         }else{  
-            that.loading = false;
-            Toast("支付失败");
-         }  
-       }); 
-    },
-
-
-
-  },
-  mounted(){
-
   }
-};
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-$fzm: PingFang-SC-Medium;
-$fzr: PingFang-SC-Regular;
-$fzb: PingFang-SC-Bold;
-
-#order-detail{
+.orderinfo{
   background-color: #f6f6f6;
   min-height: 100%;
   padding-bottom: 50px;
-  .container {
-    border-top: 0.266667rem solid #f6f6f6;
-    padding: 0 0.4rem;
-    background-color: #fff;
-    &:first-child{
-      border-top: 0;
-    }
-    .shopTitle {
-      height: 1.066667rem;
-      line-height: 1.066667rem;
-      font-size: .32rem;
-      color:#2e2d2d;
-      border-bottom: 1px solid #f6f6f6;
-    }
-    .title{
-      height: 1.306667rem;
-      line-height: 1.306667rem;
-      // line-height: 1.2rem;
-      font-weight: bold;
-      color: #202020;
-      font-size: 0.373333rem;
-      border-bottom: 1px solid #f6f6f6;
-    }
-  }
-  .address-container{
-    position: relative;
-    padding: 0;
-    height: 2.426667rem;
-    div.noAddress{
-      p{
-        font-size: .426667rem;
-        font-weight: bold;
-        line-height: 2.426667rem;
-        padding-left: 1.066667rem;
-        color: #2e2d2d;
-        position: relative;
-        &:before{
-          content: '';
-          width: 0.52rem;
-          height: 0.52rem;
-          display: block;
-          background: url(./../../image/添加地址@2x.png) no-repeat;
-          -webkit-background-size: 0.52rem 0.52rem;
-          background-size: 0.52rem 0.52rem;
-          position: absolute;
-          top: 50%;
-          margin-top: -0.266667rem;
-          left: 0.4rem;
-        }
-      }
-    }
-  }
-  .product-container{
-    .productStatus{
-      padding-left: 0.533333rem;
-      position: relative;
-      &:before{
-        content: '';
-        width: 0.4rem;
-        height: 0.346667rem;
-        display: inline-block;
-        background: url(./../../image/订单详情-小店@2x.png) no-repeat;
-        -webkit-background-size: 0.4rem 0.346667rem;
-        background-size: 0.4rem 0.346667rem;
-        position: absolute;
-        top: 50%;
-        margin-top: -0.2rem;
-        left: 0;
-      }
-      i.icon-right{
-        width: 0.133333rem;
-        height: 0.24rem;
-        display: inline-block;
-        background: url(./../../image/订单相情，查看小店@2x.png) no-repeat;
-        -webkit-background-size: 0.133333rem 0.24rem;
-        background-size: 0.133333rem 0.24rem;
-        margin-left: 0.133333rem;
-        vertical-align: middle;
-      }
-      span{
-        color: #e64a19;
-        font-size: 0.32rem;
-        font-weight: normal;
-      }
-    }
-    .product-box{
-      height: 2.933333rem;
-      padding: 0.373333rem 0;
-      box-sizing: border-box;
-      position: relative;
-      border-bottom: 1px solid #f6f6f6;
-      img{
-        position: absolute;
-        width: 2.0rem;
-        height: 2.0rem;
-      }
-      .product-item{
-        padding-left: 2.48rem;
-        height: 1.52rem;
-        &:last-child{
-          border-bottom: 0;
-        }
-        .item-left{
-          width: 75%;
-          display: inline-block;
-          .item-name{
-            padding-top: 0.106667rem;
-            font-size: 0.4rem;
-            color: #2d2d2d;
-          }
-          .item-type{
-            padding-top: 0.106667rem;
-            font-size: 0.373333rem;
-            color: #999;
-          }
-        }
-        .item-right{
-          vertical-align: top;
-          width: 25%;
-          display: inline-block;
-          p{
-            font-size: 0.4rem;
-            font-weight: bold;
-            color: #e64a19;
-            text-align: right;
-          }
-        }
-      }
-    }
-    .product-count{
-      position: relative;
-      // height: 1.2rem;
-      height: 1.466667rem;
-      p.title{
-        font-size: 0.4rem;
-        font-weight: normal;
-        color: #2d2d2d;
-        line-height: 1.466667rem;
-      }
-      div.count-box {
-        display: inline-block;
-        float: right;
-        line-height: 0.533333rem;
-        position: absolute;
-        right: 0;
-        top: 0;
-        height: 100%;
-        .van-stepper{
-          margin-top: 0.346667rem;
-        }
-      }
-    }
-    .product-coupon{
-      position: relative;
-      height: 1.466667rem;
-      &:after{
-        content: '';
-        width: 0.133333rem;
-        height: 0.24rem;
-        display: block;
-        background: url(./../../image/MORE@2x.png) no-repeat;
-        -webkit-background-size: 0.133333rem 0.24rem;
-        background-size: 0.133333rem 0.24rem;
-        position: absolute;
-        top: 50%;
-        margin-top: -0.12rem;
-        right: 0;
-      }
-      p{
-        font-size: 0.4rem;
-        color: #2d2d2d;
-        line-height: 1.466667rem;
-        span{
-          font-size: 0.373333rem;
-          color: #e64a19;
-          float: right;
-          padding-right: 0.4rem;
-        }
-      }
-    }
-  }
-  .pay-container{
-    padding: 0;
-    border-bottom: 10px solid #f6f6f6;
-    p.title{
-      padding-left: 1.066667rem;
-      position: relative;
-      &:before{
-        content: '';
-        width: 0.533333rem;
-        height: 0.466667rem;
-        display: block;
-        background: url(./../../image/微信支付@2x.png) no-repeat;
-        -webkit-background-size: 0.533333rem 0.466667rem;
-        background-size: 0.533333rem 0.466667rem;
-        position: absolute;
-        top: 50%;
-        margin-top: -0.226667rem;
-        left: 0.4rem;
-      }
-    }
-    div.content{
-      padding-left: 0.4rem; 
-      p{
-        padding-right: 0.4rem;
-        line-height: 1.2rem;
-        border-bottom: 1px solid #f6f6f6;
-        font-size: 0.4rem;
-        color: #2d2d2d;
-        &.select{
-          position: relative;
-          &:after{
-            content: '';
-            width: 0.133333rem;
-            height: 0.24rem;
-            display: block;
-            background: url(./../../image/MORE@2x.png) no-repeat;
-            -webkit-background-size: 0.133333rem 0.24rem;
-            background-size: 0.133333rem 0.24rem;
-            position: absolute;
-            right: 0.4rem;
-            top: 50%;
-            margin-top: -0.12rem;
-          }
-          span{
-            padding-left: 37px;
-            color: #666;
-          }
-        }
-        &.input{
-          position: relative;
-          input{
-            border: 0;
-            padding-left: 95px;
-            padding-right: 15px;
-            width: 100%;
-            display: inline-block;
-            left: 0;
-            position: absolute;
-            box-sizing: border-box;
-            background: transparent;
-          }
-        }
-        &.total{
-          font-size: 0.32rem;
-          text-align: right;
-          span{
-            font-size: 0.4rem;
-            font-weight: bold;
-            color: #e64a19;
-          }
-        }
-      }
-    }
-  }
-  .btn-container{
-    height: 50px;
+  position: relative;
+  padding-top: 1.2rem;
+  box-sizing: border-box;
+}
+// 第二部分(等待卖家付款倒计时)
+.orderinfo-second{
+  width: 100%;
+  position: relative;
+  &-bg{
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    background-color: #fff;
-    padding: 0 15px;
-    box-sizing: border-box;
-    p{
-      line-height: 50px;
-      display: inline-block;
+    height: auto;
+  }
+  &-content{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+  &-text{
+    margin-left: 1.12rem;
+    font-size: .426667rem;
+    color: #fff;
+    p:nth-child(1){
+      font-weight: bold;
     }
-    span.btn-cancel{
-      width: 70px;
-      height: 30px;
-      display: inline-block;
-      border: 1px solid #eee;
-      line-height: 30px;
-      padding: 0 10px;
-      border-radius: 15px;
-      text-align: center;
-      float: right;
-      margin-top: 10px;
-    }
-    span.btn-pay{
-      width: 70px;
-      height: 30px;
-      display: inline-block;
-      border: 1px solid #ed5422;
-      background-color: #ed5422;
-      color: #fff;
-      line-height: 30px;
-      padding: 0 10px;
-      border-radius: 15px;
-      text-align: center;
-      float: right;
-      margin-top: 10px;
+    p:nth-child(2){
+      margin-top: .133333rem;
+      font-size: .346667rem;
     }
   }
-  
-
-
-
-
-
-
-  .popup-box{
-    height: 290px;
-    .title{
-      text-align: center;
-      line-height: 40px;
-      border-bottom: 1px solid #f6f6f6;
+  &-pic{
+    margin-right: .96rem;
+    width: 1.333333rem;
+    height: auto;
+  }
+}
+// 第三部分(地址)
+.orderinfo-third{
+  height: 2.106667rem;
+  background: #fff;
+  img{
+    margin-left: .32rem;
+    width: 1.066667rem;
+    height: auto;
+  }
+  &-text{
+    margin-left: .24rem;
+    font-size: .426667rem;
+    color: #2e2d2d;
+    p:nth-child(1){
+      font-weight: bold;
+    }
+    p:nth-child(2){
+      margin-top: .24rem;
+      font-size: .373333rem;
+      color: #666;
+    }
+  }
+}
+// 第四部分(商家、商品部分)
+.orderinfo-fourth{
+  margin-top:.266667rem;
+  background: #fff;
+  &-bname{
+    margin-left: .4rem;
+    height: 1.066667rem;
+    border-bottom: 1px solid #eee;
+    img{
+      width: .533333rem;
+      height: auto;
+    }
+    p{
+      margin-left: .2rem;
+      font-size: .32rem;
+      color: #2e2d2d;
       position: relative;
-      i.icon-close{
-        content: '';
-        width: 20px;
-        height: 20px;
-        display: block;
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        margin-top: -7px;
-        background: url(./../../image/MORE@2x.png) no-repeat;
-      }
     }
-    .content{
-      padding-left: 15px;
-      p.type{
-        line-height: 40px;
-        position: relative;
-        border-bottom: 1px solid #f6f6f6;
-        &:after{
-          content: '';
-          width: 17px;
-          height: 17px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          -webkit-background-size: 17px 17px;
-          // background-size: 17px 17px;
-          background-size: 10px 15px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: 15px;
-        }
-        &.checked:after{
-          content: '';
-          width: 17px;
-          height: 17px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          -webkit-background-size: 17px 17px;
-          background-size: 10px 15px;
-          // background-size: 17px 17px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: 15px;
-        }
-      }
-      div.coupon{
-        position: relative;
-        border-bottom: 1px solid #f6f6f6;
-        height: 55px;
-        &:after{
-          content: '';
-          width: 17px;
-          height: 17px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          // -webkit-background-size: 17px 17px;
-          background-size: 10px 15px;
-          // background-size: 17px 17px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: 15px;
-        }
-        &.checked:after{
-          content: '';
-          width: 17px;
-          height: 17px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          // -webkit-background-size: 17px 17px;
-          background-size: 10px 15px;
-          // background-size: 17px 17px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: 15px;
-        }
-        p.value{
-
-        }
-        p.name{
-
-        }
-      }
-    }
-    button{
-      width: 90%;
-      height: 44px;
-      margin: 0 auto;
-      border: 0;
-      background-color: #e64a19;
-      color: #fff;
-      border-radius: 22px;
+    p:after{
+      content: "";
+      width: .186667rem;
+      height: .186667rem;
+      transform: rotate(45deg);
+      border-top: 1px solid #2e2d2d;
+      border-right: 1px solid #2e2d2d;
       position: absolute;
-      left: 50%;
-      transform: translate(-50%,0);
-      bottom: 15px;        
+      top: 30%;
+      right: -18%;
     }
   }
-  .van-popup.popup-pay{
-    width: 85%;
-    height: 11.866667rem;
-    top: 45%;
-    box-sizing: border-box;
-    border-radius: 0.186667rem;
-    .van-checkbox{
-      margin: 0.4rem 0;
-      .van-checkbox__label{
-        margin-left: 0.133333rem;
-        position: absolute;
-        font-size: 0.32rem;
-        color: #028bd7;
-      }
+  &-prod{
+    margin-left: .4rem;
+    border-bottom: 1px solid #eee;
+    height: 2.933333rem;
+    img{
+      width: 2rem;
+      height: 2rem;
     }
-    .hasChecked {
-      border-color: #24af41;
-      background-color: #24af41;
-      color: #fff;
-    }
-    .noChecked {
-      border-color: #c7c7c7;
-      background-color: #c7c7c7;
-      color: #fff;
-    }
-    .pay-container {
-      top: 20%;
-      background-color: #fff;
-      border-radius: 2px;
-      padding: 0 0.346667rem;
-      p.box-title {
-        line-height: 1.386667rem;
-        font-size: 0.4rem;
-        font-weight: bold;
-        padding-left: 0.7rem;
-        position: relative;
-      }
-      p.box-title:before {
-        content: '';
-        width: 0.6rem;
-        height: 0.6rem;
-        display: block;
-        position: absolute;
-        top: 0.426667rem;
-        left: 0;
-        background: url(./../../image/微信支付@2x.png) no-repeat;
-        -webkit-background-size: 0.6rem 0.6rem;
-        background-size: 0.6rem 0.6rem;
-
-      }
-      .agreement-container {
-        border: 1px solid #e5e5e5;
-        border-radius: 0.053333rem;
-        background-color: #fafafa;
-        padding: 0 0.373333rem 0.266667rem 0.373333rem;
-        height: 7.333333rem;
-        box-sizing: border-box;
-        overflow: scroll;
-        p.title {
-          //font-weight: bold;
-          font-size: 0.346667rem;
-          color: #202020;
-          padding: 0.4rem 0 0.2rem 0;
-        }
-        p.content {
-          padding-top: 0.1rem;
-          font-size: 0.32rem;
-          line-height: 0.64rem;
-          color: #666;
-        }
-      }
-      .read {
-        color: #ffd100;
-        font-weight: bold;
-        font-size: 12px;
-        padding: 8px 0 15px 0;
-      }
-      .btn-WXPay {
-        width: 100%;
-        height: 1.173333rem;
-        line-height: 1.173333rem;
-        background-color: #24af41;
-        color: #fff;
-        border-radius: 0.586667rem;
-        text-align: center;
-        font-size: 0.4rem;
-      }
-    }
-  }
-  .van-popup.popup-cancel{
-    top: 6.133333rem;
-    width: 85%;
-    border-radius: 0.133333rem;
-    p{
-      margin: 0.506667rem 0 0.4rem 0;
-      text-align: center;
-      font-weight: bold;
-      font-size: 0.48rem;
-      color: #202020;
-    }
-    input{
-      width: 85%;
-      height: 2.48rem;
-      display: block;
-      margin: 0 auto;
-      padding: 0;
-      padding-left: 0.266667rem;
-      border: none;
-      border: 1px solid #d2d2d2;
-      border-radius: 0.133333rem;
-      background-color: #f5f5f5;
-    }
-    textarea{
-      width: 85%;
-      height: 2.48rem;
-      display: block;
-      font-size: 0.373333rem;    
-      margin: 0 auto;
-      padding: 0.133333rem;
-    }
-    .popup-btn-container {
-      margin: 0.56rem 0.586667rem;
-      button{
-        width: 100%;
-        height: 1.04rem;    
-        line-height: 1.04rem;
-        border-radius: 0.52rem;
-      }
-    }
-  }
-  .van-actionsheet{
-    p.view{
-      font-size: 0.4rem;
-      color: #202020;
-      font-weight: bold;
-      padding: 0.666667rem 0 0.4rem 0;
-      text-align: center;
-    }
-    .view-tabs{
-      margin: 0.266667rem 0.72rem 0.533333rem 0.72rem;
-      text-align: center;
-      span.view-tab{
-        border: 1px solid #e5e5e5;
-        border-radius: 0.08rem;    
-        min-width: 90px;
-        padding: 0 10px;
-        box-sizing: border-box;
-        height: 0.826667rem;
-        display: inline-block;
+    .prod-text{
+      margin-left: .4rem;
+      max-width: 53%;
+      min-width: 53%;
+      font-size: .4rem;
+      color: #2e2e2d;
+      p:nth-child(2){
+        margin-top: .133333rem;
+        font-size: .373333rem;
         color: #666;
-        font-size: 0.346667rem;
-        text-align: center;
-        line-height: 0.826667rem;
-        margin: 0.133333rem;
-      }
-      span.view-tab.active{
-        border: 1px solid #e70012;
-        color: #e70012;
-        background-color: #fde5e7;
-      }
-      textarea{
-        width: 100%;
-        height: 2.573333rem;  
-        font-size: 0.373333rem;
-      }
-      .btn-view{
-        width: 100%;
-        margin-top: 0.666667rem;
-        height: 1.173333rem;
-        border: none;
-        background-color: #e70012;
-        color: #fff;
-        font-size: 0.426667rem;
-        border-radius: 0.586667rem;
       }
     }
-  } 
+    .prod-price{
+      min-width: 14.5%;
+      font-size: .4rem;
+      color: #999;
+      text-align: right;
+      padding-right: .4rem;
+      p{
+        margin-top: .32rem;
+      }
+      p:nth-child(1){
+        margin: 0;
+        color: #e64a19;
+        font-weight: bold;
+      }
+    }
+  }
+  &-detail{
+    margin-left: .4rem;
+    border-bottom: 1px solid #eee;
+    height: 4.666667rem;
+    div{
+      font-size: .373333rem;
+      color: #666;
+      p:nth-child(2){
+        margin-right: .4rem;
+        color: #2e2d2d;
+      }
+    }
+  }
+  &-needpay{
+    margin-left: .4rem;
+    height: 1.2rem;
+    font-size: .373333rem;
+    color: #333;
+    p:nth-child(2){
+      color: #e64a19;
+      font-size: .4rem;
+      margin-right: .4rem;
+    }
+  }
+}
+// 第五部分(付款按钮)
+.orderinfo-fifth{
+  height: 1.306667rem;
+  margin-top: .4rem;
+  background: #fff;
+  &-text{
+    margin-left: .4rem;
+    font-size: .373333rem;
+    color: #2e2e2d;
+    p:nth-child(2){
+      font-size: .48rem;
+      color: #e64a19;
+    }
+  }
+  &-btn{
+    margin-right: .4rem;
+    font-size: .346667rem;
+    color: #fff;
+    span{
+      border-radius: .386667rem;
+      background: #e64a19;
+      margin-left: .16rem;
+      width: 2.133333rem;
+      height: .773333rem;
+    }
+    span:nth-child(1){
+      border: 1px solid #c9c9c9;
+      background: #fff;
+      color: #2e2e2d;
+    }
+  }
 }
 </style>
