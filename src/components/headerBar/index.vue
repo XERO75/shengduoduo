@@ -3,8 +3,8 @@
   <p>
     <i class="icon-back" @click="onClickBack"></i>
     {{title}}
-    <i class="icon-cart"></i>
-    <i class="icon-more" @click="onClickCart"></i>
+    <i class="icon-cart" @click="onClickCart"></i>
+    <i class="icon-more"></i>
   </p>
   </div>
 </template>

@@ -1,77 +1,112 @@
 <template>
-  <div id="home-detail">
-   
+  <div id="sort-comment">
+    <HeaderBar title="全部评论" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
     <div class="comment-container">
       <p class="title">商品评价(56465)</p>
-      <div class="tag-container">
-        <span class="tag active" @click="handleChooseAllView">全部451</span>
-        <span class="tag" @click="handleChooseView($event,i)"><span class="str">几十块</span>5716</span>
-        <span class="tag" @click="handleChooseView($event,i)"><span class="str">几十块</span>5716</span>
-        <span class="tag" @click="handleChooseView($event,i)"><span class="str">几十块</span>5716</span>
-        <span class="tag bad" @click="handleChooseView($event,i)"><span class="str">撒旦</span>5716</span>
-      </div>
-      <!-- <div class="tag-container">
-        <span class="tag active" @click="handleChooseAllView">全部 ({{totalTags}})</span>
-        <span v-for="(n,i) in tags" class="tag" @click="handleChooseView($event,i)"><span class="str">{{n.tagname}}</span> ({{n.count}})</span>
-      </div> -->
-      <div class="view-container">
-        <img class="avator" src="./../../pic/user2.jpg">
-        <div class="view-content">
-          <p class="name">完全分为<span>2018-54-55</span></p>
-          <!-- <div class="star-container">
-            <img v-for="s1 in 4" src="./../../img/用户评价1@2x.png"><img v-for="s2 in 1" src="./../../img/用户评价2@2x.png">
-          </div> -->
-          <p class="view">阿发沙发沙发无法为范围未发完涩费玩儿法违法染色费阿斯顿发生放大阿斯蒂芬阿斯蒂芬阿萨德阿斯蒂芬按时</p>
-          <p class="product">按时打算多</p>
+      <div class="content">
+        <div class="tag-container">
+          <span class="tag active" @click="handleChooseAllView">全部451</span>
+          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
+          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
+          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
+          <span class="tag bad" @click="handleChooseView($event,i)"><span class="str">难喝</span>99</span>
         </div>
-      </div>
-      <div class="view-container">
-        <img class="avator" src="./../../pic/user2.jpg">
-        <div class="view-content">
-          <p class="name">完全分为<span>2018-54-55</span></p>
-          <p class="view">阿发沙发沙发无法为范围未发完涩费玩儿法违法染色费阿斯顿发生放大阿斯蒂芬阿斯蒂芬阿萨德阿斯蒂芬按时</p>
-          <p class="product">按时打算多</p>
-        </div>
-      </div>
-      <!-- <div class="view-container" v-for="(v,i) in comments" :key="i">
-        <img class="avator" :src="v.avatar">
-        <div class="view-content">
-          <p class="name">{{v.memberName}}<span>{{v.createDate}}</span></p>
-          <div class="star-container">
-            <img v-for="s1 in v.stars" src="./../../img/用户评价1@2x.png"><img v-for="s2 in (5-v.stars)" src="./../../img/用户评价2@2x.png">
-            <span>数量：{{v.count}}</span>
+        <!-- <div class="tag-container">
+          <span class="tag active" @click="handleChooseAllView">全部 ({{totalTags}})</span>
+          <span v-for="(n,i) in tags" class="tag" @click="handleChooseView($event,i)"><span class="str">{{n.tagname}}</span> ({{n.count}})</span>
+        </div> -->
+        <div class="view-container">
+          <img class="avator" src="./../../image/差评-灰色@2x.png">
+          <div class="view-content">
+            <p class="name">撒旦<span>2018-10-55</span></p>
+            <p class="type">好评</p>
+            <p class="view">好喝好喝</p>
+            <p class="product">燕塘牛奶</p>
           </div>
-          <p class="view">{{v.otherComment}}</p>
         </div>
-      </div> -->
+        <div class="view-container">
+          <img class="avator" src="./../../image/差评-灰色@2x.png">
+          <div class="view-content">
+            <p class="name">撒旦<span>2018-10-55</span></p>
+            <p class="type">好评</p>
+            <p class="view">好喝好喝</p>
+            <p class="product">燕塘牛奶</p>
+          </div>
+        </div>
+        <!-- <div class="view-container" v-for="(v,i) in comments" :key="i">
+          <img class="avator" :src="v.avatar">
+          <div class="view-content">
+            <p class="name">{{v.memberName}}<span>{{v.createDate}}</span></p>
+            <div class="star-container">
+              <img v-for="s1 in v.stars" src="./../../img/用户评价1@2x.png"><img v-for="s2 in (5-v.stars)" src="./../../img/用户评价2@2x.png">
+              <span>数量：{{v.count}}</span>
+            </div>
+            <p class="view">{{v.otherComment}}</p>
+          </div>
+        </div> -->
+      </div>
     </div>
     <div class="btn-container">
-      <div class="tab-list">
-        <div class="tab tab-home">
-          <img src="./../../image/添加地址@2x.png" alt="">
+      <div v-if="!showBox">
+        <div class="tab-home">
+          <img src="./../../image/首页@2x.png">
           <p>首页</p>
-        </div><div class="tab tab-collect">
-          <img src="./../../image/添加地址@2x.png" alt="">
-          <p>收藏</p>
-        </div><div class="tab tab-client">
-          <img src="./../../image/添加地址@2x.png" alt="">
-          <p>客服</p>
+        </div><div class="btn-list">
+          <div class="btn btn-vip" @click="onClickPin">
+            <p class="money">&yen; 60+50e币</p>
+            <p class="text">会员价</p>
+          </div><div class="btn btn-buy" @click="showBox=true">
+            <p class="money">&yen; 150</p>
+            <p class="text">单独购买</p>
+          </div><div class="btn btn-pin" @click="onClickPin">
+            <p class="money">&yen; 23</p>
+            <p class="text">发起拼单(5人)</p>
+          </div>
         </div>
-      </div><div class="btn btn-buy">
-        <p class="money">&yen; 150</p>
-        <p class="text">单独购买</p>
-      </div><div class="btn btn-pin">
-        <p class="money">&yen; 23</p>
-        <p class="text">发起拼单(5人)</p>
+      </div>
+      <div v-else>
+        <p class="btn-addCart">加入购物车</p><p class="btn-buyNow">立即购买</p>
       </div>
     </div>
+    <van-popup v-model="showBox" position="bottom">
+      <i class="icon-close" @click="showBox=false"></i>
+      <div class="box-product">
+        <img src="./../../pic/iphone.png">
+        <p class="price">&yen; 9.9 <del>&yen; 25.2</del></p>
+        <p class="stock">库存36525件</p>
+        <p class="choose">已选：原味 ; 500g</p>
+      </div>
+      <div class="box-item">
+        <p>口味</p>
+        <div class="type-list">
+          <span class="active">原味</span>
+          <span class="">骚烤</span>
+          <span class="">麻辣</span>
+        </div>
+      </div>
+      <div class="box-item">
+        <p>重量</p>
+        <div class="type-list">
+          <span class="active">500g</span>
+          <span class="">700g</span>
+          <span class="">900g</span>
+        </div>
+      </div>
+      <div class="box-count">
+        <p>购买数量</p>
+        <div class="stepper-container">
+          <van-stepper v-model="count" integer :min="1" />
+        </div>
+      </div>
+    </van-popup>
     <!-- 放回顶部 -->
     <div class="toTop" @click="gotoTop"></div>
   </div>
 </template>
 
 <script>
-import { Swipe, SwipeItem, Tab, Tabs, Button } from 'vant';
+import { Swipe, SwipeItem, Tab, Tabs, Button, Popup } from 'vant';
+import HeaderBar from "@/components/HeaderBar";
 // import { getInfo } from "@/api/pintuan";
 // import { getProductDetail, getCommentsByTag } from "@/api/shop";
 // import { handleLogin } from "@/api/login";
@@ -82,13 +117,14 @@ export default {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Button.name]: Button,
-
+    [Popup.name]: Popup,
+    HeaderBar
   },
   data(){
     return{
-      current: 0,
       timer: null,
-
+      showBox: false,
+      count: '',
     }
   },
   computed: {
@@ -161,6 +197,18 @@ export default {
       this.$store.state.pintuan.produtId = this.detail.id;
       this.$router.push({path:'/pintuan/configure',query:{productId: this.detail.id}});
     },
+    onClickBack(){
+      this.$router.go(-1);
+    },
+    onClickCart(){
+      this.$router.push({path:'/cart'});
+    },
+    onClickPin(){
+      this.$router.push({path:'/order/detail'});
+    },
+    onClickStore(){
+      this.$router.push({path:'/sort/store'});
+    },
   },
   mounted(){
   }
@@ -168,8 +216,10 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-#home-detail{
-  padding-bottom: 3.6rem;
+#sort-comment{
+  padding-top: 1.2rem;
+  box-sizing: border-box;
+  /*padding-bottom: 3.6rem;*/
   position: relative;
   .title{
     padding: 0 0.4rem;
@@ -182,135 +232,276 @@ export default {
   }
   .comment-container{
     position: relative;
-    .tag-container{
-      padding: 0.373333rem 10px 0.106667rem 10px;
-      border-bottom: 1px solid #e5e5e5;
-      span.tag{
-        height: 0.8rem;
-        display: inline-block;
-        background-color: #fdeeef;
-        color: #202020;
-        font-size: 0.32rem;
-        line-height: 0.8rem;
-        text-align: center;
-        border-radius: 0.053333rem;
-        padding: 0 0.4rem;
-        margin-right: 0.133333rem;
-        margin-bottom: 0.266667rem;
+    .content{
+      padding-left: 0.4rem;
+      .tag-container{
+        padding: 0.373333rem 0.4rem 0.106667rem 0;
+        border-bottom: 1px solid #e5e5e5;
+        span.tag{
+          height: 0.8rem;
+          display: inline-block;
+          background-color: #fdeeef;
+          color: #444;
+          font-size: 0.32rem;
+          line-height: 0.8rem;
+          text-align: center;
+          border-radius: 0.053333rem;
+          padding: 0 0.4rem;
+          margin-right: 0.133333rem;
+          margin-bottom: 0.266667rem;
+        }
+        span.tag.active{
+          background-color: #e64a19;
+          color: #fff;
+        }
+        span.tag.bad{
+          background-color: #f3f3f3;
+        }
       }
-      span.tag.active{
-        background-color: #e71002;
-        color: #fff;
-      }
-      span.tag.bad{
-        background-color: #f3f3f3;
+      .view-container{
+        padding: 0.48rem 0.4rem;
+        padding-left: 0;
+        border-bottom: 1px solid #e5e5e5;
+        position: relative;
+        img.avator{
+          width: 0.933333rem;
+          height: 0.933333rem;
+          border-radius: 50%;
+          position: absolute;
+        }
+        .view-content{
+          padding-left: 1.2rem;
+          p.name{
+            padding-top: 0.08rem;
+            font-size: 0.346667rem;
+            color: #2d2d2d;
+            span{
+              float: right;
+              font-size: 0.266667rem;
+              color: #999;
+            }
+          }
+          p.type{
+            font-size: 0.32rem;
+            color: #e64a19;
+
+          }
+          /*.star-container{
+            img{
+              width: 0.266667rem;
+              height: 0.266667rem;
+              padding-right: 0.106667rem;
+              padding-top: 0.186667rem;
+            }
+            span{
+              float: right;
+              font-size: 0.266667rem;
+              color: #666;
+            }
+          }*/
+          p.view{
+            font-size: 0.373333rem;
+            color: #2d2d2d;
+            padding-top: 0.4rem;
+          }
+          p.product{
+            font-size: 0.32rem;
+            color: #999;
+            padding-top: 0.266667rem;
+          }
+        }
       }
     }
-    .view-container{
-      padding: 0.48rem 0.4rem;
-      border-bottom: 1px solid #e5e5e5;
+  }
+  .toTop{
+    width: 1.04rem;
+    height: 1.04rem;
+    display: inline-block;
+    position: fixed;
+    bottom: 1.653333rem;
+    right: 0.4rem;
+    z-index: 200;
+    background: url(./../../image/置顶@2x.png) no-repeat;
+    background-size: 1.04rem 1.04rem;
+  }
+  .van-popup{
+    width: 100%;
+    height: 70%;
+    border-radius: 0.106667rem 0.106667rem 0 0;
+    padding: 0 0.4rem;
+    padding-top: 0.533333rem;
+    box-sizing: border-box;
+    bottom: 1.306667rem;
+    i.icon-close{
+      width: 0.373333rem;
+      height: 0.373333rem;
+      display: inline-block;
+      background: url(./../../image/close.png) no-repeat;
+      -webkit-background-size: 0.373333rem 0.373333rem;
+      background-size: 0.373333rem 0.373333rem;
+      position: absolute;
+      top: 0.426667rem;
+      right: 0.4rem;
+    }
+    .box-product{
       position: relative;
-      img.avator{
-        width: 0.96rem;
-        height: 0.96rem;
-        border-radius: 0.48rem;
+      padding-left: 3.466667rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #f6f6f6;
+      img{
+        width: 2.933333rem;
+        height: 2.933333rem;
         position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 0.053333rem;
       }
-      .view-content{
-        padding-left: 1.093333rem;
-        p.name{
-          font-size: 0.32rem;
-          color: #202020;
-          span{
-            float: right;
-            font-size: 0.266667rem;
-            color: #999;
-          }
-        }
-        .star-container{
-          img{
-            width: 0.266667rem;
-            height: 0.266667rem;
-            padding-right: 0.106667rem;
-            padding-top: 0.186667rem;
-          }
-          span{
-            float: right;
-            font-size: 0.266667rem;
-            color: #666;
-          }
-        }
-        p.view{
-          font-size: 0.32rem;
-          color: #666;
-          padding-top: 0.48rem;
-        }
-        p.product{
-          font-size: 0.28rem;
+      p.price{
+        padding-top: 0.8rem;
+        font-size: 0.64rem;
+        color: #e64a19;
+        font-weight: bold;
+        del{
+          font-size: 0.48rem;
           color: #999;
-          padding-top: 0.3rem;
+          font-weight: normal;
         }
+      }
+      p.stock{
+        padding-top: 0.186667rem;
+        font-size: 0.373333rem;
+        color: #999;
+      }
+      p.choose{
+        font-size: 0.426667rem;
+        color: #2d2d2d;
+      }
+    }
+    .box-item{
+      padding-top: 0.4rem;
+      padding-bottom: 0.48rem;
+      border-bottom: 1px solid #f6f6f6;
+      p{
+        padding-bottom: 0.213333rem;
+        font-size: 0.373333rem;
+        color: #2d2d2d;
+      }
+      div.type-list{
+        span{
+          height: 0.8rem;
+          padding: 0 0.8rem;
+          display: inline-block;
+          font-size: 0.373333rem;
+          color: #2d2d2d;
+          line-height: 0.8rem;
+          text-align: center;
+          border: 1px solid #eee;
+          border-radius: 0.053333rem;
+          margin-right: 0.133333rem;
+          &.active{
+            color: #e64a19;
+            border-color: #e64a19;
+          }
+        }
+      }
+    }
+    .box-count{
+      border-bottom: 1px solid #f6f6f6;
+      position: relative;
+      p{
+        line-height: 1.6rem;
+        font-size: 0.373333rem;
+        color: #2d2d2d;
+      }
+      .stepper-container{
+        position: absolute;
+        top: 50%;
+        margin-top: -15px;
+        right: 0;
       }
     }
   }
   .btn-container{    
     width: 100%;
-    height: 50px;
+    height: 1.306667rem;
     position: fixed;
     bottom: 0;
-    .tab-list{
-      width: 42%;
+    z-index: 6000;
+    .tab-home{
+      width: 1.36rem;
       height: 100%;
-      display: inline-block;
-      padding: 5px 0;
+      text-align: center;
       border-top: 1px solid #eee;
       box-sizing: border-box;
+      display: inline-block;
+      padding-top: 0.24rem;
       background-color: #fff;
-      .tab {
-        display: inline-block;
-        width: 33.333%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      img{
+        width: 0.506667rem;
+        height: 0.466667rem;
+      }
+      p{
+        font-size: 0.24rem;
+        color: #666;
+      }
+    }
+    .btn-list{
+      width: 100%;
+      height: 100px;
+      padding-left: 1.36rem;
+      box-sizing: border-box;
+      display: inline-block;
+      .btn{    
+        width: 33.3%;
         height: 100%;
+        display: inline-block;
+        vertical-align: top;
         text-align: center;
-        border-right: 1px solid #eee;
-        box-sizing: border-box;
-        &:last-child{
-          border: 0;
+        color: #fff;
+        .money{
+          padding-top: 0.213333rem;
+          font-size: 0.373333rem;
         }
-        img{
-          width: 25px;
-          height: 25px;
+        .text{
+          padding-top: 0;
+          font-size: 0.293333rem;
         }
-        p{
-
+        &.btn-vip {
+          background-color: #ec414d;
+        }
+        &.btn-buy {
+          background-color: #ffb548;
+        }
+        &.btn-pin {
+          background-color: #e64a19;
         }
       }
     }
-    .btn{    
-      width: 29%;
+    p.btn-addCart{
+      width: 50%;
       height: 100%;
       display: inline-block;
-      vertical-align: top;
-      text-align: center;
+      font-size: 0.4rem;
       color: #fff;
-      &.btn-buy {
-        background-color: #ffb548;
-      }
-      &.btn-pin {
-        background-color: #e64a19;
-      }
+      text-align: center;
+      line-height: 1.306667rem;
+      vertical-align: top;
+      background-color: #ffb548;
+    }
+    p.btn-buyNow{
+      width: 50%;
+      height: 100%;
+      display: inline-block;
+      font-size: 0.4rem;
+      color: #fff;
+      text-align: center;
+      line-height: 1.306667rem;
+      vertical-align: top;
+      background-color: #e64a19;
     }
   }
-  .toTop{
-    width: 40px;
-    height: 40px;
-    display: inline-block;
-    position: fixed;
-    bottom: 65px;
-    right: 10px;
-    z-index: 200;
-    background: url(./../../pic/top@2x.png) no-repeat;
-    background-size: 40px 40px;
-  }
-
 }
 </style>

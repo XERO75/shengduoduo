@@ -1,49 +1,24 @@
 <template>
   <div id="cart">
-    <HeaderBar title="购物车"></HeaderBar>
-    <div class="cart-item">
-      <p class="store-name"><i class="icon-store"></i>河南没事小店 <i class="icon-right"></i><span @click="show=true">领券</span></p>
-      <div class="product-item">
-        <img src="./../../pic/p1.png">
-        <p class="product-name overTwoLine">台湾小豌豆多多多的多多多多<i class="icon-delete" @click="deleteCartItem"></i></p>
+    <HeaderBar title="购物车" @back="onClickBack"></HeaderBar>
+    <div class="cart-item" v-for="n in cartList">
+      <p class="store-name"><i class="icon-store"></i>{{n.shopName}} <i class="icon-right"></i><span @click="show=true">领券</span></p>
+      <div class="product-item" :class="{'checked':p.isSelected}" v-for="p in n.cartItems">
+        <img :src="n.img">
+        <p class="product-name overTwoLine">{{p.productName}}<i class="icon-delete" @click="deleteCartItem(p.id)"></i></p>
         <div class="change">
-          <div class="type">原味 ; 120g</div> 
+          <div class="type">{{p.specifications}}</div> 
           <div class="stepper-container">
-            <van-stepper v-model="count" integer :min="1" />
+            <van-stepper v-model="p.count" integer :min="1" />
           </div>
         </div>
-        <p class="price">&yen; 13.6</p>
-      </div>
-      <div class="product-item">
-        <img src="./../../pic/p1.png">
-        <p class="product-name overTwoLine">台湾小豌豆多多多的多多多多<i class="icon-delete" @click="deleteCartItem"></i></p>
-        <div class="change">
-          <div class="type">原味 ; 120g</div> 
-          <div class="stepper-container">
-            <van-stepper v-model="count" integer :min="1" />
-          </div>
-        </div>
-        <p class="price">&yen; 13.6</p>
-      </div>
-    </div>
-    <div class="cart-item">
-      <p class="store-name"><i class="icon-store"></i>河南没事小店 <i class="icon-right"></i><span @click="show=true">领券</span></p>
-      <div class="product-item">
-        <img src="./../../pic/p1.png">
-        <p class="product-name overTwoLine">台湾小豌豆多多多的多多多多<i class="icon-delete" @click="deleteCartItem"></i></p>
-        <div class="change">
-          <div class="type">原味 ; 120g</div> 
-          <div class="stepper-container">
-            <van-stepper v-model="count" integer :min="1" />
-          </div>
-        </div>
-        <p class="price">&yen; 13.6</p>
+        <p class="price">&yen; {{p.price}}</p>
       </div>
     </div>
     <div class="btn-container">
       <div class="btn-left">
         <span>全选</span>
-        <span class="fr">合计：<strong>&yen; 500</strong></span>
+        <span class="fr">合计：<strong>&yen; {{totalPrice}}</strong></span>
       </div><div class="btn-pay">立即支付</div>
     </div>
     <van-popup position="bottom" v-model="show">
@@ -87,10 +62,12 @@
 </template>
 
 <script>
-import { Stepper, Dialog, Popup } from 'vant';
+import { Toast, Stepper, Dialog, Popup } from 'vant';
 import HeaderBar from '@/components/HeaderBar';
+import { getCartList, deleteCart } from '@/api/cart';
 export default {
   components: {
+    [Toast.name]: Toast,
     [Stepper.name]: Stepper,
     [Dialog.name]: Dialog,
     [Popup.name]: Popup,
@@ -100,32 +77,51 @@ export default {
     return{
       count: '',
       show: false,
+      cartList: [],
+      totalPrice: 0,
     }
   },
   methods: {
-    deleteCartItem(){
+    onClickBack(){
+      this.$router.go(-1)
+    },
+    getCartList(){
+      getCartList().then(res=>{
+        if(res.data.code==0){
+          this.cartList = res.data.data.shopItemVos;
+          this.totalPrice = 0;
+          for (let i = 0; i < this.cartList.length; i++) {
+            for (let j = 0; j < this.cartList[i].cartItems.length; j++) {
+              if(this.cartList[i].cartItems[j].isSelected){
+                this.totalPrice += this.cartList[i].cartItems[j].price;
+              }
+            }
+          }
+        }else{
+          Toast(res.data.errmsg);
+        }
+      })
+    },
+    deleteCartItem(id){
       Dialog.confirm({
         title: '是否确定删除该商品吗？',
         // message: '弹窗内容'
       }).then(() => { // on confirm
-        // let formdata = new FormData();
-        // formdata.append('ids',id);
-        // // formdata.append('WX_TYPE','OfficialAccount');
-        // deleteAddress(formdata).then(res=>{
-        //   // console.log(res);
-        //   getAdressList().then(response=>{
-        //     console.log(response);
-        //     this.addressList = response.data.data;
-        //   })
-        // })
-
+        deleteCart(id).then(res=>{
+          if(res.data.code==0){
+            this.getCartList();
+            Toast('删除成功')
+          }else{
+            Toast(res.data.errmsg)
+          }
+        })
       }).catch(() => { // on cancel
         
       });
     },
   },
   mounted(){
-    
+    this.getCartList();
   }
 };
 </script>
@@ -240,6 +236,7 @@ export default {
         top: 0.453333rem;
       }
       p.product-name{
+        height: 1.066667rem;
         font-size: 0.4rem;
         color: #2d2d2d;
         padding-right: 1.733333rem;
@@ -393,12 +390,12 @@ export default {
             display: inline-block;
             p.price{
               padding-top: 0.4rem;
-              font-size: 0.64rem;
+              font-size: 0.586667rem;
               font-weight: bold;
               color: #fff;
               text-align: center;
               span{
-                font-size: 0.96rem;
+                font-size: 0.693333rem;
               }
             }
             p.tips{

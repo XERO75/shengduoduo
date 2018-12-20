@@ -1,9 +1,9 @@
 <template>
   <div id="sort-detail">
     <div class="header-bar">
-      <i class="icon-back"></i>
-      <i class="icon-cart"></i>
-      <i class="icon-more"></i>
+      <i class="icon-back" @click="onClickBack"></i>
+      <i class="icon-cart" @click="onClickCart"></i>
+      <i class="icon-more" @click=""></i>
     </div>
     <van-swipe @change="onChangeSwipe" :autoplay="3000">
       <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
@@ -65,7 +65,7 @@
       </div>
     </div>
     <div class="comment-container">
-      <p class="title">商品评价(56465) <span class="more">查看更多<i class="icon-right"></i></span></p>
+      <p class="title">商品评价(56465) <span class="more" @click="onClickComment">查看更多<i class="icon-right"></i></span></p>
       <div class="content">
         <div class="tag-container">
           <span class="tag active" @click="handleChooseAllView">全部451</span>
@@ -143,7 +143,7 @@
     </div>
     <div class="btn-container">
       <div v-if="!showBox">
-        <div class="tab-home">
+        <div class="tab-home" @click="onClickHome">
           <img src="./../../image/首页@2x.png">
           <p>首页</p>
         </div><div class="btn-list">
@@ -174,7 +174,7 @@
       <div class="box-item">
         <p>口味</p>
         <div class="type-list">
-          <span class="active" @click="aaa">原味</span>
+          <span class="active">原味</span>
           <span class="">骚烤</span>
           <span class="">麻辣</span>
         </div>
@@ -210,13 +210,13 @@ export default {
     [Button.name]: Button,
     [Popup.name]: Popup,
     [Stepper.name]: Stepper,
-
   },
   data(){
     return{
       current: 0,
       timer: null,
       showBox: false,
+      showComment: false,
       count: 1,
     }
   },
@@ -224,13 +224,21 @@ export default {
 
   },
   methods: {
-    aaa(){
-      console.log(111);
-    },
     close(){
-      console.log(111);
       this.showBox = false;
       console.log(this.showBox);
+    },
+    onClickBack() {
+      this.$router.go(-1);
+    },
+    onClickCart() {
+      this.$router.push({path:'/cart'});
+    },
+    onClickComment(){
+      this.$router.push({path:'/sort/comment'})
+    },
+    onClickHome(){
+      this.$router.push({path:'/'});
     },
     onClickPin(){
       this.$router.push({path:'/order/detail'});

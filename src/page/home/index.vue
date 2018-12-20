@@ -1,13 +1,13 @@
 <template>
   <div id="home-index">
     <div class="search-bar">
-      <i class="icon-item" @click="onClickSort"></i>
+      <img class="icon-item" @click="onClickSort" src="./../../image/分类@2x.png">
       <van-search 
         placeholder="搜索" 
         v-model="value"
         background="#e64a19"
       />
-      <i class="icon-user" @click="onClickMine"></i>
+      <img class="icon-user" @click="onClickMine" src="./../../image/我@2x.png">
     </div>
     <van-swipe :autoplay="3000">
       <!-- <van-swipe-item v-for="n in bannerList" :key="n.id"><a :href="n.h5Url" v-if="n.type=='Link'"><img :src="n.image"></a><img v-if="n.type=='H5'" :src="n.image" @click="onClickH5(n.id,0)"></van-swipe-item> -->
@@ -93,27 +93,10 @@
         </div>
       </div>
       <div class="product-list">
-        <!-- <div class="product-container" v-for="n in productList" :key="n.id" @click="onClickDetail(n.id)">
-          <div class="product-img"><p class="double" v-if="n.isDoublePoints=='true'">双倍积分</p><img :src="n.image"></div>
-          <p class="name van-ellipsis">{{n.name}}</p>
-          <p class="money">&yen; <span>{{n.isStraight=='true'?n.straightPrice:n.price}}</span><del v-if="n.isStraight=='true'">&yen;{{n.price}}</del></p>
-        </div> -->
-        <div class="product-container" @click="onClickDetail">
-          <div class="product-img"><img src="./../../pic/p2.png"></div>
-          <p class="name van-ellipsis">可比克薯片</p>
-          <p class="money">&yen;511</p>
-        </div><div class="product-container" @click="onClickDetail">
-          <div class="product-img"><img src="./../../pic/p2.png"></div>
-          <p class="name van-ellipsis">可比克薯片</p>
-          <p class="money">&yen;511</p>
-        </div><div class="product-container" @click="onClickDetail">
-          <div class="product-img"><img src="./../../pic/p2.png"></div>
-          <p class="name van-ellipsis">可比克薯片</p>
-          <p class="money">&yen;511</p>
-        </div><div class="product-container" @click="onClickDetail">
-          <div class="product-img"><img src="./../../pic/p2.png"></div>
-          <p class="name van-ellipsis">可比克薯片</p>
-          <p class="money">&yen;511</p>
+        <div class="product-container" v-for="p in products" @click="onClickDetail(p.productId)">
+          <div class="product-img"><img :src="p.pictureUrl"></div>
+          <p class="name van-ellipsis">{{p.productName}}</p>
+          <p class="money">&yen;{{p.minPrice}}</p>
         </div>
       </div>
     </div>
@@ -122,7 +105,7 @@
 
 <script>
 import { Search, Swipe, SwipeItem, Row, Col } from 'vant';
-// import { getHomeInfo } from "@/api/shop";
+import { getProductList } from "@/api/home";
 export default {
   components: {
     [Search.name]: Search,
@@ -134,6 +117,7 @@ export default {
   },
   data(){
     return{
+      products: '',
       value: '',
     }
   },
@@ -147,10 +131,13 @@ export default {
     },
     onClickSort() {
       this.$router.push({path:'/sort'});
-    }
+    },
   },
   mounted(){
-    
+    getProductList().then(res=>{
+      console.log(res);
+      this.products = res.data.data;
+    })
   }
 };
 </script>
@@ -165,7 +152,7 @@ export default {
     left: 0;
     z-index: 200;
     width: 100%;
-    i.icon-item{
+    /*i.icon-item{
       width: 0.506667rem;
       height: 0.466667rem;
       display: block;
@@ -176,14 +163,30 @@ export default {
       left: 0.32rem;
       top: 50%;
       margin-top: -0.233333rem;
+    }*/
+    img.icon-item{
+      width: 0.506667rem;
+      height: 0.466667rem;
+      position: absolute;
+      left: 0.32rem;
+      top: 50%;
+      margin-top: -0.233333rem;
     }
-    i.icon-user{
+    /*i.icon-user{
       width: 0.56rem;
       height: 0.613333rem;
       display: block;
       background: url(./../../image/我@2x.png) no-repeat;
       -webkit-background-size: 0.56rem 0.613333rem;
       background-size: 0.56rem 0.613333rem;
+      position: absolute;
+      right: 0.32rem;
+      top: 50%;
+      margin-top: -0.306667rem;
+    }*/
+    img.icon-user{
+      width: 0.56rem;
+      height: 0.613333rem;
       position: absolute;
       right: 0.32rem;
       top: 50%;

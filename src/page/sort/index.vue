@@ -1,8 +1,6 @@
 <template>
   <div id="sort">
-    <div class="header-bar">
-      <p><i class="icon-back"></i>商品分类<i class="icon-cart"></i><i class="icon-more"></i></p>
-    </div>
+    <HeaderBar title="商品分类" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
     <van-tabs v-model="active">
       <van-tab title="饮食"></van-tab>
       <van-tab title="服饰"></van-tab>
@@ -72,12 +70,14 @@
 </template>
 <script>
 import { Tab, Tabs, Swipe, SwipeItem,  } from 'vant';
+import HeaderBar from "@/components/HeaderBar";
 export default {
   components: {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
+    HeaderBar
   },
   data(){
     return{
@@ -85,6 +85,12 @@ export default {
     }
   },
   methods: {
+    onClickBack(){
+      this.$router.go(-1)
+    },
+    onClickCart(){
+      this.$router.push({path:'/cart'})
+    },
     onClickMine(){
       this.$router.push({path:'/mine'})
     },
@@ -96,7 +102,7 @@ export default {
     },
   },
   mounted(){
-  
+    
   }
 };
 </script>

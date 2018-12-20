@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import { autoLogin } from "@/api/login"
 export default {
   name:"app",
   provide(){
@@ -16,6 +17,7 @@ export default {
       isRouterAlive : true
     }
   },
+
   methods:{
     reload(){
       this.isRouterAlive = false;
@@ -23,7 +25,11 @@ export default {
         this.isRouterAlive=true;
       })
     }
+  },
+  mounted(){
+    autoLogin();
   }
+
 }
 </script>
 
