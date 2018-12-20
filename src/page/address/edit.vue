@@ -73,8 +73,6 @@
 <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 <script>
 import { Toast, Cell, CellGroup, Field, Switch, Button, Actionsheet, Area, Popup, Loading } from 'vant';
-import { handleLogin } from "@/api/login";
-import { addAddress, editAddress, getEditInfo, getSearchList } from "@/api/address"
 import { areaList } from './../../common/areaList.js'
 export default {
   components: {

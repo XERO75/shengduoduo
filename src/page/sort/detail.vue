@@ -164,8 +164,8 @@
       </div>
     </div>
     <van-popup v-model="showBox" position="bottom">
-      <i class="icon-close" @click="close"></i>
-      <div class="box-product">
+      <i class="icon-close"></i>
+      <div class="box-product" @click="close">
         <img src="./../../pic/iphone.png">
         <p class="price">&yen; 9.9 <del>&yen; 25.2</del></p>
         <p class="stock">库存36525件</p>
@@ -174,7 +174,7 @@
       <div class="box-item">
         <p>口味</p>
         <div class="type-list">
-          <span class="active">原味</span>
+          <span class="active" @click="aaa">原味</span>
           <span class="">骚烤</span>
           <span class="">麻辣</span>
         </div>
@@ -201,9 +201,6 @@
 
 <script>
 import { Swipe, SwipeItem, Tab, Tabs, Button, Popup, Stepper } from 'vant';
-// import { getInfo } from "@/api/pintuan";
-// import { getProductDetail, getCommentsByTag } from "@/api/shop";
-// import { handleLogin } from "@/api/login";
 export default {
   components: {
     [Swipe.name]: Swipe,
@@ -219,7 +216,7 @@ export default {
     return{
       current: 0,
       timer: null,
-      showBox: true,
+      showBox: false,
       count: 1,
     }
   },
@@ -227,7 +224,11 @@ export default {
 
   },
   methods: {
+    aaa(){
+      console.log(111);
+    },
     close(){
+      console.log(111);
       this.showBox = false;
       console.log(this.showBox);
     },

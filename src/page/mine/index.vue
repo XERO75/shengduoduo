@@ -121,8 +121,8 @@
 
 <script>
 import { Row, Col, NavBar, Badge, BadgeGroup } from 'vant';
-import { getUserInfo } from "@/api/mine";
-import { getMenu } from "@/api/menu";
+// import { getUserInfo } from "@/api/mine";
+// import { getMenu } from "@/api/menu";
 export default {
   components: {
     [Row.name]: Row,

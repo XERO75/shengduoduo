@@ -72,8 +72,8 @@
 
 <script>
 import { Tab, Tabs, Button, Loading } from 'vant';
-import { getList } from "@/api/order";
-import { handleLogin } from "@/api/login";
+// import { getList } from "@/api/order";
+// import { handleLogin } from "@/api/login";
 export default {
   components: {
     [Tab.name]: Tab,

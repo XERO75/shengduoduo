@@ -1,11 +1,13 @@
 <template>
   <div id="home-index">
     <div class="search-bar">
+      <i class="icon-item" @click="onClickSort"></i>
       <van-search 
         placeholder="搜索" 
         v-model="value"
         background="#e64a19"
       />
+      <i class="icon-user" @click="onClickMine"></i>
     </div>
     <van-swipe :autoplay="3000">
       <!-- <van-swipe-item v-for="n in bannerList" :key="n.id"><a :href="n.h5Url" v-if="n.type=='Link'"><img :src="n.image"></a><img v-if="n.type=='H5'" :src="n.image" @click="onClickH5(n.id,0)"></van-swipe-item> -->
@@ -48,7 +50,7 @@
     <div class="pin">
       <div class="img-title">
         <img src="./../../pic/title1.png">
-        <span class="more" @click="onClickSecond">更多</span>
+        <span class="more" @click="">更多</span>
       </div>
       <div class="ad">
         <img src="./../../image/限时必拼@2x.png">
@@ -81,7 +83,7 @@
     <div class="new">
       <div class="img-title">
         <img src="./../../pic/title1.png">
-        <span class="more" @click="onClickSecond">更多</span>
+        <span class="more" @click="">更多</span>
       </div>
       <div class="ad-list">
         <div class="ad-container" @click="onClickDetail">
@@ -140,8 +142,11 @@ export default {
       this.$router.push({path:'/sort/detail'});
       // this.$router.push({path:'/shop/sort',query:''});
     },
-    onClickSecond() {
-      this.$router.push({path:'/sort/second'});
+    onClickMine() {
+      this.$router.push({path:'/mine'});
+    },
+    onClickSort() {
+      this.$router.push({path:'/sort'});
     }
   },
   mounted(){
@@ -160,8 +165,7 @@ export default {
     left: 0;
     z-index: 200;
     width: 100%;
-    &:before{
-      content: '';
+    i.icon-item{
       width: 0.506667rem;
       height: 0.466667rem;
       display: block;
@@ -173,8 +177,7 @@ export default {
       top: 50%;
       margin-top: -0.233333rem;
     }
-    &:after{
-      content: '';
+    i.icon-user{
       width: 0.56rem;
       height: 0.613333rem;
       display: block;

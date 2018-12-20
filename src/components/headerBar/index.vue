@@ -1,6 +1,11 @@
 <template>
   <div id="header-bar">
-  <p><i class="icon-back"></i>{{title}}<i class="icon-cart"></i><i class="icon-more"></i></p>
+  <p>
+    <i class="icon-back" @click="onClickBack"></i>
+    {{title}}
+    <i class="icon-cart"></i>
+    <i class="icon-more" @click="onClickCart"></i>
+  </p>
   </div>
 </template>
 
@@ -19,7 +24,12 @@ export default {
     }
   },
   methods: {
-
+    onClickBack(){
+      this.$emit('back');
+    },
+    onClickCart(){
+      this.$emit('cart');
+    },
   },
   mounted(){
     
