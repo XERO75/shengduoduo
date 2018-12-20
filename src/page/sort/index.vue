@@ -1,13 +1,15 @@
 <template>
   <div id="sort">
-    <HeaderBar title="商品分类" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
-    <van-tabs v-model="active">
-      <van-tab title="饮食"></van-tab>
-      <van-tab title="服饰"></van-tab>
+    <HeaderBar title="商品分类" @back="onClickBack" @cart="onClickCart"></HeaderBar>
+    <van-tabs v-model="active" @click="onClickClass">
+      <template v-for="(item, index) in classes">
+        <van-tab :title="item.name" :key="index"></van-tab>
+      </template>
+      <!-- <van-tab title="服饰"></van-tab>
       <van-tab title="鞋包"></van-tab>
       <van-tab title="母婴"></van-tab>
       <van-tab title="特产"></van-tab>
-      <van-tab title="百货"></van-tab>
+      <van-tab title="百货"></van-tab> -->
     </van-tabs>
     <van-swipe :autoplay="3000">
       <!-- <van-swipe-item v-for="n in bannerList" :key="n.id"><a :href="n.h5Url" v-if="n.type=='Link'"><img :src="n.image"></a><img v-if="n.type=='H5'" :src="n.image" @click="onClickH5(n.id,0)"></van-swipe-item> -->
@@ -15,34 +17,38 @@
       <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
     </van-swipe>
     <div class="nav-container">
+      <template v-for="(item, index) in categories">
+        <div class="nav-box" @click="onClickSecond(item.id)" :key="index">
+          <img :src="item.image">
+          <p>{{item.name}}</p>
+        </div>
+      </template>
+      <!-- <div class="nav-box" @click="onClickSecond">
+        <img src="./../../pic/p2.png">
+        <p>糖果</p>
+      </div><div class="nav-box" @click="onClickSecond">
+        <img src="./../../pic/p2.png">
+        <p>坚果</p>
+      </div><div class="nav-box" @click="onClickSecond">
+        <img src="./../../pic/p2.png">
+        <p>肉铺</p>
+      </div><div class="nav-box" @click="onClickSecond">
+        <img src="./../../pic/p2.png">
+        <p>蜜栈</p>
+      </div><div class="nav-box" @click="onClickSecond">
+        <img src="./../../pic/p2.png">
+        <p>糖果</p>
+      </div><div class="nav-box" @click="onClickSecond">
+        <img src="./../../pic/p2.png">
+        <p>坚果</p>
+      </div><div class="nav-box" @click="onClickSecond">
+        <img src="./../../pic/p2.png">
+        <p>肉铺</p>
+      </div><div class="nav-box" @click="onClickSecond">
+        <img src="./../../pic/p2.png">
+        <p>蜜栈</p>
+      </div> -->
       <div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>饼干</p>
-      </div><div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>糖果</p>
-      </div><div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>坚果</p>
-      </div><div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>肉铺</p>
-      </div><div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>蜜栈</p>
-      </div><div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>糖果</p>
-      </div><div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>坚果</p>
-      </div><div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>肉铺</p>
-      </div><div class="nav-box" @click="onClickSecond">
-        <img src="./../../pic/p2.png">
-        <p>蜜栈</p>
-      </div><div class="nav-box" @click="onClickSecond">
         <img src="./../../image/一级分类查看更多@2x.png">
         <p>查看全部</p>
       </div>
@@ -69,10 +75,12 @@
   </div>
 </template>
 <script>
-import { Tab, Tabs, Swipe, SwipeItem,  } from 'vant';
+import { Tab, Tabs, Swipe, SwipeItem, Toast } from 'vant';
 import HeaderBar from "@/components/HeaderBar";
+import { list } from '@/api/sort'
 export default {
   components: {
+    [Toast.name]: Toast,
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Swipe.name]: Swipe,
@@ -82,6 +90,8 @@ export default {
   data(){
     return{
       active: 0,
+      classes: [],
+      categories: []
     }
   },
   methods: {
@@ -91,18 +101,35 @@ export default {
     onClickCart(){
       this.$router.push({path:'/cart'})
     },
-    onClickMine(){
+    onClickClass(index) {
+      this.categories = this.classes[index].categories
+    },
+    onClickMine(id){
       this.$router.push({path:'/mine'})
     },
-    onClickSecond(){
-      this.$router.push({path:'/sort/second'})
+    onClickSecond(id){
+      this.$router.push({path:'/sort/second', query:{'id': id}})
     },
     onClickDetail(){
       this.$router.push({path:'/sort/detail'});
     },
+    // 获取商品分类信息
+    async list() {
+      let that = this
+      await list().then(res => {
+        if (res.data.code === 0) {
+          that.classes = res.data.data
+          if (that.classes.length > 0) {
+            that.categories = that.classes[0].categories
+          }
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    }
   },
   mounted(){
-    
+    this.list()
   }
 };
 </script>
@@ -195,7 +222,7 @@ export default {
   .product-list{
     padding: 0.533333rem 0.2rem;
     width: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     .product-container{
       width: 50%;
       padding: 0 0.12rem;
@@ -220,7 +247,7 @@ export default {
           height: 4.533333rem;
           border-radius: 0.08rem;
         }
-        
+
       }
       p.name{
         font-size: 0.373333rem;
