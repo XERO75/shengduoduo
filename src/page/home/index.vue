@@ -215,7 +215,7 @@ export default {
       }
     }
   }
-  .img-title{    
+  .img-title{
     height: 1.146667rem;
     position: relative;
     overflow: hidden;
@@ -236,7 +236,7 @@ export default {
     img{
       height: 100%;
     }
-    .more{    
+    .more{
       position: absolute;
       right: 0.533333rem;
       line-height: 1.146667rem;
@@ -323,7 +323,7 @@ export default {
     .product-list{
       padding: 0 0.2rem;
       width: 100%;
-      box-sizing: border-box; 
+      box-sizing: border-box;
       .product-container{
         width: 50%;
         padding: 0 0.12rem;
@@ -348,7 +348,7 @@ export default {
             height: 4.533333rem;
             border-radius: 0.08rem;
           }
-          
+
         }
         p.name{
           font-size: 0.373333rem;

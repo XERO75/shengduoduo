@@ -10,16 +10,20 @@ const routes = [
   // },
   {
     path: '/',
-    name: 'index',
-    component: () => import('./page/home/index'),
+    component: resolve => require(['./page/home/index'], resolve),
+    // component: () => import('./page/home/index'),
     meta: {
       title: '米多多'
+    },
+    redirect: {
+      name: 'index'
     }
   },
   {
     path: '/index',
     name: 'index',
-    component: () => import('./page/home/index'),
+    component: resolve => require(['./page/home/index'], resolve),
+    // component: () => import('./page/home/index'),
     meta: {
       title: '米多多'
     }
@@ -27,7 +31,8 @@ const routes = [
   {
     path: '/sort',
     name: 'sort',
-    component: () => import('./page/sort'),
+    component: resolve => require(['./page/sort'], resolve),
+    // component: () => import('./page/sort'),
     meta: {
       title: '米多多'
     }
@@ -35,7 +40,8 @@ const routes = [
   {
     path: '/cart',
     name: 'cart',
-    component: () => import('./page/cart'),
+    component: resolve => require(['./page/cart'], resolve),
+    // component: () => import('./page/cart'),
     meta: {
       title: '米多多'
     }
@@ -43,7 +49,8 @@ const routes = [
   {
     path: '/sort/second',
     name: 'sortSecond',
-    component: () => import('./page/sort/second'),
+    component: resolve => require(['./page/sort/second'], resolve),
+    // component: () => import('./page/sort/second'),
     meta: {
       title: '米多多'
     }
@@ -51,7 +58,8 @@ const routes = [
   {
     path: '/sort/detail',
     name: 'sortDetail',
-    component: () => import('./page/sort/detail'),
+    component: resolve => require(['./page/sort/detail'], resolve),
+    // component: () => import('./page/sort/detail'),
     meta: {
       title: '商品详情'
     }
@@ -59,7 +67,8 @@ const routes = [
   {
     path: '/sort/comment',
     name: 'sortComment',
-    component: () => import('./page/sort/comment'),
+    component: resolve => require(['./page/sort/comment'], resolve),
+    // component: () => import('./page/sort/comment'),
     meta: {
       title: '全部评价'
     }
@@ -67,7 +76,8 @@ const routes = [
   {
     path: '/sort/store',
     name: 'sortStore',
-    component: () => import('./page/sort/store'),
+    component: resolve => require(['./page/sort/store'], resolve),
+    // component: () => import('./page/sort/store'),
     meta: {
       title: '米多多'
     }
@@ -75,7 +85,8 @@ const routes = [
   {
     path: '/order/detail',
     name: 'orderDetail',
-    component: () => import('./page/order/detail'),
+    component: resolve => require(['./page/order/detail'], resolve),
+    // component: () => import('./page/order/detail'),
     meta: {
       title: '订单详情'
     }
@@ -83,7 +94,8 @@ const routes = [
   {
     path: '/order/list',
     name: 'orderList',
-    component: () => import('./page/order/list'),
+    component: resolve => require(['./page/order/list'], resolve),
+    // component: () => import('./page/order/list'),
     meta: {
       title: '我的订单'
     }
@@ -91,7 +103,8 @@ const routes = [
   {
     path: '/order/info',
     name: 'orderInfo',
-    component: () => import('./page/order/info'),
+    component: resolve => require(['./page/order/info'], resolve),
+    // component: () => import('./page/order/info'),
     meta: {
       title: '订单详情'
     }
@@ -99,7 +112,8 @@ const routes = [
   {
     path: '/mine',
     name: 'mine',
-    component: () => import('./page/mine'),
+    component: resolve => require(['./page/mine'], resolve),
+    // component: () => import('./page/mine'),
     meta: {
       title: '我'
     }
@@ -107,7 +121,8 @@ const routes = [
   {
     path: '/address',
     name: 'address',
-    component: () => import('./page/address'),
+    component: resolve => require(['./page/address'], resolve),
+    // component: () => import('./page/address'),
     meta: {
       title: '收货地址'
     }
@@ -115,7 +130,8 @@ const routes = [
   {
     path: '/address/add',
     name: 'addressAdd',
-    component: () => import('./page/address/edit'),
+    component: resolve => require(['./page/address/edit'], resolve),
+    // component: () => import('./page/address/edit'),
     meta: {
       title: '添加收货地址'
     }
@@ -123,7 +139,8 @@ const routes = [
   {
     path: '/address/edit',
     name: 'addressEdit',
-    component: () => import('./page/address/edit'),
+    component: resolve => require(['./page/address/edit'], resolve),
+    // component: () => import('./page/address/edit'),
     meta: {
       title: '编辑收货地址'
     }
@@ -131,7 +148,8 @@ const routes = [
   {
     path: '/return',
     name: 'return',
-    component: () => import('./page/return'),
+    component: resolve => require(['./page/return'], resolve),
+    // component: () => import('./page/return'),
     meta: {
       title: '退换'
     }
@@ -139,7 +157,8 @@ const routes = [
   {
     path: '/return/refund',
     name: 'refund',
-    component: () => import('./page/return/refund'),
+    component: resolve => require(['./page/return/refund'], resolve),
+    // component: () => import('./page/return/refund'),
     meta: {
       title: '申请退款'
     }
@@ -147,7 +166,8 @@ const routes = [
   {
     path: '/coupon',
     name: 'coupon',
-    component: () => import('./page/coupon/index.vue'),
+    component: resolve => require(['./page/coupon/index.vue'], resolve),
+    // component: () => import('./page/coupon/index.vue'),
     meta: {
       title: '我的优惠券'
     }
@@ -155,7 +175,8 @@ const routes = [
   {
     path: '/coupon/center',
     name: 'couponCenter',
-    component: () => import('./page/coupon/center'),
+    component: resolve => require(['./page/coupon/center'], resolve),
+    // component: () => import('./page/coupon/center'),
     meta: {
       title: '领券中心'
     }
@@ -163,7 +184,8 @@ const routes = [
   {
     path: '/collect',
     name: 'collect',
-    component: () => import('./page/collect'),
+    component: resolve => require(['./page/collect'], resolve),
+    // component: () => import('./page/collect'),
     meta: {
       title: '商品收藏'
     }
@@ -171,7 +193,8 @@ const routes = [
   {
     path: '/collect/store',
     name: 'collectStore',
-    component: () => import('./page/collect/store'),
+    component: resolve => require(['./page/collect/store'], resolve),
+    // component: () => import('./page/collect/store'),
     meta: {
       title: '商品收藏'
     }
@@ -179,7 +202,8 @@ const routes = [
   {
     path: '/history',
     name: 'history',
-    component: () => import('./page/history'),
+    component: resolve => require(['./page/history'], resolve),
+    // component: () => import('./page/history'),
     meta: {
       title: '历史浏览'
     }
@@ -187,7 +211,8 @@ const routes = [
   {
     path: '/afterSale',
     name: 'afterSale',
-    component: () => import('./page/afterSale'),
+    component: resolve => require(['./page/afterSale'], resolve),
+    // component: () => import('./page/afterSale'),
     meta: {
       title: '退款 / 售后'
     }
@@ -195,7 +220,8 @@ const routes = [
   {
     path: '/afterSale/detail',
     name: 'afterSaleDetail',
-    component: () => import('./page/afterSale/detail'),
+    component: resolve => require(['./page/afterSale/detail'], resolve),
+    // component: () => import('./page/afterSale/detail'),
     meta: {
       title: '退款 / 售后'
     }
@@ -203,7 +229,8 @@ const routes = [
   {
     path: '/comments',
     name: 'comments',
-    component: () => import('./page/comments/index.vue'),
+    component: resolve => require(['./page/comments/index.vue'], resolve),
+    // component: () => import('./page/comments/index.vue'),
     meta: {
       title: '我的评价'
     }
@@ -211,7 +238,8 @@ const routes = [
   {
     path: '/bargain',
     name: 'bargain',
-    component: () => import('./page/bargain/index.vue'),
+    component: resolve => require(['./page/bargain/index.vue'], resolve),
+    // component: () => import('./page/bargain/index.vue'),
     meta: {
       title: '砍价免费拿'
     }
@@ -219,7 +247,8 @@ const routes = [
   {
     path: '/treasure',
     name: 'treasure',
-    component: () => import('./page/treasure/index.vue'),
+    component: resolve => require(['./page/treasure/index.vue'], resolve),
+    // component: () => import('./page/treasure/index.vue'),
     meta: {
       title: '夺宝'
     }
@@ -227,7 +256,8 @@ const routes = [
   {
     path: '/redPacket',
     name: 'redPacket',
-    component: () => import('./page/redPacket/index.vue'),
+    component: resolve => require(['./page/redPacket/index.vue'], resolve),
+    // component: () => import('./page/redPacket/index.vue'),
     meta: {
       title: '红包'
     }
@@ -235,7 +265,8 @@ const routes = [
   {
     path: '/oreYard',
     name: 'oreYard',
-    component: () => import('./page/oreYard/index.vue'),
+    component: resolve => require(['./page/oreYard/index.vue'], resolve),
+    // component: () => import('./page/oreYard/index.vue'),
     meta: {
       title: '矿场'
     }
@@ -243,7 +274,8 @@ const routes = [
   {
     path: '/customerService',
     name: 'customerService',
-    component: () => import('./page/customerService/index.vue'),
+    component: resolve => require(['./page/customerService/index.vue'], resolve),
+    // component: () => import('./page/customerService/index.vue'),
     meta: {
       title: '客服'
     }
@@ -251,7 +283,8 @@ const routes = [
   {
     path: '/help',
     name: 'help',
-    component: () => import('./page/help/index.vue'),
+    component: resolve => require(['./page/help/index.vue'], resolve),
+    // component: () => import('./page/help/index.vue'),
     meta: {
       title: '帮助'
     }

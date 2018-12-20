@@ -1,6 +1,6 @@
 <template>
   <div id="sort-second">
-    <HeaderBar title="饮食" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
+    <HeaderBar title="饮食" @back="onClickBack" @cart="onClickCart"></HeaderBar>
     <div class="tabs-bar">
       <van-tabs v-model="active">
         <van-tab title="饼干糕点"></van-tab>
@@ -81,7 +81,7 @@ export default {
     }
   },
   mounted(){
-    
+
   }
 };
 </script>
@@ -153,8 +153,8 @@ export default {
     /*-webkit-animation-name: fadeIn;
     animation-name: fadeIn;
     -webkit-animation-duration: 0s;
-    animation-duration: 0s;  
-    -webkit-animation-fill-mode: forwards ;  
+    animation-duration: 0s;
+    -webkit-animation-fill-mode: forwards ;
     animation-fill-mode: forwards ;
     -webkit-animation-delay:1s;
     animation-delay:1s;*/
@@ -266,7 +266,7 @@ export default {
           height: 4.533333rem;
           border-radius: 0.08rem;
         }
-        
+
       }
       p.name{
         font-size: 0.373333rem;

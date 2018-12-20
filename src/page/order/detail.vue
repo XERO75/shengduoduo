@@ -1,5 +1,6 @@
 <template>
   <div id="order-detail">
+    <HeaderBar title="订单详情" @back="onClickBack" @cart="onClickCart"></HeaderBar>
     <div class="address-container container" @click="onClickAddress">
       <!-- <div class="noAddress"><p>添加收货地址</p></div> -->
       <div class="defalutAddress">
@@ -8,7 +9,7 @@
       </div>
     </div>
     <div class="product-container container">
-      <p class="productStatus title">荷兰小店<i class="icon-right"></i><span class="fr">待支付</span></p>
+      <p class="productStatus title">荷兰小店<i class="icon-right"></i><span class="fr">待付款</span></p>
       <div class="product-box">
         <img src="./../../pic/box.png">
         <div class="product-item">
@@ -25,7 +26,7 @@
         <p class="title">购买数量</p>
         <div class="count-box">
           <van-stepper v-model="count" integer :min="1" :max="99" />
-        </div>    
+        </div>
       </div>
       <div class="product-coupon">
         <p>店铺优惠券<span @click="showGetCoupon=true">领取优惠券</span></p>
@@ -44,61 +45,87 @@
     <div class="btn-container">
       <p class="amount">实付款：<span>&yen; 500</span></p><!-- <p class="btn-cancel" @click="cancelOrder">取消</p> --><p class="btn-pay" @click="onClickToPay">立即支付</p>
     </div>
+    <!-- 领取商家优惠券弹出层 -->
     <van-popup class="getCoupon-popup" position="bottom" v-model="showGetCoupon">
       <div class="popup-box">
-        <p class="title">河南小店<i class="icon-close" @click="showGetCoupon=false"></i></p>
+        <p class="title f-center">荷兰小店<img mode="widthFix" class="icon-close" src="../../image/close.png" @click="showGetCoupon=false"/></p>
         <div class="content">
-          <div class="coupon-container">
-            <div class="coupon-left">
-              <p class="price">&yen; 5</p>
+          <div class="coupon-container f-vertical">
+            <img mode="widthFix" src="../../image/券@2x.png"/>
+            <div class="coupon-left f-column f-center">
+              <div class="price f-vertical"><p style="font-size:24px; margin-top:8px;">&yen;&nbsp;</p><p>5</p></div>
               <p class="tips">满100可用</p>
             </div>
-            <div class="coupon-right">
+            <div class="coupon-right f-column">
               <p class="name">爱仕达东方</p>
-              <p class="date">有效期 2018.09.01-2018.09.01-</p>
-              <span class="btn-get">立即领取</span>
+              <p class="date">有效期 2018.09.01-2018.09.01</p>
+              <span class="btn-get f-center">立即领取</span>
             </div>
           </div>
-          <div class="coupon-container">
-            <div class="coupon-left">
-              <p class="price">&yen; 5</p>
+          <div class="coupon-container f-vertical">
+            <img mode="widthFix" src="../../image/券-已领取@2x.png"/>
+            <div class="coupon-left f-column f-center">
+              <div class="price f-vertical"><p style="font-size:24px; margin-top:8px;">&yen;&nbsp;</p><p>5</p></div>
               <p class="tips">满100可用</p>
             </div>
-            <div class="coupon-right">
+            <div class="coupon-right f-column">
               <p class="name">爱仕达东方</p>
-              <p class="date">有效期 2018.09.01-2018.09.01-</p>
-              <span class="btn-got">已领取</span>
+              <p class="date">有效期 2018.09.01-2018.09.01</p>
+              <span class="btn-got f-center">已领取</span>
             </div>
           </div>
         </div>
       </div>
     </van-popup>
+    <!-- 配送方式弹出层 -->
     <van-popup class="delivery-popup" position="bottom" v-model="showDelivery">
       <div class="popup-box">
-        <p class="title">配送方式</p>
+        <p class="title f-center">配送方式</p>
         <div class="content">
-          <p class="type checked">快递 免运费</p>
-          <p class="type">顺便快递 10元</p>
-          <p class="type">大碗快递 100元</p>
+          <div class="delivery-item f-space-between">
+            <p class="type">快递 免运费</p>
+            <img v-if="true" mode="widthFix" src="../../image/选择@2x.png"/>
+            <img v-else mode="widthFix" src="../../image/未选择@2x.png"/>
+          </div>
+          <div class="delivery-item f-space-between">
+            <p class="type">圆碗快递 5元</p>
+            <img v-if="false" mode="widthFix" src="../../image/选择@2x.png"/>
+            <img v-else mode="widthFix" src="../../image/未选择@2x.png"/>
+          </div>
+          <div class="delivery-item f-space-between">
+            <p class="type">顺便快递 10元</p>
+            <img v-if="false" mode="widthFix" src="../../image/选择@2x.png"/>
+            <img v-else mode="widthFix" src="../../image/未选择@2x.png"/>
+          </div>
         </div>
         <van-button @click="showDelivery=false">关闭</van-button>
       </div>
     </van-popup>
+    <!-- 使用优惠券弹出层 -->
     <van-popup class="useCoupon-popup" position="bottom" v-model="showUseCoupon">
       <div class="popup-box">
-        <p class="title">优惠券</p>
+        <p class="title f-center">优惠券</p>
         <div class="content">
-          <div class="coupon checked">
-            <p class="value">满100减5</p>
-            <p class="name">店铺优惠券</p>
+          <div class="coupon f-space-between">
+            <div class="f-column">
+              <p class="value">满100减5</p>
+              <p class="name">店铺优惠券</p>
+            </div>
+            <div>
+              <img v-if="true" mode="widthFix" src="../../image/选择@2x.png"/>
+              <img v-else mode="widthFix" src="../../image/未选择@2x.png"/>
+            </div>
           </div>
-          <div class="coupon">
-            <p class="value">满100减15</p>
-            <p class="name">店铺优惠券</p>
-          </div>
-          <div class="coupon">
-            <p class="value">满100减50</p>
-            <p class="name">店铺优惠券</p>
+
+           <div class="coupon f-space-between">
+            <div class="f-column">
+              <p class="value">满100减5</p>
+              <p class="name">店铺优惠券</p>
+            </div>
+            <div>
+              <img v-if="false" mode="widthFix" src="../../image/选择@2x.png"/>
+              <img v-else mode="widthFix" src="../../image/未选择@2x.png"/>
+            </div>
           </div>
         </div>
         <van-button @click="showUseCoupon=false">确定</van-button>
@@ -113,6 +140,8 @@
 
 <script>
 import { Toast, Stepper, Dialog, Popup, Button, Checkbox, Loading } from 'vant';
+import HeaderBar from '@/components/HeaderBar';
+// import headerBar from '../../components/headerBar/index'
 // import { getDetail, cancelOrder, getComment, handleCommit } from "@/api/order";
 // import { handleLogin } from "@/api/login";
 // import { WXPay, payFree } from "@/api/pay";
@@ -125,14 +154,15 @@ export default {
     [Button.name]: Button,
     [Checkbox.name]: Checkbox,
     [Loading.name]: Loading,
+    HeaderBar
   },
   data(){
     return{
-      showDelivery: false,
-      showUseCoupon: false,
-      showGetCoupon: false,
+      showDelivery: false, // 配送方式弹出层 开关
+      showUseCoupon: false, // 使用优惠券 开关
+      showGetCoupon: false, // 领取商家优惠券 开关
       count: 1,
-      
+
       checked: false,
       show: false,
       show1: false,
@@ -168,6 +198,12 @@ export default {
     }
   },
   methods: {
+    onClickBack() {
+      this.$router.go(-1);
+    },
+    onClickCart() {
+      this.$router.push({path:'/cart'});
+    },
     cancelOrder(){
       Dialog.confirm({
         title: '确认取消订单？',
@@ -184,8 +220,6 @@ export default {
     onClickToPay(){
       this.$router.push({path:'/order/info'});
     },
-
-
 
     onClickTag(event) {
       let currentTag = event.currentTarget;
@@ -281,29 +315,29 @@ export default {
         if( document.addEventListener ){
           document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
         }else if (document.attachEvent){
-          document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+          document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
           document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
         }
       }else{
         this.onBridgeReady();
-      }    
+      }
     },
     onBridgeReady(){
       let that = this;
-      let sn = this.$route.query.sn; 
+      let sn = this.$route.query.sn;
       WeixinJSBridge.invoke(
         'getBrandWCPayRequest', {
-            "appId" : this.appId,     //公众号名称，由商户传入     
-            "timeStamp": this.timeStamp,         //时间戳，自1970年以来的秒数     
-            "nonceStr" : this.nonceStr, //随机串     
-            "package" : this.package,     
-            "signType" : "MD5",         //微信签名方式:     
-            "paySign" : this.paySign    //微信签名 
+            "appId" : this.appId,     //公众号名称，由商户传入
+            "timeStamp": this.timeStamp,         //时间戳，自1970年以来的秒数
+            "nonceStr" : this.nonceStr, //随机串
+            "package" : this.package,
+            "signType" : "MD5",         //微信签名方式:
+            "paySign" : this.paySign    //微信签名
         },
         function(res){
           // that.loading = false;
-         if(res.err_msg == "get_brand_wcpay_request:ok"){  
-            // this.$router.push({path:"/course/success",query:{id:this.$route.query.id}}); 
+         if(res.err_msg == "get_brand_wcpay_request:ok"){
+            // this.$router.push({path:"/course/success",query:{id:this.$route.query.id}});
             // location.href = 'http://dydbuy.cn/wechat/?#/course/success?id='+this.$route.query.id;
 
             that.timer = setTimeout(function(){
@@ -314,11 +348,11 @@ export default {
          }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
             that.loading = false;
             Toast("用户取消支付");
-         }else{  
+         }else{
             that.loading = false;
             Toast("支付失败");
-         }  
-       }); 
+         }
+       });
     },
   },
   mounted(){
@@ -337,6 +371,9 @@ export default {
   background-color: #f6f6f6;
   min-height: 100%;
   padding-bottom: 50px;
+  position: relative;
+  padding-top: .6rem;
+  box-sizing: border-box;
   .container {
     border-top: 0.266667rem solid #f6f6f6;
     padding: 0 0.4rem;
@@ -560,7 +597,7 @@ export default {
       }
     }
     div.content{
-      padding-left: 0.4rem; 
+      padding-left: 0.4rem;
       p{
         padding-right: 0.4rem;
         line-height: 1.2rem;
@@ -656,92 +693,116 @@ export default {
     }
   }
   .popup-box{
-    height: 290px;
+    height: 343px;
+    background: #f6f6f6;
     .title{
-      text-align: center;
-      line-height: 40px;
-      border-bottom: 1px solid #f6f6f6;
+      border-bottom: 1px solid #eee;
       position: relative;
-      i.icon-close{
-        content: '';
+      height: 1.333333rem;
+      font-size: .426667rem;
+      font-weight: bold;
+      color: #2e2d2d;
+      .icon-close{
         width: 20px;
-        height: 20px;
-        display: block;
+        height: auto;
         position: absolute;
         right: 15px;
-        top: 50%;
-        margin-top: -7px;
-        background: url(./../../image/MORE@2x.png) no-repeat;
+        top: 29%;
+        // background: url(./../../image/MORE@2x.png) no-repeat;
+        // background: url(./../../image/A9@2x.png) no-repeat;
       }
     }
     .content{
-      padding-left: 15px;
-      p.type{
-        line-height: 40px;
+      margin: 0 15px;
+      // 弹出层优惠券主体
+      .coupon-container{
         position: relative;
-        border-bottom: 1px solid #f6f6f6;
-        &:after{
-          content: '';
-          width: 17px;
-          height: 17px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          -webkit-background-size: 17px 17px;
-          background-size: 17px 17px;
+        min-height: 96px;
+        margin-top: 15px;
+        // font-family: 'PingFangBold'
+        img{
+          width: 100%;
           position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: 15px;
+          z-index: 1;
         }
-        &.checked:after{
-          content: '';
-          width: 17px;
-          height: 17px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          -webkit-background-size: 17px 17px;
-          background-size: 17px 17px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: 15px;
+        .price{
+          font-weight: bold;
+          font-size: .96rem;
+          color: #fff;
+        }
+        .tips{
+          @extend .price;
+          font-size: .346667rem;
+        }
+        .coupon-left{
+          min-width: 35.6%;
+          max-width: 35.6%;
+          z-index: 2;
+        }
+        .coupon-right{
+          margin-left: .506667rem;
+          min-width: 58.8%;
+          max-width: 58.8%;
+          z-index: 2;
+        }
+        .name{
+          font-size: .4rem;
+          font-weight: bold;
+          color: #2e2d2d;
+        }
+        .date{
+          margin-top: .24rem;
+          font-size: .32rem;
+          color: #666;
+        }
+        .btn-got{
+          margin-top: .266667rem;
+          height: .613333rem;
+          width: 1.893333rem;
+          border-radius: .306667rem;
+          color: #999;
+          font-size: .293333rem;
+          border: 1px solid #dcdcdc;
+          position: relative;
+          left: 60%;
+        }
+        .btn-get{
+          @extend .btn-got;
+          border: none;
+          background-color: #e64a19;
+          color: #fffeff;
         }
       }
+      // 配送方式样式
+      .delivery-item{
+        height: 1.333333rem;
+        border-bottom: 1px solid #eee;
+        img{
+          width: .533333rem;
+          height: auto;
+        }
+        .type{
+          font-size: .4rem;
+          color: #2e2d2d;
+        }
+      }
+      // 选择优惠券的优惠券样式
       div.coupon{
         position: relative;
-        border-bottom: 1px solid #f6f6f6;
-        height: 55px;
-        &:after{
-          content: '';
-          width: 17px;
-          height: 17px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          -webkit-background-size: 17px 17px;
-          background-size: 17px 17px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: 15px;
-        }
-        &.checked:after{
-          content: '';
-          width: 17px;
-          height: 17px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          -webkit-background-size: 17px 17px;
-          background-size: 17px 17px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: 15px;
-        }
+        height: 1.733333rem;
+        border-bottom: 1px solid #eee;
         p.value{
-
+          font-size: .4rem;
+          color: #2e2d2d;
         }
         p.name{
-
+          margin-top: .186667rem;
+          font-size: .32rem;
+          color: #666;
+        }
+        img{
+          width: .533333rem;
+          height: auto;
         }
       }
     }
@@ -756,10 +817,10 @@ export default {
       position: absolute;
       left: 50%;
       transform: translate(-50%,0);
-      bottom: 15px;        
+      bottom: 15px;
     }
   }
-  
+
 
 
 
@@ -883,7 +944,7 @@ export default {
       width: 85%;
       height: 2.48rem;
       display: block;
-      font-size: 0.373333rem;    
+      font-size: 0.373333rem;
       margin: 0 auto;
       padding: 0.133333rem;
     }
@@ -891,7 +952,7 @@ export default {
       margin: 0.56rem 0.586667rem;
       button{
         width: 100%;
-        height: 1.04rem;    
+        height: 1.04rem;
         line-height: 1.04rem;
         border-radius: 0.52rem;
       }
@@ -910,7 +971,7 @@ export default {
       text-align: center;
       span.view-tab{
         border: 1px solid #e5e5e5;
-        border-radius: 0.08rem;    
+        border-radius: 0.08rem;
         min-width: 90px;
         padding: 0 10px;
         box-sizing: border-box;
@@ -929,7 +990,7 @@ export default {
       }
       textarea{
         width: 100%;
-        height: 2.573333rem;  
+        height: 2.573333rem;
         font-size: 0.373333rem;
       }
       .btn-view{
@@ -943,6 +1004,6 @@ export default {
         border-radius: 0.586667rem;
       }
     }
-  } 
+  }
 }
 </style>

@@ -27,14 +27,14 @@
 /* 首页搜索栏 */
 #home-index .van-search{
   padding: 0.186667rem 1.12rem!important;
-} 
+}
 #home-index .van-cell.van-cell--borderless.van-field{
   border-radius: 0.533333rem;
-} 
+}
 #home-index .van-search .van-cell{
   height: 0.826667rem;
 }
-/* 分类页面tab */ 
+/* 分类页面tab */
 #sort .van-tabs--line .van-tabs__wrap{
   height: 1.2rem;
   position: fixed;
@@ -45,7 +45,7 @@
 }
 #sort .van-tabs--line,
 #sort-second .van-tabs--line {
-  padding-top: 0; 
+  padding-top: 0;
 }
 #sort .van-tabs__wrap--scrollable .van-tab{
   flex-basis: 16.6666%!important;
@@ -78,7 +78,7 @@
   width: 75%!important;
 }
 .van-dialog [class*=van-hairline]::after {
-  //border: 3px solid #e7e7e7!important;
+  // border: 3px solid #e7e7e7!important;
   border-color: #e7e7e7!important;
 }
 .van-dialog__footer .van-button__text{
@@ -90,34 +90,34 @@
 }
 
 /* flex布局 */
-.f-center{
+.f-center{    /* 水平垂直居中 */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.f-space-between{
+.f-space-between{  /* 子级间隙排列（最左左右不留空） */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.f-vertical{
+.f-vertical{  /* 子级水平排列 */
   display: flex;
   align-items: center;
 }
 
-.f-column{
+.f-column{  /* 子级垂直排列 */
   display: flex;
   flex-direction: column;
 }
 
-.f-space-around{
+.f-space-around{  /* 子级间隙排列（最左左右留空） */
   display: flex;
   justify-content: space-around;
 }
 
-.f-wrap{
+.f-wrap{  /* 子级撑满换行 */
   display: flex;
   flex-wrap: wrap;
 }
@@ -134,11 +134,11 @@
 
 /* 两行溢出显示... */
 .overTwoLine{
-  overflow:hidden; 
+  overflow:hidden;
   text-overflow:ellipsis;
-  display:-webkit-box; 
+  display:-webkit-box;
   -webkit-box-orient:vertical;
-  -webkit-line-clamp:2; 
+  -webkit-line-clamp:2;
 }
 
 html{
@@ -295,7 +295,7 @@ textarea{
 #voucher .van-swipe .van-swipe__indicator--active {
   background-color: #fff;
   width: 0.8rem;
-} 
+}
 /* 主页轮播图 */
 #shop .van-swipe{
   height: auto;
@@ -316,7 +316,7 @@ textarea{
 #shop .van-swipe .van-swipe__indicator--active {
   background-color: #fff;
   width: 0.8rem;
-} 
+}
 /* 顶部tab */
 .van-tabs .van-tabs__line {
   background-color: #fff;
@@ -476,7 +476,7 @@ textarea{
   top: 50%;
   left: 50%;
   margin-left: -25px;
-  margin-top: -25px;    
+  margin-top: -25px;
   z-index: 6666;
   background-color: rgba(0,0,0,0.3);
   padding: 0.266667rem;
