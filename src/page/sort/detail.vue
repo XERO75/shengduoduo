@@ -6,19 +6,16 @@
       <i class="icon-more" @click=""></i>
     </div>
     <van-swipe @change="onChangeSwipe" :autoplay="3000">
-      <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
-      <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
-      <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
-      <van-swipe-item><img src="./../../pic/banner@2x.png"></van-swipe-item>
+      <van-swipe-item v-for="n in detail.image"><img :src="n"></van-swipe-item>
       <div class="custom-indicator" slot="indicator">
-        <span>{{ current + 1 }}/4</span>
+        <span>{{current + 1}}/{{detail.image.length}}</span>
       </div>
     </van-swipe>
     <div class="product-info">
       <div class="product-name">
         <div class="left">
-          <p class="name">燕塘红枣牛奶</p>
-          <p class="type">红枣味牛奶</p>
+          <p class="name">{{detail.name}}</p>
+          <p class="type">{{detail.type}}</p>
         </div>
         <div class="right collect">
           <img src="./../../image/详情-收藏@2x.png">
@@ -29,7 +26,7 @@
           <p>分享</p>
         </div>
       </div>
-      <p class="product-price">&yen;5465.6 <span>已拼9件</span></p>
+      <p class="product-price">&yen;{{minPrice}} - &yen;{{maxPrice}} <span>已拼{{detail.totalGrouped}}件</span></p>
       <div class="product-rights">
         <span><i class="icon-rights"></i>包邮包邮</span>
         <span><i class="icon-rights"></i>包邮包邮</span>
@@ -40,91 +37,53 @@
     <div class="pindan-container">
       <p class="title">火热拼单中，可直接参与<span class="more">查看更多<i class="icon-right"></i></span></p>
       <div class="team-list">
-        <div class="team-container">
-          <img src="./../../image/差评-灰色@2x.png">
+        <div class="team-container" v-for="n in collages">
+          <img :src="n.avatar">
           <div class="content">
-            <p class="name">阿萨德</p>
-            <p class="tips">还差<span>1人</span>成团 剩余 <span>22:00:41</span> 结束</p>
-          </div>
-          <span class="btn-join" @click="onClickPin">去拼单</span>
-        </div>
-        <div class="team-container">
-          <img src="./../../image/差评-红色@2x.png">
-          <div class="content">
-            <p class="name">哈哈哈</p>
-            <p class="tips">还差<span>1人</span>成团 剩余 <span>22:00:41</span> 结束</p>
+            <p class="name">{{n.name}}</p>
+            <p class="tips">还差<span>{{n.groupNumber - n.joinNumber}}人</span>成团 剩余 <span>22:00:41</span> 结束</p>
           </div>
           <span class="btn-join" @click="onClickPin">去拼单</span>
         </div>
       </div>
     </div>
     <div class="comment-container">
-      <p class="title">商品评价(56465) <span class="more" @click="onClickComment">查看更多<i class="icon-right"></i></span></p>
+      <p class="title">商品评价({{totalCommentCount}}) <span class="more" @click="onClickComment">查看更多<i class="icon-right"></i></span></p>
       <div class="content">
         <div class="tag-container">
-          <span class="tag active" @click="handleChooseAllView">全部451</span>
-          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
-          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
-          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
+          <span class="tag active" @click="handleChooseAllView">全部{{totalCommentCount}}</span>
+          <span v-for="(n,i) in commentTags" class="tag" @click="handleChooseView($event,i)"><span class="str">{{n.tag}}</span>{{n.count}}</span>
           <span class="tag bad" @click="handleChooseView($event,i)"><span class="str">难喝</span>99</span>
         </div>
-        <div class="view-container">
-          <img class="avator" src="./../../image/差评-灰色@2x.png">
-          <div class="view-content">
-            <p class="name">撒旦<span>2018-10-55</span></p>
-            <p class="type">好评</p>
-            <p class="view">好喝好喝</p>
-            <p class="product">燕塘牛奶</p>
-          </div>
-        </div>
-        <div class="view-container">
-          <img class="avator" src="./../../image/差评-灰色@2x.png">
-          <div class="view-content">
-            <p class="name">撒旦<span>2018-10-55</span></p>
-            <p class="type">好评</p>
-            <p class="view">好喝好喝</p>
-            <p class="product">燕塘牛奶</p>
-          </div>
-        </div>
-        <!-- <div class="view-container" v-for="(v,i) in comments" :key="i">
+        <div v-for="v in comments" class="view-container">
           <img class="avator" :src="v.avatar">
           <div class="view-content">
             <p class="name">{{v.memberName}}<span>{{v.createDate}}</span></p>
-            <div class="star-container">
-              <img v-for="s1 in v.stars" src="./../../img/用户评价1@2x.png"><img v-for="s2 in (5-v.stars)" src="./../../img/用户评价2@2x.png">
-              <span>数量：{{v.count}}</span>
-            </div>
-            <p class="view">{{v.otherComment}}</p>
+            <p class="type">{{v.level}}</p>
+            <p class="view">{{v.info}}</p>
+            <p class="product">{{v.productName}} {{v.count}}</p>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="store-container">
       <div class="head-container">
-        <img src="./../../pic/box.png">
-        <p class="name">燕塘牛奶</p>
-        <p class="info">商品数量：<span>54 </span> 已拼：<span>4575435</span></p>
+        <img :src="store.shopLogo">
+        <p class="name">{{store.shopName}}</p>
+        <p class="info">商品数量：<span>{{store.count}} </span> 已拼：<span>{{store.totalGrouped}}</span></p>
         <span class="btn-in" @click="onClickStore">进入店铺</span>
       </div>
       <div class="product-box">
-        <div class="product-container">
-          <div class="product-img"><img src="./../../pic/product.png"></div>
-          <p class="name van-ellipsis">99598529</p>
-          <p class="money">&yen;511</p>
-        </div><div class="product-container">
-          <div class="product-img"><img src="./../../image/差评-灰色@2x.png"></div>
-          <p class="name van-ellipsis">99598529</p>
-          <p class="money">&yen;511</p>
-        </div><div class="product-container">
-          <div class="product-img"><img src="./../../pic/product.png"></div>
-          <p class="name van-ellipsis">99598529</p>
-          <p class="money">&yen;511</p>
+        <div class="product-container" v-for="n in storeProduct">
+          <div class="product-img"><img :src="n.pictureUrl"></div>
+          <p class="name van-ellipsis">{{n.productName}}</p>
+          <p class="money">&yen;{{n.minPrice}}</p>
         </div>
       </div>
     </div>
     <div class="detail-container">
       <p class="title">商品详情</p>
-      <div class="content"></div>
+      <div class="content" v-html="detail.detail"></div>
     </div>
     <div class="btn-container">
       <div v-if="!showBox">
@@ -133,14 +92,14 @@
           <p>首页</p>
         </div><div class="btn-list">
           <div class="btn btn-vip" @click="onClickPin">
-            <p class="money">&yen; 60+50e币</p>
+            <p class="money">&yen; {{vipPrice}}+{{coin}}e币</p>
             <p class="text">会员价</p>
           </div><div class="btn btn-buy" @click="showBox=true">
-            <p class="money">&yen; 150</p>
+            <p class="money">&yen; {{minPrice}}</p>
             <p class="text">单独购买</p>
           </div><div class="btn btn-pin" @click="onClickPin">
-            <p class="money">&yen; 23</p>
-            <p class="text">发起拼单(5人)</p>
+            <p class="money">&yen; {{collagePrice}}</p>
+            <p class="text">发起拼单({{detail.groupNumber}}人)</p>
           </div>
         </div>
       </div>
@@ -151,25 +110,21 @@
     <van-popup v-model="showBox" position="bottom">
       <i class="icon-close"></i>
       <div class="box-product" @click="close">
-        <img src="./../../pic/iphone.png">
-        <p class="price">&yen; 9.9 <del>&yen; 25.2</del></p>
-        <p class="stock">库存36525件</p>
-        <p class="choose">已选：原味 ; 500g</p>
+        <img :src="info.pictureUrl">
+        <p class="price">&yen; {{info.minPrice}} </p>
+        <p class="stock">库存{{info.totalStock}}件</p>
+        <p class="choose">已选：{{value1}} ; {{value2}}</p>
       </div>
       <div class="box-item">
-        <p>口味</p>
+        <p>{{typeNames[0]}}</p>
         <div class="type-list">
-          <span class="active">原味</span>
-          <span class="">骚烤</span>
-          <span class="">麻辣</span>
+          <span v-for="(n,i) in info.specification[typeNames[0]]">{{n}}</span>
         </div>
       </div>
       <div class="box-item">
-        <p>重量</p>
+        <p>{{typeNames[1]}}</p>
         <div class="type-list">
-          <span class="active">500g</span>
-          <span class="">700g</span>
-          <span class="">900g</span>
+          <span v-for="(n,i) in info.specification[typeNames[1]]">{{n}}</span>
         </div>
       </div>
       <div class="box-count">
@@ -185,9 +140,11 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem, Tab, Tabs, Button, Popup, Stepper } from 'vant';
+import { Toast, Swipe, SwipeItem, Tab, Tabs, Button, Popup, Stepper } from 'vant';
+import { getProductDetail, getProductInfo } from '@/api/sort';
 export default {
   components: {
+    [Toast.name]: Toast,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [Tab.name]: Tab,
@@ -203,10 +160,31 @@ export default {
       showBox: false,
       showComment: false,
       count: 1,
+      minPrice: 0,
+      maxPrice: 0,
+      collagePrice: 0,
+      vipPrice: 0,
+      coin: 0,
+      detail: {},
+      commentTags: [],
+      comments: [],
+      collages: [],
+      store: {},
+      storeProduct: [],
+      info: {},
+      typeNames: [],
+      value1: '',
+      value2: '',
     }
   },
   computed: {
-
+    totalCommentCount(){
+      let total = 0;
+      for(let item of this.commentTags){
+        total += item.count;
+      }
+      return total;
+    },
   },
   methods: {
     close(){
@@ -220,7 +198,7 @@ export default {
       this.$router.push({path:'/cart'});
     },
     onClickComment(){
-      this.$router.push({path:'/sort/comment'})
+      this.$router.push({path:'/sort/comment',query:{id:this.$route.query.id}})
     },
     onClickHome(){
       this.$router.push({path:'/'});
@@ -278,7 +256,6 @@ export default {
       getCommentsByTag(formdata).then(res=>{
         this.comments = res.data.data;
       })
-
     },
     handleChooseAllView(event){
       let tags =  event.currentTarget.parentNode.getElementsByClassName("tag");
@@ -295,6 +272,37 @@ export default {
     },
   },
   mounted(){
+    let id = this.$route.query.id;
+    getProductDetail(id).then(res=>{
+      if(res.data.code===0){
+        this.detail = res.data.data.product;
+        this.commentTags = res.data.data.commentTagNumbers;
+        this.comments = res.data.data.comments;
+        this.collages = res.data.data.collages;
+        this.store = res.data.data.shopProduct;
+        this.storeProduct = this.store.productPriceVos;
+        this.maxPrice = res.data.data.maxPrice;
+        this.minPrice = res.data.data.minPrice;
+        this.collagePrice = res.data.data.minCollagePrice;
+        this.vipPrice = res.data.data.minVipPrice;
+        this.coin = res.data.data.minecoin;
+      }else{
+        Toast(res.data.errmsg);
+      }
+    })
+    getProductInfo(id).then(res=>{
+      if(res.data.code===0){
+        this.info = res.data.data;
+        this.typeNames = [];
+        for(let key in this.info.specification){
+          this.typeNames.push(key);
+        }
+        this.value1 = this.info.specification[this.typeNames[0]][0];
+        this.value2 = this.info.specification[this.typeNames[1]][0];
+      }else{
+        Toast(res.data.errmsg)
+      }
+    })
   }
 };
 </script>
@@ -543,8 +551,8 @@ export default {
           margin-bottom: 0.266667rem;
         }
         span.tag.active{
-          background-color: #e64a19;
-          color: #fff;
+          background-color: #e64a19!important;
+          color: #fff!important;
         }
         span.tag.bad{
           background-color: #f3f3f3;
@@ -703,11 +711,6 @@ export default {
           text-align: left;
           span{
             font-size: 0.48rem;
-          }
-          del{
-            font-weight: normal;
-            color: #999;
-            padding-left: 0.266667rem;
           }
         }
       }

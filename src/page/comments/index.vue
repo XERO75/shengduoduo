@@ -17,10 +17,26 @@
 </template>
 <script>
 import HeaderBar from "@/components/HeaderBar";
+import { getCommentList } from "@/api/sort";
 
 export default {
   components: {
     HeaderBar
+  },
+  data(){
+    return{
+      commentList: [],
+      
+    }
+  },
+  methods:{
+
+  },
+  mounted(){
+    let id = this.$route.query.id;
+    getCommentList(1,10,id).then(res=>{
+      this.commentList = res.data.data;
+    })
   }
 }
 </script>

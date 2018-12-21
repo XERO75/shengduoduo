@@ -3,7 +3,7 @@
   <p>
     <i class="icon-back" @click="onClickBack"></i>
     {{title}}
-    <i class="icon-cart" @click="onClickCart"></i>
+    <i v-if="!isCart" class="icon-cart" @click="onClickCart"></i>
     <i class="icon-more"></i>
   </p>
   </div>
@@ -17,6 +17,10 @@ export default {
   },
   props:{
     title: String,
+    isCart: {
+      type: Boolean,
+      default: false
+    }
   },
   data(){
     return{
@@ -47,7 +51,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1500;
+  z-index: 3000;
   p{
     line-height: 1.2rem;
     text-align: center;

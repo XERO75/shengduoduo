@@ -1,12 +1,10 @@
 <template>
   <div id="cart">
-    <HeaderBar title="购物车" @back="onClickBack"></HeaderBar>
+    <HeaderBar title="购物车" @back="onClickBack" isCart></HeaderBar>
     <div class="cart-item" v-for="(n,i) in cartList">
       <p class="store-name">
-        <!-- <div @click="handleStoreCheck"> -->
-          <i v-if="n.isSelected" class="icon-checked"></i>
-          <i v-else class="icon-nocheck"></i>
-        <!-- </div> -->
+        <i v-if="n.isSelected" class="icon-checked" @click="handleStoreCheck(i)"></i>
+        <i v-else class="icon-nocheck" @click="handleStoreCheck(i)"></i>
         <i class="icon-store"></i>
         {{n.shopName}} 
         <i class="icon-right"></i>
@@ -22,7 +20,8 @@
         <div class="change">
           <div class="type">{{p.specifications}}</div> 
           <div class="stepper-container">
-            <van-stepper v-model="p.count" integer :min="1" />
+            <van-stepper v-model="p.count" integer :min="1" 
+            @plus="p.count++" @minus="p.count--" @change="changeCount(p.id,p.count)" />
           </div>
         </div>
         <p class="price">&yen; {{p.price}}</p>
@@ -81,7 +80,7 @@
 <script>
 import { Toast, Stepper, Dialog, Popup } from 'vant';
 import HeaderBar from '@/components/HeaderBar';
-import { getCartList, deleteCart, checkProduct, checkStore, checkAll } from '@/api/cart';
+import { getCartList, deleteCart, checkProduct, checkStore, checkAll, changeCount } from '@/api/cart';
 export default {
   components: {
     [Toast.name]: Toast,
@@ -103,9 +102,27 @@ export default {
     onClickBack(){
       this.$router.go(-1)
     },
+    handleCheck(){
+      for (let i = 0; i < this.cartList.length; i++) {
+        for (let j = 0; j < this.cartList[i].cartItems.length; j++) {
+          if(this.cartList[i].cartItems[j].isSelected==false){
+            this.cartList[i].isSelected = false;
+            break;
+          }
+          this.cartList[i].isSelected = true;
+        }
+        if(this.cartList[i].isSelected==false){
+          this.allSelected = false;
+          break;
+        }else{
+          this.allSelected = true;
+        }
+      }
+    },
     handleProductCheck(i,j){
       let id = this.cartList[i].cartItems[j].id;
       this.cartList[i].cartItems[j].isSelected = !this.cartList[i].cartItems[j].isSelected;
+      this.handleCheck();
       let formdata = new FormData();
       formdata.append('cartItemId',id);
       checkProduct(formdata).then(res=>{
@@ -113,43 +130,68 @@ export default {
         if(res.data.code===0){
           this.totalPrice = res.data.data;
         }else{
+          window.reload();
           Toast(res.data.errmsg)
         }
       })
     },
-    handleStoreCheck(){
-
+    handleStoreCheck(i){
+      if(this.cartList[i].isSelected){
+        this.cartList[i].isSelected = false;
+        for(let item of this.cartList[i].cartItems){
+          item.isSelected = false;
+        }
+      }else{
+        this.cartList[i].isSelected = true;
+        for(let item of this.cartList[i].cartItems){
+          item.isSelected = true;
+        }
+      }
+      this.handleCheck();
+      let formdata = new FormData();
+      formdata.append('code',this.cartList[i].shopCode);
+      if(this.cartList[i].isSelected){
+        formdata.append('selected',1);
+      }else{
+        formdata.append('selected',0);
+      }
+      checkStore(formdata).then(res=>{
+        if(res.data.code===0){
+          this.totalPrice = res.data.data;
+        }else{
+          window.reload();
+          Toast(res.data.errmsg);
+        }
+      })
     },
     handleAllCheck(){
-
+      this.allSelected = !this.allSelected;
+      for(let i of this.cartList){
+        i.isSelected = this.allSelected;
+        for(let j of i.cartItems){
+          j.isSelected = this.allSelected;
+        }
+      }
+      let formdata = new FormData();
+      if(this.allSelected){
+        formdata.append('selected',1);
+      }else{
+        formdata.append('selected',0);
+      }
+      checkAll(formdata).then(res=>{
+        this.totalPrice = res.data.data;
+      })
     },
     getCartList(){
       getCartList().then(res=>{
         if(res.data.code==0){
-          this.cartList = res.data.data.shopItemVos;
+          this.cartList = res.data.data.shopItemVos||[];
+          this.cartList.forEach(item => {
+            this.$set(item, 'isSelected', false);
+          })
           this.totalPrice = res.data.data.totalPrice;
-          // for (let i = 0; i < this.cartList.length; i++) {
-          //   for (let j = 0; j < this.cartList[i].cartItems.length; j++) {
-          //     if(this.cartList[i].cartItems[j].isSelected){
-          //       this.totalPrice += this.cartList[i].cartItems[j].price;
-          //     }
-          //   }
-          // }
-          for (let i = 0; i < this.cartList.length; i++) {
-            for (let j = 0; j < this.cartList[i].cartItems.length; j++) {
-              if(this.cartList[i].cartItems[j].isSelected==false){
-                this.cartList[i].isSelected = false;
-                break;
-              }
-              this.cartList[i].isSelected = true;
-            }
-            if(this.cartList[i].isSelected==false){
-              this.allSelected = false;
-              break;
-            }else{
-              this.allSelected = true;
-            }
-          }
+          console.log(this.cartList)
+          this.handleCheck();
         }else{
           Toast(res.data.errmsg);
         }
@@ -172,6 +214,14 @@ export default {
         
       });
     },
+    changeCount(id,count){
+      let formdata = new FormData();
+      formdata.append('cartItemId',id);
+      formdata.append('count',count);
+      changeCount(formdata).then(res=>{
+        this.totalPrice = res.data.data;
+      })
+    }
   },
   mounted(){
     this.getCartList();
