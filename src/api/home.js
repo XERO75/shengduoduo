@@ -4,7 +4,8 @@ var baseUrl = process.env.BASE_API;
 const urls = {
   product: '/app/index/findProductIsShow',
   bannerAdList: '/app/index/bannerAdList',
-  positionAdList: '/app/index/positionAdList'
+  positionAdParallelList: '/app/index/positionAdParallelList',
+  positionAdVerticalList: '/app/index/positionAdVerticalList'
 };
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -28,10 +29,18 @@ export const bannerAdList = () => {
   });
 };
 
-// 首页占位广告
-export const positionAdList = () => {
+// 首页占位广告 (横排)
+export const positionAdParallelList = () => {
   return axios({
-    url: apis.positionAdList,
+    url: apis.positionAdParallelList,
+    method: 'get'
+  });
+};
+
+// 首页占位广告 (竖排)
+export const positionAdVerticalList = () => {
+  return axios({
+    url: apis.positionAdVerticalList,
     method: 'get'
   });
 };

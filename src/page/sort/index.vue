@@ -91,7 +91,8 @@ export default {
     return{
       active: 0,
       classes: [],
-      categories: []
+      categories: [],
+      firstClass: ''
     }
   },
   methods: {
@@ -102,13 +103,16 @@ export default {
       this.$router.push({path:'/cart'})
     },
     onClickClass(index) {
+      // 点击根据index修改一二级分类
+      this.firstClass = this.classes[index].name
       this.categories = this.classes[index].categories
     },
     onClickMine(id){
       this.$router.push({path:'/mine'})
     },
     onClickSecond(id){
-      this.$router.push({path:'/sort/second', query:{'id': id}})
+      // 带参传
+      this.$router.push({path:'/sort/second', query:{'id': id, 'second': this.categories, 'first': this.firstClass}})
     },
     onClickDetail(){
       this.$router.push({path:'/sort/detail'});
@@ -120,6 +124,8 @@ export default {
         if (res.data.code === 0) {
           that.classes = res.data.data
           if (that.classes.length > 0) {
+            // 设置默认一级分类为第一个， 默认二级分类为该一级分类下的默认二级分类
+            that.firstClass = that.classes[0].name
             that.categories = that.classes[0].categories
           }
         } else {

@@ -1,48 +1,26 @@
 <template>
   <div id="sort-second">
-    <HeaderBar title="饮食" @back="onClickBack" @cart="onClickCart"></HeaderBar>
+    <HeaderBar :title="firstTitle" @back="onClickBack" @cart="onClickCart"></HeaderBar>
     <div class="tabs-bar">
-      <van-tabs v-model="active">
-        <van-tab title="饼干糕点"></van-tab>
-        <van-tab title="小食糖巧"></van-tab>
-        <van-tab title="坚果炒货"></van-tab>
-        <van-tab title="肉类零食"></van-tab>
+      <van-tabs v-model="active" @click="changeCategorie">
+        <van-tab v-for="(item, index) in categories" :key="index" :title="item.name"></van-tab>
       </van-tabs>
       <i class="icon-down" @click="show=true"></i>
     </div>
+
     <div class="mask" v-if="show">
       <div class="tabs-box" v-if="show">
-        <p>饮食<i class="icon-up" @click="show=false"></i></p>
+        <p>{{firstTitle}}<i class="icon-up" @click="show=false"></i></p>
         <div class="tags-container">
-          <span class="tag active">饼干小吃</span><span class="tag">饼干小吃</span><span class="tag">饼干小吃</span><span class="tag">饼干小吃</span><span class="tag">饼干小吃</span><span class="tag">饼干小吃</span>
+          <span v-for="(item, index) in categories" :key="index" class="tag" :class="active === index ? 'active' : ''" @click="changeCategorie(index)">{{item.name}}</span>
         </div>
       </div>
     </div>
     <div class="product-list">
-      <div class="product-container">
-        <div class="product-img"><img src="./../../pic/p2.png"></div>
-        <p class="name van-ellipsis">好吃薯片</p>
-        <p class="money">&yen;511</p>
-      </div><div class="product-container">
-        <div class="product-img"><img src="./../../pic/p2.png"></div>
-        <p class="name van-ellipsis">好吃薯片</p>
-        <p class="money">&yen;511</p>
-      </div><div class="product-container">
-        <div class="product-img"><img src="./../../pic/p2.png"></div>
-        <p class="name van-ellipsis">好吃薯片</p>
-        <p class="money">&yen;511</p>
-      </div><div class="product-container">
-        <div class="product-img"><img src="./../../pic/p2.png"></div>
-        <p class="name van-ellipsis">好吃薯片</p>
-        <p class="money">&yen;511</p>
-      </div><div class="product-container">
-        <div class="product-img"><img src="./../../pic/p2.png"></div>
-        <p class="name van-ellipsis">好吃薯片</p>
-        <p class="money">&yen;511</p>
-      </div><div class="product-container">
-        <div class="product-img"><img src="./../../pic/p2.png"></div>
-        <p class="name van-ellipsis">好吃薯片</p>
-        <p class="money">&yen;511</p>
+      <div v-for="(item, index) in products" :key="index" class="product-container">
+        <div class="product-img"><img :src="item.pictureUrl"></div>
+        <p class="name van-ellipsis">{{item.productName}}</p>
+        <p class="money">&yen;{{item.minPrice}}</p>
       </div>
     </div>
   </div>
@@ -66,7 +44,9 @@ export default {
       active: 0,
       show: false,
       memberProductCategoryId: null,
-      products: []
+      products: [],
+      categories: [],
+      firstTitle: ''
     }
   },
   methods: {
@@ -81,9 +61,8 @@ export default {
     },
     onClickDetail(id) {
       this.$router.push({path:'/shop/sort',query:{productId:id}});
-      // this.$router.push({path:'/shop/sort',query:''});
     },
-    // 根据分类id获取分类信息
+    // 根据分类id获取分类商品
     async findProductByCategoryId() {
       let that = this
       await findProductByCategoryId(this.memberProductCategoryId).then(res => {
@@ -93,11 +72,20 @@ export default {
           Toast(res.data.errmsg)
         }
       })
+    },
+    // 点击二级分类，切换active以及商品，重新调用 根据分类id获取分类商品 接口
+    changeCategorie(index) {
+      this.show = false
+      this.active = index
+      this.memberProductCategoryId = this.categories[index].id
+      this.findProductByCategoryId()
     }
   },
   mounted(){
     if (this.$route.query.id) {
       this.memberProductCategoryId = this.$route.query.id
+      this.categories = this.$route.query.second
+      this.firstTitle = this.$route.query.first
       this.findProductByCategoryId()
     }
   }
