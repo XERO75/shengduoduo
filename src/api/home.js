@@ -4,7 +4,8 @@ var baseUrl = process.env.BASE_API;
 const urls = {
   product: '/app/index/findProductIsShow',
   bannerAdList: '/app/index/bannerAdList',
-  positionAdList: '/app/index/positionAdList'
+  positionAdList: '/app/index/positionAdList',
+  productAdList: '/app/index/productAdList'
 };
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -33,5 +34,14 @@ export const positionAdList = () => {
   return axios({
     url: apis.positionAdList,
     method: 'get'
+  });
+};
+
+// 首页商品广告
+export const productAdList = () => {
+  return axios({
+    url: apis.productAdList,
+    method: 'get',
+    params: { number: 2 }
   });
 };

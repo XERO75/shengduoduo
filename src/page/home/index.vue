@@ -87,11 +87,12 @@
         <span class="more" @click="">更多</span>
       </div>
       <div class="ad-list">
-        <div class="ad-container" @click="onClickDetail">
-          <img src="./../../pic/ad1.png">
-        </div><div class="ad-container" @click="onClickDetail">
-          <img src="./../../pic/ad2.png">
+        <div v-for="n in productAdLists" :key="n.index" class="ad-container" @click="onClickDetail">
+          <img :src="n.picture">
         </div>
+        <!-- <div class="ad-container" @click="onClickDetail">
+          <img src="./../../pic/ad2.png">
+        </div> -->
       </div>
       <div class="product-list">
         <div class="product-container" v-for="p in products" @click="onClickDetail(p.productId)">
@@ -106,7 +107,7 @@
 
 <script>
 import { Search, Swipe, SwipeItem, Row, Col, Toast } from 'vant';
-import { getProductList, bannerAdList, positionAdList } from "@/api/home";
+import { getProductList, bannerAdList, positionAdList, productAdList } from "@/api/home";
 export default {
   components: {
     [Toast.name]: Toast,
@@ -122,7 +123,8 @@ export default {
       products: '',
       value: '',
       banners: [],
-      zhanweiAds: []
+      zhanweiAds: [],
+      productAdLists: []
     }
   },
   methods: {
@@ -157,11 +159,24 @@ export default {
           Toast(res.data.errmsg)
         }
       })
+    },
+    // 获取首页商品广告
+    async productAdList() {
+      let that = this
+      await productAdList().then(res => {
+        if (res.data.code === 0) {
+          console.log(res);
+          that.productAdLists = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
     }
   },
   mounted(){
     this.bannerAdList()  // 获取banner图片
     this.positionAdList()  // 获取占位广告
+    this.productAdList() // 获取商品广告
     getProductList().then(res=>{
       this.products = res.data.data;
     })

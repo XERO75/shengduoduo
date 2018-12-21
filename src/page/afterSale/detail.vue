@@ -2,24 +2,24 @@
   <div id="after-sale-detail">
     <div class="bg-container">
       <img src="./../../image/img_beijin@2x.png">
-      <p class="status">已拒绝</p>
-      <p class="date">2018年9月9日 12:23</p>
+      <p class="status">{{refundDetails.refundStatus}}</p>
+      <p class="date">{{refundDetails.createDate}}</p>
     </div>
     <div class="money-container">
-      <p>退款总金额<span>&yen;500</span></p>
+      <p>退款总金额<span>&yen;{{refundDetails.actualPay}}</span></p>
     </div>
     <div class="info-container">
       <p class="title">退款信息</p>
       <div class="product-container">
-        <img src="./../../pic/box.png">
-        <p class="name">双面穿短外套女装韩版休闲百搭大骂小外套</p>
-        <p class="price">&yen;500</p>
-        <p class="type">红色500g <span>更多</span></p>
+        <img :src="refundDetails.image">
+        <p class="name">{{refundDetails.product}}</p>
+        <p class="price">&yen;{{refundDetails.actualPay}}</p>
+        <p class="type">{{(refundDetails.specifications.replace(/；/g,' '))}} <span>更多</span></p>
       </div>
       <div class="other-container">
-        <p>退款原因：买错</p>
-        <p>退款金额：&yen; 23.50</p>
-        <p>申请时间：2018-09-08 12:35</p>
+        <p>退款原因：{{refundDetails.rejectReason}}</p>
+        <p>退款金额：&yen; {{refundDetails.refundPrice}}</p>
+        <p>申请时间：{{refundDetails.createDate}}</p>
       </div>
     </div>
   </div>
@@ -27,23 +27,34 @@
 
 <script>
 import { Toast,  } from 'vant';
-// import { getCouponList } from "@/api/coupon";
+import { getRefundDetails } from '@/api/afterSale.js'
 export default {
   components: {
     [Toast.name]: Toast,
   },
   data(){
     return{
-
+      refundDetails: {}
     }
   },
   methods: {
     onClickPoints() {
       this.$router.push({path:'/points/coupon'});
     },
+    async getRefundDetails() {
+      let that = this
+      getRefundDetails(this.$route.query.paidCode).then(res => {
+        if (res.data.code === 0) {
+          console.log(res);
+          that.refundDetails = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    }
   },
   mounted(){
-
+    this.getRefundDetails()
   }
 };
 </script>
