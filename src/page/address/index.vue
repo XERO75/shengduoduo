@@ -5,8 +5,8 @@
         <p class="phone" :class="{'default':n.isDefault==true}">{{n.contact}} {{n.phone}}</p>
         <p class="address">{{n.area}}{{n.specificAddress}}</p>
         <div class="action-container">
-          <i class="icon-edit" @click="onClickEdit"></i>
-          <i class="icon-delete" @click="showDialog"></i>
+          <i class="icon-edit" @click="onClickEdit(n.id)"></i>
+          <i class="icon-delete" @click="showDialog(n.id)"></i>
         </div>
       </div>
     </div>
@@ -17,12 +17,13 @@
 </template>
 
 <script>
-import { Dialog, Button } from 'vant';
-import { getAddress } from '@/api/address.js'
+import { Dialog, Button, Toast } from 'vant';
+import { getAddress, handleDel } from '@/api/address.js'
 export default {
   components: {
     [Dialog.name]: Dialog,
     [Button.name]: Button,
+    [Toast.name]: Toast,
   },
   data(){
     return{
@@ -30,40 +31,39 @@ export default {
     }
   },
   methods: {
+    handleGetDetail() {
+      getAddress().then(res => {
+        if (res.data.code === 0 ) {
+          this.addressLists = res.data.data
+        }
+      })
+    },
     onClickAdd() {
       this.$router.push({path:'/address/add'});
     },
     onClickEdit(id) {
-      this.$router.push({path:'/address/edit',query:{id:id}});
+      this.$router.push({path:'/address/edit',query:{addressId:id}});
     },
     showDialog(id){
       Dialog.confirm({
         title: '是否确定删除该地址？',
         // message: '弹窗内容'
       }).then(() => { // on confirm
-        // let formdata = new FormData();
-        // formdata.append('ids',id);
-        // // formdata.append('WX_TYPE','OfficialAccount');
-        // deleteAddress(formdata).then(res=>{
-        //   // console.log(res);
-        //   getAdressList().then(response=>{
-        //     console.log(response);
-        //     this.addressList = response.data.data;
-        //   })
-        // })
-
+        handleDel(id).then(res => {
+          if (res.data.code === 0) {
+            Toast.success({message:'删除成功',duration:1000})
+            this.handleGetDetail()
+          } else {
+            Toast.fail(res.data.code)
+          }
+        })
       }).catch(() => { // on cancel
         
       });
     }
   },
   mounted(){
-    getAddress().then(res => {
-      console.log(res);
-      if (res.data.code === 0 ) {
-        this.addressLists = res.data.data
-      }
-    })
+    this.handleGetDetail()
   }
 };
 </script>
@@ -76,6 +76,7 @@ export default {
   .address-list{
     padding: 0 0.4rem;
     background-color: #fff;
+    margin-bottom: 2.533333rem;
     .address-container{
       position: relative;
       padding-right: 2.133333rem;

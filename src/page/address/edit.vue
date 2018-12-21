@@ -10,19 +10,20 @@
         <van-field
           v-model="info.phone"
           label="联系电话:"
+          oninput="if(value.length>11)value=value.slice(0,11)"
           placeholder=""
         />
         <van-cell :value="info.district" title="选择地区" is-link @click="showArea=true"></van-cell>
           <!-- @input="getSearchList" -->
         <van-field
           v-if="!isEdit"
-          v-model="inputAddress"
+          v-model="info.inputAddress"
           label="详细地址:"
           placeholder="街道、门牌号等"
         />
         <van-field
           v-if="isEdit"
-          v-model="inputAddress"
+          v-model="info.inputAddress"
           label="详细地址:"
           placeholder=""
           @click="showAddress=true"
@@ -49,13 +50,10 @@
     <div id="result"></div>
   </div>
 </template>
-<!-- 高德地图 -->
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=fa88b622064b112e8caefeb05f40b790"></script>
-<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 <script>
 import { Toast, Cell, CellGroup, Field, Switch, Button, Actionsheet, Area, Popup, Loading } from 'vant';
 import { areaList } from './../../common/areaList.js'
-import { handleAdd } from '@/api/address.js'
+import { handleAdd, handleEdit, handleUpdate } from '@/api/address.js'
 export default {
   components: {
     [Toast.name]: Toast,
@@ -83,14 +81,11 @@ export default {
       info: {
         contact: "",
         district: "",
-        gaodeAddress: "",
-        room: "",
         id: "",
         isDefault: "",
         phone: "",
-        specificAddress: "",
+        inputAddress: '',
       },
-      inputAddress: '',
       searchList: [],
       addr1: '',
       addr2: '',
@@ -105,6 +100,30 @@ export default {
   methods: {
     isPhoneNum(str) {
       return /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(str)
+    },
+    saveAddress(){
+      if(this.info.contact && this.info.phone && this.info.district && this.info.inputAddress){
+        if (this.isPhoneNum(this.info.phone)) {
+          let formdata = new FormData();
+          formdata.append('contact',this.info.contact);
+          formdata.append('area',this.info.district);
+          formdata.append('phone',this.info.phone);
+          formdata.append('specificAddress',this.info.inputAddress);
+          formdata.append('isDefault',this.isDefault);
+          handleAdd(formdata).then(res => {
+            if (res.data.code === 0) {
+              Toast.success('添加成功')
+              setTimeout(() => {
+                this.$router.go(-1)
+              }, 1500);
+            } else Toast.fail(res.data.errmsg)
+          })
+        } else {
+          Toast('请填写正确的手机号码');
+        }
+      } else {
+        Toast('请填写完整的信息');
+      }
     },
     onreaCancel() {
       this.showArea = false;
@@ -143,70 +162,27 @@ export default {
       this.area = this.data.province +" "+ this.data.city +" "+ this.data.county;
       this.info.district = this.data.county;
     },
-    saveAddress(){
-      if(this.info.room&&this.info.contact&&this.info.phone){
-        if(this.info.specificAddress){
-          if(this.isPhoneNum(this.info.phone)){
-            let formdata1 = new FormData();
-            formdata1.append('contact',this.info.contact);
-            formdata1.append('district',this.info.district);
-            formdata1.append('isDefault',this.isDefault);
-            formdata1.append('phone',this.info.phone);
-            formdata1.append('room',this.info.room);
-            formdata1.append('specificAddress',this.info.specificAddress);
-            formdata1.append('gaodeAddress',this.info.gaodeAddress);
-            addAddress(formdata1).then(res=>{
-              // console.log(res);
-              if(this.$route.name=="addressAdd"){
-                this.$router.push({path:'/address'});
-              }else if(this.$route.name=="shopAddAddress"){
-                this.$router.push({path:'/shop/address'});
-              }else if(this.$route.name=="pintuanAddAddress"){
-                this.$router.push({path:'/pintuan/address'});
-              }
-            })
-          }else{
-            Toast('请填写正确的手机号码');
-          }
-        }else{
-          Toast('请搜索并选择配送地址');
-        }
-      }else{
-        Toast('请填写完整的信息');
-      }
-    },
     updataAddress(){
-      console.log(this.resultList);
-      // this.checkArea();
-      if(this.info.room&&this.info.contact&&this.info.phone){
-        if(this.info.specificAddress){
-          if(this.isPhoneNum(this.info.phone)){
-            let formdata2 = new FormData();
-            formdata2.append('id',this.info.id);
-            formdata2.append('contact',this.info.contact);
-            formdata2.append('district',this.info.district);
-            formdata2.append('isDefault',this.isDefault);
-            formdata2.append('phone',this.info.phone);
-            formdata2.append('room',this.info.room);
-            formdata2.append('specificAddress',this.info.specificAddress);
-            formdata2.append('gaodeAddress',this.info.gaodeAddress);
-            editAddress(formdata2).then(res=>{
-              // console.log(res);
-              if(this.$route.name=="addressEdit"){
-                this.$router.push({path:'/address'});
-              }else if(this.$route.name=="shopEditAddress"){
-                this.$router.push({path:'/shop/address'});
-              }else if(this.$route.name=="pintuanEditAddress"){
-                this.$router.push({path:'/pintuan/address'});
-              }
-            })
-          }else{
-            Toast('请填写正确的手机号码');
-          }
-        }else{
-          Toast('请搜索并选择配送地址');
+      if(this.info.contact && this.info.phone && this.info.district && this.info.inputAddress){
+        if (this.isPhoneNum(this.info.phone)) {
+          let formdata = new FormData();
+          formdata.append('contact',this.info.contact);
+          formdata.append('area',this.info.district);
+          formdata.append('phone',this.info.phone);
+          formdata.append('specificAddress',this.info.inputAddress);
+          formdata.append('isDefault',this.isDefault);
+          handleUpdate(formdata).then(res => {
+            if (res.data.code === 0) {
+              Toast.success('更新成功')
+              setTimeout(() => {
+                this.$router.go(-1)
+              }, 1500);
+            } else Toast.fail(res.data.errmsg)
+          })
+        } else {
+          Toast('请填写正确的手机号码');
         }
-      }else{
+      } else {
         Toast('请填写完整的信息');
       }
     },
@@ -228,6 +204,18 @@ export default {
   mounted(){
     if (this.$route.name === 'addressEdit') {
       this.isEdit = true
+      handleEdit(this.$route.query.addressId).then(res => {
+        console.log(res);
+        if (res.data.code === 0) {
+          this.info.contact = res.data.data.contact
+          this.info.district = res.data.data.area
+          this.info.phone = res.data.data.phone
+          this.info.inputAddress = res.data.data.specificAddress
+          this.isDefault = res.data.data.isDefault
+        } else {
+          Toast('res.data.errmsg')
+        }
+      })
     }
   }
 };
