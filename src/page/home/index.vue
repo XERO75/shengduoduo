@@ -11,8 +11,9 @@
     </div>
     <van-swipe :autoplay="3000">
       <!-- <van-swipe-item v-for="n in bannerList" :key="n.id"><a :href="n.h5Url" v-if="n.type=='Link'"><img :src="n.image"></a><img v-if="n.type=='H5'" :src="n.image" @click="onClickH5(n.id,0)"></van-swipe-item> -->
-      <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
-      <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
+      <template v-for="(item, index) in banners">
+        <van-swipe-item :key="index"><a><img :src="item.picture"></a></van-swipe-item>
+      </template>
     </van-swipe>
     <div class="nav-container">
       <div class="nav" @click="">
@@ -52,31 +53,18 @@
         <img src="./../../pic/title1.png">
         <span class="more" @click="">更多</span>
       </div>
-      <div class="ad">
-        <img src="./../../image/限时必拼@2x.png">
+      <div v-for="(item, index) in zhanweiAdsHeng" :key="index" class="ad">
+        <img :src="item.picture"/>
       </div>
       <div class="pin-list">
-        <div class="pin-container">
-          <div class="pin-box">
-            <p class="name">地方特产</p>
-            <p class="price">&yen;12.8</p>
-            <img src="./../../pic/p1.png">
-            <span class="btn-pin" @click="onClickDetail">去拼团</span>
-          </div>
-        </div><div class="pin-container">
-          <div class="pin-box">
-            <p class="name">满50送20</p>
-            <p class="price">&yen;12.8</p>
-            <img src="./../../pic/p1.png">
-            <span class="btn-pin" @click="onClickDetail">去拼团</span>
-          </div>
-        </div><div class="pin-container">
-          <div class="pin-box">
+        <div v-for="(item, index) in zhanweiAdsShu" :key="index" class="pin-container">
+          <img :src="item.picture"/>
+          <!-- <div class="pin-box">
             <p class="name">网红美味</p>
             <p class="price">&yen;12.8</p>
             <img src="./../../pic/p1.png">
             <span class="btn-pin" @click="onClickDetail">去拼团</span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -104,10 +92,11 @@
 </template>
 
 <script>
-import { Search, Swipe, SwipeItem, Row, Col } from 'vant';
-import { getProductList } from "@/api/home";
+import { Search, Swipe, SwipeItem, Row, Col, Toast } from 'vant';
+import { getProductList, bannerAdList, positionAdParallelList, positionAdVerticalList } from "@/api/home";
 export default {
   components: {
+    [Toast.name]: Toast,
     [Search.name]: Search,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
@@ -119,6 +108,9 @@ export default {
     return{
       products: '',
       value: '',
+      banners: [],
+      zhanweiAdsHeng: [],
+      zhanweiAdsShu: []
     }
   },
   methods: {
@@ -132,10 +124,45 @@ export default {
     onClickSort() {
       this.$router.push({path:'/sort'});
     },
+    // 获取首页banner广告图
+    async bannerAdList() {
+      let that = this
+      await bannerAdList().then(res => {
+        if (res.data.code === 0) {
+          that.banners = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 获取首页占位广告(横排)
+    async positionAdParallelList() {
+      let that = this
+      await positionAdParallelList().then(res => {
+        if (res.data.code === 0) {
+          that.zhanweiAdsHeng = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 获取首页占位广告(竖排)
+    async positionAdVerticalList() {
+      let that = this
+      await positionAdVerticalList().then(res => {
+        if (res.data.code === 0) {
+          that.zhanweiAdsShu = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    }
   },
   mounted(){
+    this.bannerAdList()  // 获取banner图片
+    this.positionAdParallelList()  // 获取占位广告(横排)
+    this.positionAdVerticalList()  // 获取占位广告(竖排)
     getProductList().then(res=>{
-      console.log(res);
       this.products = res.data.data;
     })
   }

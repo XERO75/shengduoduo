@@ -2,10 +2,10 @@
   <div id="login">
     <img src="./../../image/miduoduo@2x.png" class="login-avatar" alt="">
     <div class="login-form">
-      <form action="" class="f-column">
-        <input type="text" placeholder="请输入米高e购会员账号">
-        <input type="password" placeholder="请输入登录密码">
-        <button class="login-button">立即登录</button>
+      <form action="/" class="f-column">
+        <input v-model="userName" type="text" placeholder="请输入米高e购会员账号">
+        <input v-model="userPwd" type="password" placeholder="请输入登录密码">
+        <button type="button" class="login-button" @click="onClickLogin">立即登录</button>
       </form>
     </div>
     <p class="login-tips">
@@ -14,12 +14,39 @@
   </div>
 </template>
 <script>
-import { Field, Button } from 'vant';
+import { Field, Button, Toast } from 'vant';
+import { handleLogin } from '@/api/login.js'
 export default {
   components: {
     [Field.name]: Field,
-    [Button.name]: Button
-  }
+    [Button.name]: Button,
+    [Toast.name]: Toast
+  },
+  data() {
+    return {
+      userName:'',
+      userPwd: ''
+    }
+  },
+  methods: {
+    onClickLogin() {
+      if (this.userName == '') {
+        Toast.fail('账号不能为空')
+      } else if (this.userPwd == '') {
+        Toast.fail('密码不能为空')
+      } else {
+        let formdata = new FormData();
+        formdata.append('username', this.userName);
+        formdata.append('password', this.userPwd);
+        handleLogin(formdata).then(res=>{
+          if (res.data.code === 0) {
+            console.log(res);
+          } else Toast.fail(res.data.errmsg)
+        }).catch()
+      }
+      
+    }
+  },
 }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
