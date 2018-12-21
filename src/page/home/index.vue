@@ -11,8 +11,9 @@
     </div>
     <van-swipe :autoplay="3000">
       <!-- <van-swipe-item v-for="n in bannerList" :key="n.id"><a :href="n.h5Url" v-if="n.type=='Link'"><img :src="n.image"></a><img v-if="n.type=='H5'" :src="n.image" @click="onClickH5(n.id,0)"></van-swipe-item> -->
-      <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
-      <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
+      <template v-for="(item, index) in banners">
+        <van-swipe-item :key="index"><a><img :src="item.picture"></a></van-swipe-item>
+      </template>
     </van-swipe>
     <div class="nav-container">
       <div class="nav" @click="">
@@ -104,10 +105,11 @@
 </template>
 
 <script>
-import { Search, Swipe, SwipeItem, Row, Col } from 'vant';
-import { getProductList } from "@/api/home";
+import { Search, Swipe, SwipeItem, Row, Col, Toast } from 'vant';
+import { getProductList, bannerAdList, positionAdList } from "@/api/home";
 export default {
   components: {
+    [Toast.name]: Toast,
     [Search.name]: Search,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
@@ -119,6 +121,8 @@ export default {
     return{
       products: '',
       value: '',
+      banners: [],
+      zhanweiAds: []
     }
   },
   methods: {
@@ -132,10 +136,33 @@ export default {
     onClickSort() {
       this.$router.push({path:'/sort'});
     },
+    // 获取首页banner广告图
+    async bannerAdList() {
+      let that = this
+      await bannerAdList().then(res => {
+        if (res.data.code === 0) {
+          that.banners = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 获取首页占位广告
+    async positionAdList() {
+      let that = this
+      await positionAdList().then(res => {
+        if (res.data.code === 0) {
+          that.zhanweiAds = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    }
   },
   mounted(){
+    this.bannerAdList()  // 获取banner图片
+    this.positionAdList()  // 获取占位广告
     getProductList().then(res=>{
-      console.log(res);
       this.products = res.data.data;
     })
   }

@@ -112,8 +112,8 @@
               <p class="name">店铺优惠券</p>
             </div>
             <div>
-              <img v-if="true" mode="widthFix" src="../../image/选择@2x.png"/>
-              <img v-else mode="widthFix" src="../../image/未选择@2x.png"/>
+              <img v-if="!checked" mode="widthFix" src="../../image/选择@2x.png" @click="checked = !checked"/>
+              <img v-else mode="widthFix" src="../../image/未选择@2x.png" @click="checked = !checked"/>
             </div>
           </div>
 

@@ -2,7 +2,9 @@ import axios from 'axios';
 // import axios from "./../request.js";
 var baseUrl = process.env.BASE_API;
 const urls = {
-  product: '/app/index/findProductIsShow'
+  product: '/app/index/findProductIsShow',
+  bannerAdList: '/app/index/bannerAdList',
+  positionAdList: '/app/index/positionAdList'
 };
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -14,6 +16,22 @@ const apis = Object.keys(urls)
 export const getProductList = () => {
   return axios({
     url: apis.product,
+    method: 'get'
+  });
+};
+
+// 首页banner图片
+export const bannerAdList = () => {
+  return axios({
+    url: apis.bannerAdList,
+    method: 'get'
+  });
+};
+
+// 首页占位广告
+export const positionAdList = () => {
+  return axios({
+    url: apis.positionAdList,
     method: 'get'
   });
 };
