@@ -7,6 +7,7 @@ const urls = {
   checkProduct: '/app/cartItem/changeSelected',
   checkStore: '/app/cartItem/shopSelected',
   checkAll: '/app/cartItem/selectAll',
+  change: '/app/cartItem/changeCount',
 }
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -57,6 +58,14 @@ export const checkStore = (query) => {
 export const checkAll = (query) => {
   return axios({
     url: apis.checkAll,
+    method: 'post',
+    data: query
+  });
+};
+// 更改购物车商品的数量
+export const changeCount = (query) => {
+  return axios({
+    url: apis.change,
     method: 'post',
     data: query
   });

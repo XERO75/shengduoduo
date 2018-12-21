@@ -2,35 +2,24 @@
   <div id="sort-comment">
     <HeaderBar title="全部评论" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
     <div class="comment-container">
-      <p class="title">商品评价(56465)</p>
+      <p class="title">商品评价({{totalCommentCount}})</p>
       <div class="content">
         <div class="tag-container">
-          <span class="tag active" @click="handleChooseAllView">全部451</span>
-          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
-          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
-          <span class="tag" @click="handleChooseView($event,i)"><span class="str">好喝</span>99</span>
+          <span class="tag active" @click="handleChooseAllView">全部{{totalCommentCount}}</span>
+          <span v-for="n in commentTags" class="tag" @click="handleChooseView($event,i)"><span class="str">{{n.tag}}</span>{{n.count}}</span>
           <span class="tag bad" @click="handleChooseView($event,i)"><span class="str">难喝</span>99</span>
         </div>
         <!-- <div class="tag-container">
           <span class="tag active" @click="handleChooseAllView">全部 ({{totalTags}})</span>
           <span v-for="(n,i) in tags" class="tag" @click="handleChooseView($event,i)"><span class="str">{{n.tagname}}</span> ({{n.count}})</span>
         </div> -->
-        <div class="view-container">
-          <img class="avator" src="./../../image/差评-灰色@2x.png">
+        <div v-for="n in commentList" class="view-container">
+          <img class="avator" :src="n.avatar">
           <div class="view-content">
-            <p class="name">撒旦<span>2018-10-55</span></p>
-            <p class="type">好评</p>
-            <p class="view">好喝好喝</p>
-            <p class="product">燕塘牛奶</p>
-          </div>
-        </div>
-        <div class="view-container">
-          <img class="avator" src="./../../image/差评-灰色@2x.png">
-          <div class="view-content">
-            <p class="name">撒旦<span>2018-10-55</span></p>
-            <p class="type">好评</p>
-            <p class="view">好喝好喝</p>
-            <p class="product">燕塘牛奶</p>
+            <p class="name van-ellipsis">{{n.memberName}}<span>{{n.createDate}}</span></p>
+            <p class="type">{{n.level}}</p>
+            <p class="view">{{n.info}}</p>
+            <p class="product">{{n.productName}} {{n.count}}</p>
           </div>
         </div>
         <!-- <div class="view-container" v-for="(v,i) in comments" :key="i">
@@ -53,14 +42,14 @@
           <p>首页</p>
         </div><div class="btn-list">
           <div class="btn btn-vip" @click="onClickPin">
-            <p class="money">&yen; 60+50e币</p>
+            <p class="money">&yen; {{vipPrice}}+{{coin}}e币</p>
             <p class="text">会员价</p>
           </div><div class="btn btn-buy" @click="showBox=true">
-            <p class="money">&yen; 150</p>
+            <p class="money">&yen; {{minPrice}}</p>
             <p class="text">单独购买</p>
           </div><div class="btn btn-pin" @click="onClickPin">
-            <p class="money">&yen; 23</p>
-            <p class="text">发起拼单(5人)</p>
+            <p class="money">&yen; {{collagePrice}}</p>
+            <p class="text">发起拼单({{groupNumber}}人)</p>
           </div>
         </div>
       </div>
@@ -107,9 +96,7 @@
 <script>
 import { Swipe, SwipeItem, Tab, Tabs, Button, Popup } from 'vant';
 import HeaderBar from "@/components/HeaderBar";
-// import { getInfo } from "@/api/pintuan";
-// import { getProductDetail, getCommentsByTag } from "@/api/shop";
-// import { handleLogin } from "@/api/login";
+import { getCommentList } from "@/api/sort";
 export default {
   components: {
     [Swipe.name]: Swipe,
@@ -125,10 +112,23 @@ export default {
       timer: null,
       showBox: false,
       count: '',
+      commentList: [],
+      commentTags: [],
+      minPrice: 0,
+      collagePrice: 0,
+      vipPrice: 0,
+      coin: 0,
+      groupNumber: 0,
     }
   },
   computed: {
-
+    totalCommentCount(){
+      let total = 0;
+      for(let item of this.commentTags){
+        total += item.count;
+      }
+      return total;
+    }
   },
   methods: {
     /* 获取浏览器被卷去的高度(兼容性处理) */
@@ -191,11 +191,7 @@ export default {
       this.$router.push({path:'/shop/sort',query:{productId: this.detail.id}});
     },
     buyCollage() {
-      this.$store.state.pintuan.count = this.info.minCount;
-      this.$store.state.pintuan.deliveryMethod = 'Multiple';
-      this.$store.state.pintuan.number = this.detail.number;
-      this.$store.state.pintuan.produtId = this.detail.id;
-      this.$router.push({path:'/pintuan/configure',query:{productId: this.detail.id}});
+
     },
     onClickBack(){
       this.$router.go(-1);
@@ -211,6 +207,15 @@ export default {
     },
   },
   mounted(){
+    let id = this.$route.query.id;
+    getCommentList(1,10,id).then(res=>{
+      this.commentList = res.data.data.Comment.list;
+      this.minPrice = res.data.data.minPrice;
+      this.collagePrice = res.data.data.minCollagePrice;
+      this.vipPrice = res.data.data.minVipPrice;
+      this.coin = res.data.data.minecoin;
+      this.groupNumber = res.data.data.groupNumber;
+    })
   }
 };
 </script>
@@ -251,8 +256,8 @@ export default {
           margin-bottom: 0.266667rem;
         }
         span.tag.active{
-          background-color: #e64a19;
-          color: #fff;
+          background-color: #e64a19!important;
+          color: #fff!important;
         }
         span.tag.bad{
           background-color: #f3f3f3;
@@ -273,6 +278,7 @@ export default {
           padding-left: 1.2rem;
           p.name{
             padding-top: 0.08rem;
+
             font-size: 0.346667rem;
             color: #2d2d2d;
             span{

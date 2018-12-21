@@ -53,31 +53,18 @@
         <img src="./../../pic/title1.png">
         <span class="more" @click="">更多</span>
       </div>
-      <div class="ad">
-        <img src="./../../image/限时必拼@2x.png">
+      <div v-for="(item, index) in zhanweiAdsHeng" :key="index" class="ad">
+        <img :src="item.picture"/>
       </div>
       <div class="pin-list">
-        <div class="pin-container">
-          <div class="pin-box">
-            <p class="name">地方特产</p>
-            <p class="price">&yen;12.8</p>
-            <img src="./../../pic/p1.png">
-            <span class="btn-pin" @click="onClickDetail">去拼团</span>
-          </div>
-        </div><div class="pin-container">
-          <div class="pin-box">
-            <p class="name">满50送20</p>
-            <p class="price">&yen;12.8</p>
-            <img src="./../../pic/p1.png">
-            <span class="btn-pin" @click="onClickDetail">去拼团</span>
-          </div>
-        </div><div class="pin-container">
-          <div class="pin-box">
+        <div v-for="(item, index) in zhanweiAdsShu" :key="index" class="pin-container">
+          <img :src="item.picture"/>
+          <!-- <div class="pin-box">
             <p class="name">网红美味</p>
             <p class="price">&yen;12.8</p>
             <img src="./../../pic/p1.png">
             <span class="btn-pin" @click="onClickDetail">去拼团</span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -107,7 +94,7 @@
 
 <script>
 import { Search, Swipe, SwipeItem, Row, Col, Toast } from 'vant';
-import { getProductList, bannerAdList, positionAdList, productAdList } from "@/api/home";
+import { getProductList, bannerAdList, positionAdList, productAdList, positionAdParallelList, positionAdVerticalList } from "@/api/home";
 export default {
   components: {
     [Toast.name]: Toast,
@@ -125,6 +112,8 @@ export default {
       banners: [],
       zhanweiAds: [],
       productAdLists: []
+      zhanweiAdsHeng: [],
+      zhanweiAdsShu: []
     }
   },
   methods: {
@@ -149,12 +138,23 @@ export default {
         }
       })
     },
-    // 获取首页占位广告
-    async positionAdList() {
+    // 获取首页占位广告(横排)
+    async positionAdParallelList() {
       let that = this
-      await positionAdList().then(res => {
+      await positionAdParallelList().then(res => {
         if (res.data.code === 0) {
-          that.zhanweiAds = res.data.data
+          that.zhanweiAdsHeng = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 获取首页占位广告(竖排)
+    async positionAdVerticalList() {
+      let that = this
+      await positionAdVerticalList().then(res => {
+        if (res.data.code === 0) {
+          that.zhanweiAdsShu = res.data.data
         } else {
           Toast(res.data.errmsg)
         }
@@ -177,6 +177,8 @@ export default {
     this.bannerAdList()  // 获取banner图片
     this.positionAdList()  // 获取占位广告
     this.productAdList() // 获取商品广告
+    this.positionAdParallelList()  // 获取占位广告(横排)
+    this.positionAdVerticalList()  // 获取占位广告(竖排)
     getProductList().then(res=>{
       this.products = res.data.data;
     })
