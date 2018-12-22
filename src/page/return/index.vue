@@ -8,7 +8,7 @@
           <p class="item-type">lorem</p>
         </div><div class="item-right">
           <p class="price">&yen;745</p>
-          <p class="count">X4545</p>
+          <p class="count">X5</p>
         </div>
       </div>
     </div>

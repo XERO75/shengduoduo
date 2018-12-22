@@ -117,8 +117,8 @@ export default {
     }
   },
   methods: {
-    onClickDetail() {
-      this.$router.push({path:'/sort/detail'});
+    onClickDetail(id) {
+      this.$router.push({path:'/sort/detail',query:{id:id}});
       // this.$router.push({path:'/shop/sort',query:''});
     },
     onClickMine() {
