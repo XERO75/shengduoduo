@@ -111,7 +111,7 @@ export default {
       value: '',
       banners: [],
       zhanweiAds: [],
-      productAdLists: []
+      productAdLists: [],
       zhanweiAdsHeng: [],
       zhanweiAdsShu: []
     }

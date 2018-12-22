@@ -5,7 +5,7 @@ const urls = {
   product: '/app/index/findProductIsShow',
   bannerAdList: '/app/index/bannerAdList',
   positionAdList: '/app/index/positionAdList',
-  productAdList: '/app/index/productAdList'
+  productAdList: '/app/index/productAdList',
   positionAdParallelList: '/app/index/positionAdParallelList',
   positionAdVerticalList: '/app/index/positionAdVerticalList'
 };

@@ -339,3 +339,13 @@ textarea{
 .van-toast--text {
   min-width: auto!important;
 }
+
+/* 清除浮动 */
+.clearfix:after {
+  clear:both;
+  content:'.';
+  display:block;
+  width: 0;
+  height: 0;
+  visibility:hidden;
+}
