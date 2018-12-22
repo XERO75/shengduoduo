@@ -6,7 +6,7 @@
       <i class="icon-more" @click=""></i>
     </div>
     <van-swipe @change="onChangeSwipe" :autoplay="3000">
-      <van-swipe-item v-for="n in detail.image"><img :src="n"></van-swipe-item>
+      <van-swipe-item v-for="(n, i) in detail.image" :key="i"><img :src="n"></van-swipe-item>
       <div class="custom-indicator" slot="indicator">
         <span>{{current + 1}}/{{detail.image.length}}</span>
       </div>
@@ -388,7 +388,7 @@ export default {
   .product-info{
     .product-name{
       padding: 0.426667rem 0.4rem;
-      .left{    
+      .left{
         width: 72%;
         display: inline-block;
         .name{
@@ -434,7 +434,7 @@ export default {
         font-size: 0.32rem;
         color: #666;
         font-weight: normal;
-      } 
+      }
     }
     .product-rights{
       line-height: 0.88rem;
@@ -512,7 +512,7 @@ export default {
             }
           }
         }
-        span.btn-join{    
+        span.btn-join{
           position: absolute;
           display: inline-block;
           padding: 0.133333rem 0.333333rem;
@@ -667,7 +667,7 @@ export default {
           height: 0.333333rem;
           display: block;
           background: url(./../../image/订单详情-小店@2x.png) no-repeat;
-          -webkit-background-size: 0.386667rem 0.333333rem; 
+          -webkit-background-size: 0.386667rem 0.333333rem;
           background-size: 0.386667rem 0.333333rem;
           position: absolute;
           top: 50%;
@@ -679,7 +679,7 @@ export default {
     .product-box{
       padding: 0.426667rem 0.4rem;
       width: 100%;
-      box-sizing: border-box; 
+      box-sizing: border-box;
       .product-container{
         width: 33.3%;
         padding: 0 0.12rem 0 0.12rem;
@@ -721,7 +721,7 @@ export default {
     width: 100%!important;
     display: block!important;
   }
-  .btn-container{    
+  .btn-container{
     width: 100%;
     height: 1.306667rem;
     position: fixed;
@@ -754,7 +754,7 @@ export default {
       padding-left: 1.36rem;
       box-sizing: border-box;
       display: inline-block;
-      .btn{    
+      .btn{
         width: 33.3%;
         height: 100%;
         display: inline-block;

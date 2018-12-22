@@ -102,7 +102,7 @@ export default {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [Row.name]: Row,
-    [Col.name]: Col,
+    [Col.name]: Col
     // [Loading.name]: Loading,
   },
   data(){
@@ -111,7 +111,7 @@ export default {
       value: '',
       banners: [],
       zhanweiAds: [],
-      productAdLists: []
+      productAdLists: [],
       zhanweiAdsHeng: [],
       zhanweiAdsShu: []
     }
@@ -165,7 +165,6 @@ export default {
       let that = this
       await productAdList().then(res => {
         if (res.data.code === 0) {
-          console.log(res);
           that.productAdLists = res.data.data
         } else {
           Toast(res.data.errmsg)
@@ -175,7 +174,6 @@ export default {
   },
   mounted(){
     this.bannerAdList()  // 获取banner图片
-    this.positionAdList()  // 获取占位广告
     this.productAdList() // 获取商品广告
     this.positionAdParallelList()  // 获取占位广告(横排)
     this.positionAdVerticalList()  // 获取占位广告(竖排)

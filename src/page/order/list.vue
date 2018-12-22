@@ -2,52 +2,25 @@
   <div id="order-list">
     <van-tabs v-model="active" :swipe-threshold="tabNum" @click="tabClick">
       <van-tab title="全部">
-        <div class="order-container" @click="onClickInfo">
+        <div v-for="(item, index) in orderList" :key="index" class="order-container" @click="onClickInfo">
           <div class="order-header">
-            <span class="store-name">绝杀空间</span>
-            <span class="order-status fr">待付款</span>
+            <div class="f-vertical">
+              <img mode="widthFix" src="../../image/订单详情-小店@2x.png" style="width: 15px; hetght:auto;"/>
+              <span class="store-name">{{item.shopName}}</span>
+              <img mode="widthFix" src="../../image/订单相情，查看小店@2x.png" style="width: 5px; hetght:auto;"/>
+            </div>
+            <span class="order-status fr">{{item.orderStatus}}</span>
           </div>
           <div class="order-content">
-            <div class="order-item">
-              <img src="./../../pic/p2.png">
-              <div class="item-right">
-                <div class="item-top clearfloat">
-                  <span class="item-name van-ellipsis fl">好好吃的苹果味饼干</span>
-                  <span class="item-price fr">&yen;127</span>
-                </div>
-                <div class="item-bottom clearfloat">
-                  <span class="item-date fl">原味</span>
-                </div>
-              </div>
+            <div v-for="(n, i) in item.items" :key="i" class="order-item f-space-between">
+              <img mode="widthFix" :src="n.image"/>
+              <div class="order-item-div1 f-colunm"><p class="order-item-name overTwoLine">{{n.productName}}</p><p class="order-item-text">{{n.specifications}}</p></div>
+              <div class="order-item-div2 f-colunm"><p class="order-item-price">&yen; {{n.price}}</p><p class="order-item-count">&times; {{n.count}}</p></div>
             </div>
           </div>
           <div class="order-bottom">
-            <van-button class="fr" type="primary" size="small" @click="onClickDetail">去支付</van-button> 
-            <span class="orderTotal fl">实付：<strong>&yen;&nbsp;546546（免邮费）</strong></span>
-          </div>
-        </div>
-        <div class="order-container">
-          <div class="order-header">
-            <span class="store-name">绝杀空间</span>
-            <span class="order-status fr">待付款</span>
-          </div>
-          <div class="order-content">
-            <div class="order-item">
-              <img src="./../../pic/p2.png">
-              <div class="item-right">
-                <div class="item-top clearfloat">
-                  <span class="item-name van-ellipsis fl">好好吃的苹果味饼干</span>
-                  <span class="item-price fr">&yen;127</span>
-                </div>
-                <div class="item-bottom clearfloat">
-                  <span class="item-date fl">原味</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="order-bottom">
-            <van-button class="fr" type="primary" size="small" @click="onClickDetail">去支付</van-button> 
-            <span class="orderTotal fl">实付：<strong>&yen;&nbsp;546546</strong></span>
+            <van-button class="fr" type="primary" size="small" @click="onClickDetail">去支付</van-button>
+            <span class="orderTotal fl">实付：<strong>&yen;&nbsp;{{item.actualPay}} <span v-if="item.postage === 0">（免邮费）</span></strong></span>
           </div>
         </div>
         <!-- <div class="no-order" v-if="!orderList.length">
@@ -71,11 +44,13 @@
 </template>
 
 <script>
-import { Tab, Tabs, Button, Loading } from 'vant';
+import { Tab, Tabs, Button, Loading, Toast } from 'vant';
+import { myOrders } from '@/api/order'
 // import { getList } from "@/api/order";
 // import { handleLogin } from "@/api/login";
 export default {
   components: {
+    [Toast.name]: Toast,
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Button.name]: Button,
@@ -96,22 +71,27 @@ export default {
     tabClick(index, title) {
       this.getOrderList(title);
     },
-    getOrderList(str){
-      this.loading = true;
-      console.log(this.loading);
-      getList(str).then(res=>{
-        this.loading = false;
-        console.log(res);
-        this.orderList = res.data.data;
-      })
-    },
     onClickInfo() {
       this.$router.push({path:'/order/info'});
+    },
+    // 加载我的所有订单
+    async myOrders() {
+      let that = this
+      that.loading = true
+      let pageNum = 1
+      let pageSize = 10
+      await myOrders(pageNum, pageSize).then(res => {
+        if (res.data.code === 0) {
+          that.loading = false;
+          that.orderList = res.data.data.list
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
     }
   },
   mounted(){
-    handleLogin();
-      this.getOrderList('全部');
+    this.myOrders()
   }
 };
 </script>
@@ -131,37 +111,9 @@ export default {
       padding: 0 0.4rem;
       border-bottom: 1px solid #f6f6f6;
       .store-name{
-        padding-left: 16px;
         display: inline-block;
         position: relative;
-        &:before{
-          content: '';
-          width: 20px;
-          height: 20px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          -webkit-background-size: 20px 20px;
-          // background-size: 20px 20px;
-          background-size: 10px 16px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          left: 0;
-        }
-        &:after{
-          content: '';
-          width: 20px;
-          height: 20px;
-          display: block;
-          background: url(./../../image/MORE@2x.png) no-repeat;
-          -webkit-background-size: 20px 20px;
-          // background-size: 20px 20px;
-          background-size: 10px 16px;
-          position: absolute;
-          top: 50%;
-          margin-top: -9px;
-          right: -25px;
-        }
+        padding: 0 .266667rem;
       }
       .order-status{
         font-weight: bold;
@@ -169,30 +121,40 @@ export default {
     }
     .order-content{
       .order-item{
-        position: relative;
-        height: 50px;
-        padding: 0.3rem;
-        border-bottom: 1px solid #f6f6f6;
+        padding: .293333rem .4rem;
+        width: 92%;
+        height: 2.133333rem;
         img{
-          height: 60px;
-          position: absolute;
+          width: 2.133333rem;
+          height: auto;
         }
-        .item-right{
-          padding: 0 0 0 65px;
-          .item-top{
-            font-weight: bold;
-            line-height: 0.666667rem;
-            .item-name{
-              color: #000;
-              font-size: 0.373333rem;
-              width: 6.4rem;
-              display: inline-block;
-            }
-            .item-price{
-              color: #000;
-              font-size: 0.373333rem;
-            }
-          }
+        &-div1{
+          margin-left: .266667rem;
+          min-width: 53%;
+          max-width: 53%;
+        }
+        &-div2{
+          margin-left: .266667rem;
+          min-width: 14%;
+          max-width: 14%;
+        }
+        &-name{
+          font-size: .4rem;
+          color: #2e2e2d;
+        }
+        &-price{
+          font-size: .426667rem;
+          color: #e64a19;
+          text-align: right;
+        }
+        &-text{
+          font-size: .32rem;
+          color: #999;
+          margin-top: .32rem;
+        }
+        &-count{
+          @extend .order-item-text;
+          text-align: right;
         }
       }
     }
