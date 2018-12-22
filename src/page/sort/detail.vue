@@ -6,7 +6,7 @@
       <i class="icon-more" @click=""></i>
     </div>
     <van-swipe @change="onChangeSwipe" :autoplay="3000">
-      <van-swipe-item v-for="n in detail.image"><img :src="n"></van-swipe-item>
+      <van-swipe-item v-for="(n, i) in detail.image" :key="i"><img :src="n"></van-swipe-item>
       <div class="custom-indicator" slot="indicator">
         <span>{{current + 1}}/{{detail.image.length}}</span>
       </div>
@@ -91,40 +91,56 @@
           <img src="./../../image/首页@2x.png">
           <p>首页</p>
         </div><div class="btn-list">
-          <div class="btn btn-vip" @click="onClickPin">
+          <div class="btn btn-vip" @click="showVipInfoBox">
             <p class="money">&yen; {{vipPrice}}+{{coin}}e币</p>
             <p class="text">会员价</p>
-          </div><div class="btn btn-buy" @click="showBox=true">
+          </div><div class="btn btn-buy" @click="showInfoBox">
             <p class="money">&yen; {{minPrice}}</p>
             <p class="text">单独购买</p>
-          </div><div class="btn btn-pin" @click="onClickPin">
+          </div><div class="btn btn-pin" @click="showPinInfoBox">
             <p class="money">&yen; {{collagePrice}}</p>
             <p class="text">发起拼单({{detail.groupNumber}}人)</p>
           </div>
         </div>
       </div>
       <div v-else>
-        <p class="btn-addCart" @click="addCart">加入购物车</p><p class="btn-buyNow">立即购买</p>
+        <p v-if="isCollage" class="btn-confirm" @click="onClickPin">确定</p>
+        <p v-else class="btn-addCart" @click="addCart">加入购物车</p><p class="btn-buyNow">立即购买</p>
       </div>
     </div>
     <van-popup v-model="showBox" position="bottom">
-      <i class="icon-close"></i>
-      <div class="box-product" @click="close">
+      <i class="icon-close" @click="close"></i>
+      <div v-if="!changeInfo" class="box-product">
         <img :src="info.pictureUrl">
-        <p class="price">&yen; {{info.minPrice}} </p>
+        <p v-if="isVip" class="price">&yen;{{info.minVipPrice}}+{{info.minecoin}}e币 ~ &yen; {{info.maxVipPrice}}+{{info.maxecoin}}e币</p>
+        <p v-else-if="isCollage" class="price">&yen; {{info.minCollagePrice}} - &yen; {{info.maxCollagePrice}}</p>
+        <p v-else class="price">&yen; {{info.minPrice}} - &yen; {{info.maxPrice}}</p>
         <p class="stock">库存{{info.totalStock}}件</p>
-        <p class="choose">已选：{{value1}} ; {{value2}}</p>
+        <p class="choose">
+          <span v-if="value1||value2">已选：{{value1}} ; {{value2}}</span>
+          <span v-else>请选择</span>
+        </p>
+      </div>
+      <div v-else class="box-product">
+        <img :src="changeInfo.image">
+        <p v-if="isVip" class="price">&yen; {{changeInfo.vipPrice}} + {{changeInfo.ecoin}}e币</p>
+        <p v-else-if="isCollage" class="price">&yen; {{changeInfo.collagePrice}}</p>
+        <p v-else class="price">&yen; {{changeInfo.price}}</p>
+        <p class="stock">库存{{changeInfo.stock}}件</p>
+        <p class="choose">
+          <span>已选：{{value1}} ; {{value2}}</span>
+        </p>
       </div>
       <div class="box-item">
         <p>{{typeNames[0]}}</p>
         <div class="type-list">
-          <span v-for="(n,i) in info.specification[typeNames[0]]">{{n}}</span>
+          <span class="type type1" v-for="(n,i) in info.specification[typeNames[0]]" @click="handleChooseType">{{n}}</span>
         </div>
       </div>
       <div class="box-item">
         <p>{{typeNames[1]}}</p>
         <div class="type-list">
-          <span v-for="(n,i) in info.specification[typeNames[1]]">{{n}}</span>
+          <span class="type type2" v-for="(n,i) in info.specification[typeNames[1]]" @click="handleChooseType">{{n}}</span>
         </div>
       </div>
       <div class="box-count">
@@ -141,7 +157,7 @@
 
 <script>
 import { Toast, Swipe, SwipeItem, Tab, Tabs, Button, Popup, Stepper } from 'vant';
-import { getProductDetail, getProductInfo } from '@/api/sort';
+import { getProductDetail, getProductInfo, getChangeProductInfo, addHistory, addCart, addCartWithEcoin } from '@/api/sort';
 export default {
   components: {
     [Toast.name]: Toast,
@@ -155,11 +171,13 @@ export default {
   },
   data(){
     return{
+      loading: false,
       current: 0,
       timer: null,
       showBox: false,
+      isVip: false,
+      isCollage: false,
       showComment: false,
-      count: 1,
       minPrice: 0,
       maxPrice: 0,
       collagePrice: 0,
@@ -175,6 +193,8 @@ export default {
       typeNames: [],
       value1: '',
       value2: '',
+      count: 1,
+      changeInfo: null,
     }
   },
   computed: {
@@ -189,7 +209,23 @@ export default {
   methods: {
     close(){
       this.showBox = false;
+      this.isVip = false;
       console.log(this.showBox);
+    },
+    showInfoBox(){
+      this.showBox = true;
+      this.isVip = false;
+      this.isCollage = false;
+    },
+    showVipInfoBox(){
+      this.showBox = true;
+      this.isVip = true;
+      this.isCollage = false;
+    },
+    showPinInfoBox(){
+      this.showBox = true;
+      this.isVip = false;
+      this.isCollage = true;
     },
     onClickBack() {
       this.$router.go(-1);
@@ -203,14 +239,49 @@ export default {
     onClickHome(){
       this.$router.push({path:'/'});
     },
-    onClickPin(){
-      this.$router.push({path:'/order/detail'});
-    },
     onClickStore(){
       this.$router.push({path:'/sort/store'});
     },
+    onClickPin(){
+      this.$router.push({path:'/order/detail'});
+    },
     addCart(){
-
+      if(!this.loading){
+        if(this.changeInfo){
+          if(this.isVip){
+            addCartWithEcoin(this.changeInfo.code,this.count).then(res=>{
+              this.showBox = false;
+              this.loading = false;
+              this.isVip = false;
+              this.value1 = '',
+              this.value2 = '',
+              this.count = 1,
+              this.changeInfo = null;
+              if(res.data.code===0){
+                Toast('添加购物车成功')
+              }else{
+                Toast(res.data.errmsg)
+              }
+            })
+          }else{
+            addCart(this.changeInfo.code,this.count).then(res=>{
+              this.showBox = false;
+              this.loading = false;
+              this.value1 = '',
+              this.value2 = '',
+              this.count = 1,
+              this.changeInfo = null;
+              if(res.data.code===0){
+                Toast('添加购物车成功')
+              }else{
+                Toast(res.data.errmsg)
+              }
+            })
+          }
+        }else{
+          Toast('请选择规格')
+        }
+      }
     },
     /* 获取浏览器被卷去的高度(兼容性处理) */
     getScrollTop() {
@@ -245,7 +316,7 @@ export default {
     },
     handleChooseView(event,i){
       let tags =  event.currentTarget.parentNode.getElementsByClassName("tag");
-      for(var i=0;i<tags.length;i++) {
+      for(let i=0;i<tags.length;i++) {
         tags[i].classList.remove("active");
       }
       event.currentTarget.classList.add("active");
@@ -259,7 +330,7 @@ export default {
     },
     handleChooseAllView(event){
       let tags =  event.currentTarget.parentNode.getElementsByClassName("tag");
-      for(var i=0;i<tags.length;i++) {
+      for(let i=0;i<tags.length;i++) {
         tags[i].classList.remove("active");
       }
       let formdata = new FormData();
@@ -269,6 +340,32 @@ export default {
         this.comments = res.data.data;
       })
       event.currentTarget.classList.add("active");
+    },
+    handleChooseType(event){
+      let types =  event.currentTarget.parentNode.getElementsByClassName("type");
+      for(let i=0;i<types.length;i++) {
+        types[i].classList.remove("active");
+      }
+      event.currentTarget.classList.add("active");
+      let id = this.info.productId;
+
+      let activeType1 = document.querySelectorAll('.type1.active')[0];
+      if(activeType1){
+        this.value1 = activeType1.innerText;
+      }
+      let activeType2 = document.querySelectorAll('.type2.active')[0];
+      if(activeType2){
+        this.value2 = activeType2.innerText;
+      }
+      if(this.value1&&this.value2){
+        getChangeProductInfo(id,this.value1,this.value2).then(res=>{
+          if(res.data.code==0){
+            this.changeInfo = res.data.data;
+          }else{
+            Toast(res.data.errmsg);
+          }
+        })
+      }
     },
   },
   mounted(){
@@ -286,6 +383,7 @@ export default {
         this.collagePrice = res.data.data.minCollagePrice;
         this.vipPrice = res.data.data.minVipPrice;
         this.coin = res.data.data.minecoin;
+        addHistory(this.detail.sn);
       }else{
         Toast(res.data.errmsg);
       }
@@ -297,8 +395,8 @@ export default {
         for(let key in this.info.specification){
           this.typeNames.push(key);
         }
-        this.value1 = this.info.specification[this.typeNames[0]][0];
-        this.value2 = this.info.specification[this.typeNames[1]][0];
+        // this.value1 = this.info.specification[this.typeNames[0]][0];
+        // this.value2 = this.info.specification[this.typeNames[1]][0];
       }else{
         Toast(res.data.errmsg)
       }
@@ -388,7 +486,7 @@ export default {
   .product-info{
     .product-name{
       padding: 0.426667rem 0.4rem;
-      .left{    
+      .left{
         width: 72%;
         display: inline-block;
         .name{
@@ -434,7 +532,7 @@ export default {
         font-size: 0.32rem;
         color: #666;
         font-weight: normal;
-      } 
+      }
     }
     .product-rights{
       line-height: 0.88rem;
@@ -512,7 +610,7 @@ export default {
             }
           }
         }
-        span.btn-join{    
+        span.btn-join{
           position: absolute;
           display: inline-block;
           padding: 0.133333rem 0.333333rem;
@@ -667,7 +765,7 @@ export default {
           height: 0.333333rem;
           display: block;
           background: url(./../../image/订单详情-小店@2x.png) no-repeat;
-          -webkit-background-size: 0.386667rem 0.333333rem; 
+          -webkit-background-size: 0.386667rem 0.333333rem;
           background-size: 0.386667rem 0.333333rem;
           position: absolute;
           top: 50%;
@@ -679,7 +777,7 @@ export default {
     .product-box{
       padding: 0.426667rem 0.4rem;
       width: 100%;
-      box-sizing: border-box; 
+      box-sizing: border-box;
       .product-container{
         width: 33.3%;
         padding: 0 0.12rem 0 0.12rem;
@@ -721,7 +819,7 @@ export default {
     width: 100%!important;
     display: block!important;
   }
-  .btn-container{    
+  .btn-container{
     width: 100%;
     height: 1.306667rem;
     position: fixed;
@@ -754,7 +852,7 @@ export default {
       padding-left: 1.36rem;
       box-sizing: border-box;
       display: inline-block;
-      .btn{    
+      .btn{
         width: 33.3%;
         height: 100%;
         display: inline-block;
@@ -779,6 +877,16 @@ export default {
           background-color: #e64a19;
         }
       }
+    }
+    p.btn-confirm{
+      width: 100%;
+      height: 100%;
+      font-size: 0.4rem;
+      color: #fff;
+      text-align: center;
+      line-height: 1.306667rem;
+      vertical-align: top;
+      background-color: #e64a19;
     }
     p.btn-addCart{
       width: 50%;

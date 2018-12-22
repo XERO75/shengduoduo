@@ -141,10 +141,8 @@
 <script>
 import { Toast, Stepper, Dialog, Popup, Button, Checkbox, Loading } from 'vant';
 import HeaderBar from '@/components/HeaderBar';
-// import headerBar from '../../components/headerBar/index'
-// import { getDetail, cancelOrder, getComment, handleCommit } from "@/api/order";
-// import { handleLogin } from "@/api/login";
-// import { WXPay, payFree } from "@/api/pay";
+import { initOrders } from '@/api/order'
+
 export default {
   components: {
     [Toast.name]: Toast,
@@ -170,7 +168,7 @@ export default {
       loading: false,
       starCount: 5,
 
-      info: [],
+      info: [],  // 商家信息
       phones: [],
       calls: [],
 
@@ -354,9 +352,20 @@ export default {
          }
        });
     },
+    // 立即支付(预览订单)
+    async initOrders() {
+      let that = this
+      await initOrders().then(res => {
+        if (res.data.code === 0) {
+          that.info = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    }
   },
   mounted(){
-
+    this.initOrders()
   },
   beforeDestroy(){
     if(this.timer){
@@ -714,10 +723,12 @@ export default {
     }
     .content{
       margin: 0 15px;
+      height: 6.426667rem;
+      overflow: scroll;
       // 弹出层优惠券主体
       .coupon-container{
         position: relative;
-        min-height: 96px;
+        min-height: 41%;
         margin-top: 15px;
         // font-family: 'PingFangBold'
         img{

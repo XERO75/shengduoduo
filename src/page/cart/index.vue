@@ -6,7 +6,7 @@
         <i v-if="n.isSelected" class="icon-checked" @click="handleStoreCheck(i)"></i>
         <i v-else class="icon-nocheck" @click="handleStoreCheck(i)"></i>
         <i class="icon-store"></i>
-        {{n.shopName}} 
+        {{n.shopName}}
         <i class="icon-right"></i>
         <span @click="show=true">领券</span>
       </p>
@@ -18,9 +18,9 @@
         <img :src="n.img">
         <p class="product-name overTwoLine">{{p.productName}}<i class="icon-delete" @click="deleteCartItem(p.id)"></i></p>
         <div class="change">
-          <div class="type">{{p.specifications}}</div> 
+          <div class="type">{{p.specifications}}</div>
           <div class="stepper-container">
-            <van-stepper v-model="p.count" integer :min="1" 
+            <van-stepper v-model="p.count" integer :min="1"
             @plus="p.count++" @minus="p.count--" @change="changeCount(p.id,p.count)" />
           </div>
         </div>
@@ -35,7 +35,7 @@
         </div>
         <span>全选</span>
         <span class="fr">合计：<strong>&yen; {{totalPrice}}</strong></span>
-      </div><div class="btn-pay">立即支付</div>
+      </div><div class="btn-pay" @click="gotoOrderDetail">立即支付</div>
     </div>
     <van-popup position="bottom" v-model="show">
       <div class="popup-box">
@@ -74,11 +74,14 @@
         </div>
       </div>
     </van-popup>
+    <div class="loading-container">
+      <van-loading v-if="loading" />
+    </div>
   </div>
 </template>
 
 <script>
-import { Toast, Stepper, Dialog, Popup } from 'vant';
+import { Toast, Stepper, Dialog, Popup, Loading } from 'vant';
 import HeaderBar from '@/components/HeaderBar';
 import { getCartList, deleteCart, checkProduct, checkStore, checkAll, changeCount } from '@/api/cart';
 export default {
@@ -87,10 +90,12 @@ export default {
     [Stepper.name]: Stepper,
     [Dialog.name]: Dialog,
     [Popup.name]: Popup,
+    [Loading.name]: Loading,
     HeaderBar,
   },
   data(){
     return{
+      loading: false,
       count: '',
       show: false,
       cartList: [],
@@ -99,92 +104,105 @@ export default {
     }
   },
   methods: {
+    gotoOrderDetail() {
+      this.$router.push({path:'/order/detail'});
+    },
     onClickBack(){
       this.$router.go(-1)
     },
     handleCheck(){
-      for (let i = 0; i < this.cartList.length; i++) {
-        for (let j = 0; j < this.cartList[i].cartItems.length; j++) {
-          if(this.cartList[i].cartItems[j].isSelected==false){
-            this.cartList[i].isSelected = false;
-            break;
+      if(!this.loading){
+        for (let i = 0; i < this.cartList.length; i++) {
+          for (let j = 0; j < this.cartList[i].cartItems.length; j++) {
+            if(this.cartList[i].cartItems[j].isSelected==false){
+              this.cartList[i].isSelected = false;
+              break;
+            }
+            this.cartList[i].isSelected = true;
           }
-          this.cartList[i].isSelected = true;
-        }
-        if(this.cartList[i].isSelected==false){
-          this.allSelected = false;
-          break;
-        }else{
-          this.allSelected = true;
+          if(this.cartList[i].isSelected==false){
+            this.allSelected = false;
+            break;
+          }else{
+            this.allSelected = true;
+          }
         }
       }
     },
     handleProductCheck(i,j){
-      let id = this.cartList[i].cartItems[j].id;
-      this.cartList[i].cartItems[j].isSelected = !this.cartList[i].cartItems[j].isSelected;
-      this.handleCheck();
-      let formdata = new FormData();
-      formdata.append('cartItemId',id);
-      checkProduct(formdata).then(res=>{
-        console.log(res);
-        if(res.data.code===0){
-          this.totalPrice = res.data.data;
-        }else{
-          window.reload();
-          Toast(res.data.errmsg)
-        }
-      })
+      if(!this.loading){
+        let id = this.cartList[i].cartItems[j].id;
+        this.cartList[i].cartItems[j].isSelected = !this.cartList[i].cartItems[j].isSelected;
+        this.handleCheck();
+        let formdata = new FormData();
+        formdata.append('cartItemId',id);
+        checkProduct(formdata).then(res=>{
+          console.log(res);
+          if(res.data.code===0){
+            this.totalPrice = res.data.data;
+          }else{
+            window.reload();
+            Toast(res.data.errmsg)
+          }
+        })
+      }
     },
     handleStoreCheck(i){
-      if(this.cartList[i].isSelected){
-        this.cartList[i].isSelected = false;
-        for(let item of this.cartList[i].cartItems){
-          item.isSelected = false;
-        }
-      }else{
-        this.cartList[i].isSelected = true;
-        for(let item of this.cartList[i].cartItems){
-          item.isSelected = true;
-        }
-      }
-      this.handleCheck();
-      let formdata = new FormData();
-      formdata.append('code',this.cartList[i].shopCode);
-      if(this.cartList[i].isSelected){
-        formdata.append('selected',1);
-      }else{
-        formdata.append('selected',0);
-      }
-      checkStore(formdata).then(res=>{
-        if(res.data.code===0){
-          this.totalPrice = res.data.data;
+      if(!this.loading){
+        if(this.cartList[i].isSelected){
+          this.cartList[i].isSelected = false;
+          for(let item of this.cartList[i].cartItems){
+            item.isSelected = false;
+          }
         }else{
-          window.reload();
-          Toast(res.data.errmsg);
+          this.cartList[i].isSelected = true;
+          for(let item of this.cartList[i].cartItems){
+            item.isSelected = true;
+          }
         }
-      })
+        this.handleCheck();
+        let formdata = new FormData();
+        formdata.append('code',this.cartList[i].shopCode);
+        if(this.cartList[i].isSelected){
+          formdata.append('selected',1);
+        }else{
+          formdata.append('selected',0);
+        }
+        checkStore(formdata).then(res=>{
+          if(res.data.code===0){
+            this.totalPrice = res.data.data;
+          }else{
+            window.reload();
+            Toast(res.data.errmsg);
+          }
+        })
+      }
     },
     handleAllCheck(){
-      this.allSelected = !this.allSelected;
-      for(let i of this.cartList){
-        i.isSelected = this.allSelected;
-        for(let j of i.cartItems){
-          j.isSelected = this.allSelected;
+      if(!this.loading){
+        this.allSelected = !this.allSelected;
+        for(let i of this.cartList){
+          i.isSelected = this.allSelected;
+          for(let j of i.cartItems){
+            j.isSelected = this.allSelected;
+          }
         }
+        let formdata = new FormData();
+        if(this.allSelected){
+          formdata.append('selected',1);
+        }else{
+          formdata.append('selected',0);
+        }
+        checkAll(formdata).then(res=>{
+          this.totalPrice = res.data.data;
+        })
       }
-      let formdata = new FormData();
-      if(this.allSelected){
-        formdata.append('selected',1);
-      }else{
-        formdata.append('selected',0);
-      }
-      checkAll(formdata).then(res=>{
-        this.totalPrice = res.data.data;
-      })
     },
     getCartList(){
+      this.loading = true;
       getCartList().then(res=>{
         if(res.data.code==0){
+          this.loading = false;
           this.cartList = res.data.data.shopItemVos||[];
           this.cartList.forEach(item => {
             this.$set(item, 'isSelected', false);
@@ -211,7 +229,7 @@ export default {
           }
         })
       }).catch(() => { // on cancel
-        
+
       });
     },
     changeCount(id,count){
@@ -267,7 +285,7 @@ export default {
       position: relative;
       span{
         float: right;
-        padding-right: 0.32rem; 
+        padding-right: 0.32rem;
       }
       i.icon-nocheck,
       i.icon-checked{
@@ -531,7 +549,7 @@ export default {
         position: absolute;
         left: 50%;
         transform: translate(-50%,0);
-        bottom: 15px;        
+        bottom: 15px;
       }
     }
   }
