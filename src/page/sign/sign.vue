@@ -7,7 +7,7 @@
         <div class="sign-verify">
           <input class="sign-verify__input" type="text" placeholder="请输入验证码">
           <span v-show="sendAuthCode" @click="getAuthCode">获取验证码</span>
-          <span v-show="!sendAuthCode">{{auth_time}}秒后重新发送验证码</span>
+          <span v-show="!sendAuthCode">{{auth_time}}秒后重新发送</span>
         </div>
         <input type="text" placeholder="请输入登录密码">
         <input type="password" placeholder="请再次输入登录密码">

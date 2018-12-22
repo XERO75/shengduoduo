@@ -1,23 +1,14 @@
 <template>
   <div id="after-sale">
-    <div class="order-list">
-      <div class="order-container">
+    <div class="order-list" >
+      <div class="order-container" v-for="n in orderLists" :key="n.index">
         <div class="product-container">
-          <img src="./../../pic/box.png">
-          <p class="name">哦来看哈阿萨德哈吉看时间哈斯柯达按时大叔大婶大所多</p>
-          <p class="price">&yen;<span>500</span></p>
-          <p class="type">红色1kg <span>更多</span></p>
+          <img :src="n.image">
+          <p class="name">{{n.product}}</p>
+          <p class="price">&yen;<span>{{n.actualPay}}</span></p>
+          <p class="type">{{(n.specifications).replace(/[；]/g," ")}} <span>更多</span></p>
         </div>
-        <p class="status">仅退款 退款成功<span class="btn-detail">查看详情</span></p>
-      </div>
-      <div class="order-container">
-        <div class="product-container">
-          <img src="./../../pic/box.png">
-          <p class="name">哦来看哈阿萨德哈吉看时间哈斯柯达按时大叔大婶大所多</p>
-          <p class="price">&yen;<span>500</span></p>
-          <p class="type">红色1kg <span>更多</span></p>
-        </div>
-        <p class="status">仅退款 退款成功<span class="btn-detail">查看详情</span></p>
+        <p class="status">{{n.refundType}} {{n.refundStatus}}<span @click="onClickDetail(n.paidCode)" class="btn-detail">查看详情</span></p>
       </div>
     </div>
   </div>
@@ -25,23 +16,41 @@
 
 <script>
 import { Toast,  } from 'vant';
-// import { getCouponList } from "@/api/coupon";
+import { getRefundLists } from "@/api/afterSale.js";
 export default {
   components: {
     [Toast.name]: Toast,
   },
   data(){
     return{
-
+      pageNum: 1,
+      pageSize: 4,
+      orderLists: []
     }
   },
   methods: {
     onClickPoints() {
       this.$router.push({path:'/points/coupon'});
     },
+    // 获取退款列表
+    async getRefundLists() {
+      let that = this
+      await getRefundLists(this.pageNum , this.pageSize).then(res => {
+        if (res.data.code === 0) {
+          console.log(res);
+          that.orderLists = res.data.data.list
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 查看详情
+    onClickDetail(val) {
+      this.$router.push({path:'/afterSale/detail',query:{paidCode:val}})
+    }
   },
   mounted(){
-
+    this.getRefundLists() //获取退款列表
   }
 };
 </script>

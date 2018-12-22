@@ -74,11 +74,12 @@
         <span class="more" @click="">更多</span>
       </div>
       <div class="ad-list">
-        <div class="ad-container" @click="onClickDetail">
-          <img src="./../../pic/ad1.png">
-        </div><div class="ad-container" @click="onClickDetail">
-          <img src="./../../pic/ad2.png">
+        <div v-for="n in productAdLists" :key="n.index" class="ad-container" @click="onClickDetail">
+          <img :src="n.picture">
         </div>
+        <!-- <div class="ad-container" @click="onClickDetail">
+          <img src="./../../pic/ad2.png">
+        </div> -->
       </div>
       <div class="product-list">
         <div class="product-container" v-for="p in products" @click="onClickDetail(p.productId)">
@@ -93,7 +94,7 @@
 
 <script>
 import { Search, Swipe, SwipeItem, Row, Col, Toast } from 'vant';
-import { getProductList, bannerAdList, positionAdParallelList, positionAdVerticalList } from "@/api/home";
+import { getProductList, bannerAdList, positionAdList, productAdList, positionAdParallelList, positionAdVerticalList } from "@/api/home";
 export default {
   components: {
     [Toast.name]: Toast,
@@ -101,7 +102,7 @@ export default {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [Row.name]: Row,
-    [Col.name]: Col,
+    [Col.name]: Col
     // [Loading.name]: Loading,
   },
   data(){
@@ -109,6 +110,8 @@ export default {
       products: '',
       value: '',
       banners: [],
+      zhanweiAds: [],
+      productAdLists: [],
       zhanweiAdsHeng: [],
       zhanweiAdsShu: []
     }
@@ -156,10 +159,22 @@ export default {
           Toast(res.data.errmsg)
         }
       })
+    },
+    // 获取首页商品广告
+    async productAdList() {
+      let that = this
+      await productAdList().then(res => {
+        if (res.data.code === 0) {
+          that.productAdLists = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
     }
   },
   mounted(){
     this.bannerAdList()  // 获取banner图片
+    this.productAdList() // 获取商品广告
     this.positionAdParallelList()  // 获取占位广告(横排)
     this.positionAdVerticalList()  // 获取占位广告(竖排)
     getProductList().then(res=>{

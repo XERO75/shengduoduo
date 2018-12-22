@@ -6,7 +6,7 @@
         <i v-if="n.isSelected" class="icon-checked" @click="handleStoreCheck(i)"></i>
         <i v-else class="icon-nocheck" @click="handleStoreCheck(i)"></i>
         <i class="icon-store"></i>
-        {{n.shopName}} 
+        {{n.shopName}}
         <i class="icon-right"></i>
         <span @click="show=true">领券</span>
       </p>
@@ -18,9 +18,9 @@
         <img :src="n.img">
         <p class="product-name overTwoLine">{{p.productName}}<i class="icon-delete" @click="deleteCartItem(p.id)"></i></p>
         <div class="change">
-          <div class="type">{{p.specifications}}</div> 
+          <div class="type">{{p.specifications}}</div>
           <div class="stepper-container">
-            <van-stepper v-model="p.count" integer :min="1" 
+            <van-stepper v-model="p.count" integer :min="1"
             @plus="p.count++" @minus="p.count--" @change="changeCount(p.id,p.count)" />
           </div>
         </div>
@@ -35,7 +35,7 @@
         </div>
         <span>全选</span>
         <span class="fr">合计：<strong>&yen; {{totalPrice}}</strong></span>
-      </div><div class="btn-pay">立即支付</div>
+      </div><div class="btn-pay" @click="gotoOrderDetail">立即支付</div>
     </div>
     <van-popup position="bottom" v-model="show">
       <div class="popup-box">
@@ -104,6 +104,9 @@ export default {
     }
   },
   methods: {
+    gotoOrderDetail() {
+      this.$router.push({path:'/order/detail'});
+    },
     onClickBack(){
       this.$router.go(-1)
     },
@@ -226,7 +229,7 @@ export default {
           }
         })
       }).catch(() => { // on cancel
-        
+
       });
     },
     changeCount(id,count){
@@ -282,7 +285,7 @@ export default {
       position: relative;
       span{
         float: right;
-        padding-right: 0.32rem; 
+        padding-right: 0.32rem;
       }
       i.icon-nocheck,
       i.icon-checked{
@@ -546,7 +549,7 @@ export default {
         position: absolute;
         left: 50%;
         transform: translate(-50%,0);
-        bottom: 15px;        
+        bottom: 15px;
       }
     }
   }

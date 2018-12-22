@@ -4,6 +4,7 @@ var baseUrl = process.env.BASE_API;
 const urls = {
   product: '/app/index/findProductIsShow',
   bannerAdList: '/app/index/bannerAdList',
+  productAdList: '/app/index/productAdList',
   positionAdParallelList: '/app/index/positionAdParallelList',
   positionAdVerticalList: '/app/index/positionAdVerticalList'
 };
@@ -42,5 +43,14 @@ export const positionAdVerticalList = () => {
   return axios({
     url: apis.positionAdVerticalList,
     method: 'get'
+  });
+};
+
+// 首页商品广告
+export const productAdList = () => {
+  return axios({
+    url: apis.productAdList,
+    method: 'get',
+    params: { number: 2 }
   });
 };
