@@ -8,7 +8,7 @@
         <button type="button" class="login-button" @click="onClickLogin">立即登录</button>
       </form>
     </div>
-    <p class="login-tips">
+    <p class="login-tips" @click="gotoSign">
       没有账号？立即注册
     </p>
   </div>
@@ -29,6 +29,9 @@ export default {
     }
   },
   methods: {
+    gotoSign() {
+      this.$router.push({path: '/sign'})
+    },
     onClickLogin() {
       if (this.userName == '') {
         Toast.fail('账号不能为空')
@@ -44,7 +47,7 @@ export default {
           } else Toast.fail(res.data.errmsg)
         }).catch()
       }
-      
+
     }
   },
 }
@@ -61,8 +64,8 @@ export default {
     }
     .login-form {
       margin: 0 1.066667rem;
-      input::-webkit-input-placeholder { 
-        color: #c5c5c5; 
+      input::-webkit-input-placeholder {
+        color: #c5c5c5;
       }
       input {
         height: 1.173333rem;

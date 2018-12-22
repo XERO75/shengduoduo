@@ -5,7 +5,7 @@
     <div class="orderinfo-second">
       <div class="orderinfo-second-content f-space-between">
         <div class="orderinfo-second-text f-column">
-          <p>等待卖家付款</p>
+          <p>{{info.orderStatus}}</p>
           <p>剩23小时59分自动关闭</p>
         </div>
         <img class="orderinfo-second-pic" mode="widthFix" src="../../image/待付款@2x.png"/>
@@ -16,8 +16,8 @@
     <div class="orderinfo-third f-vertical">
       <img mode="widthFix" src="../../image/地址-@2x.png"/>
       <div class="orderinfo-third-text f-column">
-        <p>王文莉</p>
-        <p>广州市天河区金穗路8号星汇国际大厦1202</p>
+        <p>{{info.contact}}&nbsp;&nbsp;&nbsp;{{info.phone}}</p>
+        <p>{{info.area}}{{info.specificAddress}}</p>
       </div>
     </div>
     <!-- 商家、商品、各种数据部分 -->
@@ -25,57 +25,89 @@
       <!-- 商户名 -->
       <div class="orderinfo-fourth-bname f-vertical">
         <img mode="widthFix" src="../../image/订单详情-小店@2x.png"/>
-        <p>河南美食小店</p>
+        <p>{{info.shopName}}</p>
       </div>
       <!-- 商品 -->
-      <div class="orderinfo-fourth-prod f-space-between">
-        <img mode="widthFix" src="./../../pic/box.png"/>
-        <div class="prod-text">
-          <p class="overTwoLine">台湾豌豆小吃办公室小零食办公室小吃零食休闲食品啊啊啊啊啊啊啊啊啊啊</p>
-          <p>原味</p>
-        </div>
-        <div class="prod-price">
-          <p>&yen; 13.6</p>
-          <p>&times;2</p>
+      <div class="f-column">
+        <div v-for="(item, index) in info.items" :key="index" class="orderinfo-fourth-prod f-space-between">
+          <img mode="widthFix" :src="item.image"/>
+          <div class="prod-text">
+            <p class="overTwoLine">{{item.productName}}</p>
+            <p>{{item.specifications}}</p>
+          </div>
+          <div class="prod-price">
+            <p>&yen; {{item.price}}</p>
+            <p>&times;{{item.count}}</p>
+          </div>
         </div>
       </div>
       <!-- 数据详情 -->
       <div class="orderinfo-fourth-detail f-column f-space-around">
-        <div class="f-space-between"><p>商品总价</p><p>&yen;500</p></div>
-        <div class="f-space-between"><p>运费</p><p>&yen;23</p></div>
-        <div class="f-space-between"><p>优惠券</p><p>满10减3</p></div>
-        <div class="f-space-between"><p>使用e币</p><p>2个</p></div>
-        <div class="f-space-between"><p>买家留言</p><p>无</p></div> <!-- 此处以后必有坑 -->
+        <div class="f-space-between"><p>商品总价</p><p>&yen;{{info.totalFee}}</p></div>
+        <div class="f-space-between"><p>运费</p><p>&yen;{{info.postage}}</p></div>
+        <div class="f-space-between"><p>优惠券</p><p>{{info.discount}}</p></div>
+        <div class="f-space-between"><p>使用e币</p><p>{{info.ecoin}}</p></div>
+        <div class="f-space-between"><p>买家留言</p><p>{{info.remark}}</p></div> <!-- 此处以后必有坑 -->
       </div>
       <!-- 需付款 -->
       <div class="orderinfo-fourth-needpay f-space-between">
         <p>需付款</p>
-        <p>&yen;500</p>
+        <p>&yen;{{info.actualPay}}</p>
       </div>
     </div>
     <!-- 取消订单、立即支付 -->
     <div class="orderinfo-fifth f-space-between">
-      <div class="orderinfo-fifth-text f-vertical"><p>付款:&nbsp;</p><p>&yen;500</p></div>
+      <div class="orderinfo-fifth-text f-vertical"><p>付款:&nbsp;</p><p>&yen;{{info.actualPay}}</p></div>
       <div class="orderinfo-fifth-btn f-vertical"><span class="f-center">取消订单</span><span class="f-center">立即支付</span></div>
     </div>
   </div>
 </template>
 
 <script>
+import { Toast } from 'vant';
 import HeaderBar from '@/components/HeaderBar';
+import { ordersDetail } from '@/api/order'
 
 export default {
   components: {
-    HeaderBar
+    HeaderBar,
+    [Toast.name]: Toast
+  },
+
+  data() {
+    return{
+      sn: null,
+      info: {}
+    }
   },
 
   methods: {
+    // HeadBar按钮函数
     onClickBack() {
       this.$router.go(-1);
     },
     onClickCart() {
       this.$router.push({path:'/cart'});
     },
+    // 订单详情
+    async ordersDetail() {
+      let sn = this.sn
+      let that = this
+      await ordersDetail(sn).then(res => {
+        if (res.data.code === 0) {
+          that.info = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    }
+  },
+
+  mounted() {
+    if (this.$route.query.sn) {
+      this.sn = this.$route.query.sn
+      this.ordersDetail()
+    }
   }
 }
 </script>
@@ -170,7 +202,7 @@ export default {
       border-right: 1px solid #2e2d2d;
       position: absolute;
       top: 30%;
-      right: -18%;
+      right: -58%;
     }
   }
   &-prod{
