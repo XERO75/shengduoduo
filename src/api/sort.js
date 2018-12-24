@@ -58,10 +58,10 @@ export const getCommentList = (pageNum,pageSize,productId) => {
   return axios({
     url: apis.comment,
     method: 'get',
-    params: { 
-      pageNum: pageNum, 
+    params: {
+      pageNum: pageNum,
       pageSize: pageSize,
-      productId: productId 
+      productId: productId
     }
   });
 };
@@ -79,30 +79,30 @@ export const getChangeProductInfo = (productId,value1,value2) => {
   return axios({
     url: apis.changeInfo,
     method: 'get',
-    params: { 
+    params: {
       productId: productId,
-      value1: value1, 
-      value2: value2 
+      value1: value1,
+      value2: value2
     }
   });
 };
 // 加入购物车(普通购买)
-export const addCart = (code,count) => {
+export const addCart = (code, count) => {
   return axios({
     url: apis.addCart,
     method: 'get',
-    params: { 
+    params: {
       code: code,
       count: count
     }
   });
 };
 // 加入购物车(e币+金额)
-export const addCartWithEcoin = (code,count) => {
+export const addCartWithEcoin = (code, count) => {
   return axios({
     url: apis.addCartWithEcoin,
     method: 'get',
-    params: { 
+    params: {
       code: code,
       count: count
     }

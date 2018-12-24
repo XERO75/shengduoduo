@@ -29,6 +29,14 @@ const routes = [
     }
   },
   {
+    path: '/home/list',
+    name: 'homeList',
+    component: resolve => require(['./page/home/list'], resolve),
+    meta: {
+      title: '米多多'
+    }
+  },
+  {
     path: '/sort',
     name: 'sort',
     component: resolve => require(['./page/sort'], resolve),
@@ -74,12 +82,24 @@ const routes = [
     }
   },
   {
-    path: '/sort/store',
+    path: '/store',
     name: 'sortStore',
-    component: resolve => require(['./page/sort/store'], resolve),
+    component: resolve => require(['./page/store/store'], resolve),
     // component: () => import('./page/sort/store'),
     meta: {
       title: '米多多'
+    }
+  },
+  {
+    path: '/store/store',
+    name: 'sortStoreIndex',
+    component: resolve => require(['./page/store/store'], resolve),
+    // component: () => import('./page/sort/store'),
+    meta: {
+      title: '米多多'
+    },
+    redirect: {
+      name: 'sortStore'
     }
   },
   {

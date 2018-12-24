@@ -7,7 +7,8 @@ const urls = {
   positionAdList: '/app/index/positionAdList',
   productAdList: '/app/index/productAdList',
   positionAdParallelList: '/app/index/positionAdParallelList',
-  positionAdVerticalList: '/app/index/positionAdVerticalList'
+  positionAdVerticalList: '/app/index/positionAdVerticalList',
+  findProductByName: '/app/product/findProductByName'
 };
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -53,5 +54,19 @@ export const productAdList = () => {
     url: apis.productAdList,
     method: 'get',
     params: { number: 2 }
+  });
+};
+
+// 首页商品搜索
+export const findProductByName = (parms) => {
+  return axios({
+    url: apis.findProductByName,
+    method: 'get',
+    params: {
+      number: parms.number,
+      name: parms.name,
+      pageNum: parms.pageNum,
+      pageSize: parms.pageSize
+    }
   });
 };

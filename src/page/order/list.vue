@@ -4,12 +4,14 @@
       <van-tab title="全部">
         <div v-for="(item, index) in orderList" :key="index" class="order-container" @click="onClickInfo(item.sn)">
           <div class="order-header">
-            <div class="f-vertical">
-              <img mode="widthFix" src="../../image/订单详情-小店@2x.png" style="width: 15px; hetght:auto;"/>
-              <span class="store-name">{{item.shopName}}</span>
-              <img mode="widthFix" src="../../image/订单相情，查看小店@2x.png" style="width: 5px; hetght:auto;"/>
+            <div class="f-space-between" @click.stop="gotoStore(item.shopCode)">
+              <div class="f-vertical">
+                <img mode="widthFix" src="../../image/订单详情-小店@2x.png" style="width: 15px; hetght:auto;"/>
+                <span class="store-name">{{item.shopName}}</span>
+                <img mode="widthFix" src="../../image/订单相情，查看小店@2x.png" style="width: 5px; hetght:auto;"/>
+              </div>
+              <span class="order-status fr">{{item.orderStatus}}</span>
             </div>
-            <span class="order-status fr">{{item.orderStatus}}</span>
           </div>
           <div class="order-content">
             <div v-for="(n, i) in item.items" :key="i" class="order-item f-space-between">
@@ -73,6 +75,9 @@ export default {
     },
     onClickInfo(sn) {
       this.$router.push({path:'/order/info', query: {sn}});
+    },
+    gotoStore(code) {
+      this.$router.push({path:'/store', query: {code}});
     },
     // 加载我的所有订单
     async myOrders() {

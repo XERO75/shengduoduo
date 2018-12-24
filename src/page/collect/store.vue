@@ -1,69 +1,60 @@
 <template>
   <div id="collect-store">
     <div class="collect-list">
-      <div class="collect-container">
+
+      <div v-for="(item, index) in storeInfoList" :key="index" class="collect-container">
         <div class="store-container">
-          <img src="./../../pic/box.png">
-          <p class="name">河南美食小店</p>
-          <p class="info">商品数量：52 已拼：9856</p>
-          <span class="btn-in">进入店铺</span>
+          <img :src="item.logo">
+          <p class="name">{{item.shopName}}</p>
+          <p class="info">商品数量：{{item.productCount}} 已拼：9856</p>
+          <span class="btn-in" @click="gotoStore(item.code)">进入店铺</span>
         </div>
         <div class="product-list">
-          <div class="product-box">
+          <div v-for="(n, i) in item.products" :key="i" class="product-box">
             <img src="./../../pic/box.png">
-            <p>双面穿短外套</p>
-          </div><div class="product-box">
-            <img src="./../../pic/box.png">
-            <p>双面穿短外套</p>
-          </div><div class="product-box">
-            <img src="./../../pic/box.png">
-            <p>双面穿短外套</p>
+            <p>{{n.name}}</p>
           </div>
         </div>
       </div>
-      <div class="collect-container">
-        <div class="store-container">
-          <img src="./../../pic/box.png">
-          <p class="name">河南美食小店</p>
-          <p class="info">商品数量：52 已拼：9856</p>
-          <span class="btn-in">进入店铺</span>
-        </div>
-        <div class="product-list">
-          <div class="product-box">
-            <img src="./../../pic/box.png">
-            <p>双面穿短外套</p>
-          </div><div class="product-box">
-            <img src="./../../pic/box.png">
-            <p>双面穿短外套</p>
-          </div><div class="product-box">
-            <img src="./../../pic/box.png">
-            <p>双面穿短外套</p>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import { Toast,  } from 'vant';
+import { Toast } from 'vant';
 // import { getCouponList } from "@/api/coupon";
+import { myFavoriteShop } from '@/api/store'
 export default {
   components: {
-    [Toast.name]: Toast,
+    [Toast.name]: Toast
   },
   data(){
     return{
-
+      storeInfoList: null
     }
   },
   methods: {
     onClickPoints() {
       this.$router.push({path:'/points/coupon'});
     },
+    gotoStore(code) {
+      this.$router.push({path:'/store', query: {code}});
+    },
+    // 加载店铺收藏
+    async myFavoriteShop() {
+      let that = this
+      await myFavoriteShop().then(res => {
+        if (res.data.code === 0) {
+          that.storeInfoList = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    }
   },
   mounted(){
-
+    this.myFavoriteShop()
   }
 };
 </script>

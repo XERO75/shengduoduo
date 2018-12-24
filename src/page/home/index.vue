@@ -6,6 +6,7 @@
         placeholder="搜索"
         v-model="value"
         background="#e64a19"
+        @search="gotoList"
       />
       <img class="icon-user" @click="onClickMine" src="./../../image/我@2x.png">
     </div>
@@ -108,7 +109,7 @@ export default {
   data(){
     return{
       products: '',
-      value: '',
+      value: '',  // 搜索框的值
       banners: [],
       zhanweiAds: [],
       productAdLists: [],
@@ -117,6 +118,9 @@ export default {
     }
   },
   methods: {
+    gotoList() {
+      this.$router.push({path:'/home/list',query:{ value: this.value }});
+    },
     onClickDetail(id) {
       this.$router.push({path:'/sort/detail',query:{id:id}});
       // this.$router.push({path:'/shop/sort',query:''});

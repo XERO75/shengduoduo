@@ -3,68 +3,52 @@
 		<div class="store-container">
 			<div class="bg-container">
 				<img class="img-bg" src="./../../image/顶部背景@2x.png">
-				<img class="img-store" src="./../../pic/box.png">
+				<img class="img-store" :src="storeInfo.logo">
 			</div>
-			<p class="name">河北看看</p>
-			<p class="info">商品数量：<span>52 </span> 已拼：<span>4545</span></p>
-			<div class="btn-container">
-				<span class="client">客服</span>
-				<span class="collect">收藏</span>
-				<span class="share">分享</span>
+			<p class="name">{{storeInfo.shopName}}</p>
+			<p class="info">商品数量：<span>{{storeInfo.productNumber}} </span> 已拼：<span>{{storeInfo.collageNumber}}</span></p>
+			<div class="btn-container f-vertical f-center">
+        <span class="client f-center"><img mode="widthFix" src="../../image/客服@2x.png"/><a :href="storeInfo.hotLine">客服</a></span>
+        <span v-if="!isFavorite" class="collect f-center" @click="addFavorite"><img mode="widthFix" src="../../image/收藏@2x.png"/>收藏</span>
+        <span v-else class="alredyCollect f-center" @click="removeFavorite"><img mode="widthFix" src="../../image/订单评价-星星-红@2x.png"/>已收藏</span>
+        <span class="share f-center"><img mode="widthFix" src="../../image/分享@2x.png"/>分享</span>
 			</div>
 			<div class="ticket-container">
-				<div class="ticket">满100减5 <span>领取</span></div>
-				<div class="ticket used">满100减5 <span>已领取</span></div>
-				<div class="ticket">满100减5 <span>领取</span></div>
+				<div v-for="(item, index) in coupons" :key="index" class="ticket" :class="item.status === '已领取' ? 'used' : ''">{{item.couponName}} <span v-if="item.status === '领取中'" @click="takeShopCoupon(item.id)">领取</span><span v-else>已领取</span></div>
+				<!-- <div class="ticket used">满100减5 <span>已领取</span></div>
+				<div class="ticket">满100减5 <span>领取</span></div> -->
 			</div>
 		</div>
     <div class="pin-container">
       <p class="title title-pin title-more">大家正在拼<span class="more">查看更多</span></p>
       <div class="pin-list">
-        <div class="pin-box">
+
+        <div v-for="(item, index) in collage" :key="index" class="pin-box">
           <div class="member">
-          	<img class="member-img" src="./../../pic/user2.jpg">
-          	<p>jahsjd</p>
+          	<img class="member-img" :src="item.avatar">
+          	<p>{{item.name}}</p>
           </div>
           <p class="timeout">剩余 <span>15:05:55</span></p>
-          <img class="pin-img" src="./../../pic/box.png">
-          <p class="name">阿斯顿</p>
-          <p class="price">&yen; 13.6</p>
-        </div><div class="pin-box">
-          <div class="member">
-          	<img class="member-img" src="./../../pic/user2.jpg">
-          	<p>jahsjd</p>
-          </div>
-          <p class="timeout">剩余 <span>15:05:55</span></p>
-          <img class="pin-img" src="./../../pic/box.png">
-          <p class="name">阿斯顿</p>
-          <p class="price">&yen; 13.6</p>
-        </div><div class="pin-box">
-          <div class="member">
-          	<img class="member-img" src="./../../pic/user2.jpg">
-          	<p>jahsjd</p>
-          </div>
-          <p class="timeout">剩余 <span>15:05:55</span></p>
-          <img class="pin-img" src="./../../pic/box.png">
-          <p class="name">阿斯顿</p>
-          <p class="price">&yen; 13.6</p>
+          <img class="pin-img" :src="item.productImage">
+          <p class="name">{{item.productName}}</p>
+          <p class="price">&yen; {{item.minPrice}}</p>
         </div>
+
       </div>
     </div>
 		<div class="product-container">
 			<p class="title title-product">全部商品</p>
-			<div class="tab-container">
-				<div class="tab active">综合</div><div class="tab">新品</div><div class="tab">销量</div><div class="tab"><span>价格</span></div>
+			<div class="tab-container f-vertical">
+				<div class="tab" :class="productTabIndex === '综合' ? 'active' : ''" @click="onClickProTab('综合')">综合</div>
+        <div class="tab" :class="productTabIndex === 0 ? 'active' : ''" @click="onClickProTab(0)">新品</div>
+        <div class="tab" :class="productTabIndex === 1 ? 'active' : ''" @click="onClickProTab(1)">销量</div>
+        <div class="tab" :class="productTabIndex === 2 ? 'active' : ''" @click="onClickProTab(2)"><span>价格</span></div>
 			</div>
 	    <div class="product-list">
-	      <div class="product-container" @click="onClickDetail">
-	        <div class="product-img"><img src="./../../pic/product.png"></div>
-	        <p class="name van-ellipsis">99598529</p>
-	        <p class="money">&yen;511</p>
-	      </div><div class="product-container" @click="onClickDetail">
-	        <div class="product-img"><img src="./../../pic/product.png"></div>
-	        <p class="name van-ellipsis">99598529</p>
-	        <p class="money">&yen;511</p>
+	      <div v-for="(item, index) in products" :key="index" class="product-container" @click="onClickDetail">
+	        <div class="product-img"><img :src="item.pictureUrl"></div>
+	        <p class="name van-ellipsis">{{item.name}}</p>
+	        <p class="money">&yen;{{item.minPrice}}</p>
 	      </div>
 	    </div>
     </div>
@@ -72,24 +56,168 @@
 </template>
 
 <script>
-import {  } from 'vant';
+import { Toast } from 'vant';
+import { shopInfo, shopCollage, shopCouponList, takeShopCoupon, findProductByShopId, myFavoriteShop, removeFavorite, addFavorite } from '@/api/store'
 export default {
   components: {
-    // [Loading.name]: Loading,
+    [Toast.name]: Toast
   },
   data(){
     return{
-
+      code: null, // 当前店铺的code，通过query获取
+      storeInfo: null, // 当前店铺的信息
+      coupons: null, // 当前店铺可领取的优惠券
+      collage: null, // 正在拼团的信息
+      products: null, // 全部商品信息
+      productTabIndex: '综合',
+      priceStatus: true, // 价格升降序切换 ， true 为 2，false 为3
+      isFavorite: false
     }
   },
   methods: {
     onClickDetail() {
       this.$router.push({path:'/home/detail'});
       // this.$router.push({path:'/shop/sort',query:''});
+    },
+    onClickProTab(status) {
+      this.productTabIndex = status
+      if (status === 2) {
+        this.priceStatus ? status = 2 : status = 3
+        this.priceStatus = !this.priceStatus
+      }
+      this.findProductByShopId(status)
+    },
+    // 根据code获取商铺详情
+    async shopInfo() {
+      let code = this.code
+      let that = this
+      await shopInfo(code).then(res => {
+        if (res.data.code === 0) {
+          that.storeInfo = res.data.data
+          that.coupons = res.data.data.shopCouponList
+          that.shopCouponList()
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 根据code获取商铺正在拼团信息
+    async shopCollage() {
+      let that = this
+      let code = this.code
+      let number = 3 // 显示条数
+      await shopCollage(code, number).then(res => {
+        if (res.data.code === 0) {
+          that.collage = res.data.data
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 根据code获取用户已领取的该店铺的优惠券 需要将获取到的couponId和商铺的couponList中的每一项的id比对，一致即已领取
+    async shopCouponList() {
+      let that = this
+      let code = this.code
+      await shopCouponList(code).then(res => {
+        if (res.data.code === 0) {
+          // 双循环遍历 比较couponId 和 id，一致的情况，将状态变为已领取
+          for (let i of res.data.data) {
+            for (let j of that.coupons) {
+              if(i.couponId === j.id) {
+                j.status = '已领取'
+              }
+            }
+          }
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 领取优惠券
+    async takeShopCoupon(couponId) {
+      let that = this
+      await takeShopCoupon(couponId).then(res => {
+        if (res.data.code === 0) {
+          Toast('领取优惠券成功')
+          that.shopInfo() // 更新页面状态
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 获取该店铺的全部商品
+    async findProductByShopId(number) {
+      let that = this
+      let parms = {}
+      number === '综合' ? parms.number = '' : parms.number = number  // 如果传入的参为全部 则为'' ，其他情况赋值number
+      parms.pageNum = 1
+      parms.pageSize = 10
+      // parms.shopId = this.code
+      parms.shopId = '1'
+      await findProductByShopId(parms).then(res => {
+        if (res.data.code === 0) {
+          that.products = res.data.data.list
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 用户的店铺收藏，调这个接口对比当前店铺，查看是否已收藏
+    async myFavoriteShop() {
+      let that = this
+      await myFavoriteShop().then(res => {
+        if (res.data.code === 0) {
+          for (let i of res.data.data) {
+            if (i.code === this.code) {
+              that.isFavorite = true
+            } else {
+              that.isFavorite = false
+            }
+          }
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 添加收藏
+    async addFavorite() {
+      let that = this
+      let formData = new FormData()
+      formData.append('code', this.code)
+      await addFavorite(formData).then(res => {
+        if (res.data.code === 0) {
+          Toast('收藏成功')
+          that.myFavoriteShop()  // 刷新页面状态
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 移除收藏
+    async removeFavorite() {
+      let that = this
+      let formData = new FormData()
+      formData.append('code', this.code)
+      await removeFavorite(formData).then(res => {
+        if (res.data.code === 0) {
+          Toast('取消收藏成功')
+          that.myFavoriteShop() // 刷新页面状态
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
     }
   },
   mounted(){
-    
+    if (this.$route.query.code) {
+      this.code = this.$route.query.code
+      this.shopInfo()  // 获取商铺信息
+      this.shopCollage()  // 获取拼团信息
+      this.findProductByShopId('综合') // 获取商品信息
+      this.myFavoriteShop() // 是否已收藏该店铺
+    } else {
+      Toast('无店铺信息')
+    }
   }
 };
 </script>
@@ -208,42 +336,21 @@ export default {
       padding-top: 0.333333rem;
       padding-bottom: 0.4rem;
 			span{
-        width: 1.84rem;
+        min-width: 1.84rem;
         height: 0.613333rem;
-        line-height: 0.613333rem;
-        padding-left: 0.266667rem;
-				display: inline-block;
 				border: 1px solid #ed6625;
-        box-sizing: border-box;
+        margin-right: .266667rem;
 				border-radius: 0.053333rem;
         font-size: 0.32rem;
 				color: #ed6625;
-				position: relative;
-        &.client:before{
-          background: url(./../../image/客服@2x.png) no-repeat;
-          -webkit-background-size: 0.28rem 0.373333rem;
-          background-size: 0.28rem 0.373333rem;
+        a{
+          color: #ed6625;
         }
-        &.collect:before{
-          background: url(./../../image/收藏@2x.png) no-repeat;
-          -webkit-background-size: 0.373333rem 0.346667rem;
-          background-size: 0.373333rem 0.346667rem;
+        img{
+          width: 0.3rem;
+          height: auto;
+          margin-right: .133333rem;
         }
-        &.share:before{
-          background: url(./../../image/分享@2x.png) no-repeat;
-          -webkit-background-size:0.293333rem 0.306667rem;
-          background-size:0.293333rem 0.306667rem;
-        }
-				&:before{
-					content: '';
-					width: 12px;
-					height: 12px;
-					display: block;
-					position: absolute;
-					left: 10px;
-					top: 50%;
-					transform: translate(0, -50%);
-				}
 			}
 		}
 		.ticket-container{
@@ -380,7 +487,7 @@ export default {
     .product-list{
       padding: 0.106667rem 0.2rem;
       width: 100%;
-      box-sizing: border-box; 
+      box-sizing: border-box;
       .product-container{
         width: 50%;
         padding: 0 0.12rem 0.346667rem 0.12rem;
@@ -403,7 +510,7 @@ export default {
             width: 4.533333rem;
             height: 4.533333rem;
           }
-          
+
         }
         p.name{
           font-size: 0.373333rem;
