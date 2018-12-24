@@ -8,38 +8,41 @@
         <p class="address">按时发发生发发呆</p>
       </div>
     </div>
-    <div class="product-container container">
-      <p class="productStatus title">荷兰小店<i class="icon-right"></i><span class="fr">待付款</span></p>
-      <div class="product-box">
-        <img src="./../../pic/box.png">
-        <div class="product-item">
-          <div class="item-left">
-            <p class="item-name">考核会计阿斯加德库巴姬爱神的箭安康市道具卡含
-            </p>
-            <p class="item-type">交换空间还</p>
-          </div><div class="item-right">
-            <p class="price">&yen;745</p>
+    <div v-for="(n,i) in info">
+      <div class="product-container container">
+        <p class="productStatus title">{{n.shopName}}<i class="icon-right"></i><span class="fr">{{n.paymentStatus}}</span></p>
+        <div></div>
+        <div v-for="(m,j) in info[i].items" class="product-box">
+          <img :src="m.image">
+          <div class="product-item">
+            <div class="item-left">
+              <p class="item-name">{{m.productName}}</p>
+              <p class="item-type">{{m.specifications}}</p>
+            </div><div class="item-right">
+              <p class="price">&yen;{{m.price}}</p>
+              <p class="count">X{{m.count}}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="product-count">
-        <p class="title">购买数量</p>
-        <div class="count-box">
-          <van-stepper v-model="count" integer :min="1" :max="99" />
+        <!-- <div class="product-count">
+          <p class="title">购买数量</p>
+          <div class="count-box">
+            <van-stepper v-model="count" integer :min="1" :max="99" />
+          </div>
+        </div> -->
+        <div class="product-coupon">
+          <p>店铺优惠券<span @click="showGetCouponBox(i)">领取优惠券</span></p>
         </div>
       </div>
-      <div class="product-coupon">
-        <p>店铺优惠券<span @click="showGetCoupon=true">领取优惠券</span></p>
-      </div>
-    </div>
-    <div class="pay-container container">
-      <p class="title">微信支付</p>
-      <div class="content">
-        <p class="select" @click="showUseCoupon=true">使用优惠券</p>
-        <p class="input">使用e币<input type="number" placeholder="输入使用e币，当前可用780"></p>
-        <p class="select" @click="showDelivery=true">配送方式<span>快递 免邮费</span></p>
-        <p class="input">买家留言<input type="text" placeholder="填写内容和卖家协商确定"></p>
-        <P class="total">共2件商品 合计：<span>&yen; 500</span></P>
+      <div class="pay-container container">
+        <p class="title">微信支付</p>
+        <div class="content">
+          <p class="select" @click="showUseCouponBox(i)">使用优惠券</p>
+          <!-- <p class="input">使用e币<input type="number" placeholder="输入使用e币，当前可用780"></p> -->
+          <!-- <p class="select" @click="showDelivery=true">配送方式<span>快递 免邮费</span></p> -->
+          <p class="input">买家留言<input type="text" placeholder="填写内容和卖家协商确定"></p>
+          <P class="total">共2件商品 合计：<span>&yen; 500</span></P>
+        </div>
       </div>
     </div>
     <div class="btn-container">
@@ -78,7 +81,7 @@
       </div>
     </van-popup>
     <!-- 配送方式弹出层 -->
-    <van-popup class="delivery-popup" position="bottom" v-model="showDelivery">
+    <!-- <van-popup class="delivery-popup" position="bottom" v-model="showDelivery">
       <div class="popup-box">
         <p class="title f-center">配送方式</p>
         <div class="content">
@@ -100,38 +103,26 @@
         </div>
         <van-button @click="showDelivery=false">关闭</van-button>
       </div>
-    </van-popup>
+    </van-popup> -->
     <!-- 使用优惠券弹出层 -->
     <van-popup class="useCoupon-popup" position="bottom" v-model="showUseCoupon">
       <div class="popup-box">
         <p class="title f-center">优惠券</p>
         <div class="content">
-          <div class="coupon f-space-between">
+          <div v-for="(n,i) in useCoupons" class="coupon f-space-between">
             <div class="f-column">
-              <p class="value">满100减5</p>
-              <p class="name">店铺优惠券</p>
+              <p class="value">{{n.couponName}}</p>
+              <p class="name">{{n.shopName}}优惠券</p>
             </div>
             <div>
               <img v-if="!checked" mode="widthFix" src="../../image/选择@2x.png" @click="checked = !checked"/>
               <img v-else mode="widthFix" src="../../image/未选择@2x.png" @click="checked = !checked"/>
             </div>
           </div>
-
-           <div class="coupon f-space-between">
-            <div class="f-column">
-              <p class="value">满100减5</p>
-              <p class="name">店铺优惠券</p>
-            </div>
-            <div>
-              <img v-if="false" mode="widthFix" src="../../image/选择@2x.png"/>
-              <img v-else mode="widthFix" src="../../image/未选择@2x.png"/>
-            </div>
-          </div>
         </div>
         <van-button @click="showUseCoupon=false">确定</van-button>
       </div>
     </van-popup>
-
     <div class="mask" v-if="loading">
       <van-loading color="white" />
     </div>
@@ -139,14 +130,13 @@
 </template>
 
 <script>
-import { Toast, Stepper, Dialog, Popup, Button, Checkbox, Loading } from 'vant';
+import { Toast, Dialog, Popup, Button, Checkbox, Loading } from 'vant';
 import HeaderBar from '@/components/HeaderBar';
-import { initOrders } from '@/api/order'
+import { initOrders, createOrders } from '@/api/order'
 
 export default {
   components: {
     [Toast.name]: Toast,
-    [Stepper.name]: Stepper,
     [Dialog.name]: Dialog,
     [Popup.name]: Popup,
     [Button.name]: Button,
@@ -159,7 +149,6 @@ export default {
       showDelivery: false, // 配送方式弹出层 开关
       showUseCoupon: false, // 使用优惠券 开关
       showGetCoupon: false, // 领取商家优惠券 开关
-      count: 1,
 
       checked: false,
       show: false,
@@ -169,6 +158,8 @@ export default {
       starCount: 5,
 
       info: [],  // 商家信息
+      getCoupons: [],  // 可领取的优惠券
+      useCoupons: [],  // 可使用的优惠券
       phones: [],
       calls: [],
 
@@ -201,6 +192,14 @@ export default {
     },
     onClickCart() {
       this.$router.push({path:'/cart'});
+    },
+    showGetCouponBox(index) {
+      this.showGetCoupon = true;
+      // this.getCoupons = 
+    },
+    showUseCouponBox(index) {
+      this.showUseCoupon = true;
+      this.useCoupons = this.info[index].shopCouponVos;
     },
     cancelOrder(){
       Dialog.confirm({
@@ -354,10 +353,12 @@ export default {
     },
     // 立即支付(预览订单)
     async initOrders() {
+      this.loading = true;
       let that = this
       await initOrders().then(res => {
+        this.loading = false;
         if (res.data.code === 0) {
-          that.info = res.data.data
+          that.info = res.data.data;
         } else {
           Toast(res.data.errmsg)
         }
@@ -525,10 +526,16 @@ export default {
           vertical-align: top;
           width: 25%;
           display: inline-block;
-          p{
+          p.price{
             font-size: 0.4rem;
             font-weight: bold;
             color: #e64a19;
+            text-align: right;
+          }
+          p.count{    
+            font-size: 0.32rem;
+            padding-top: 0.106667rem;
+            color: #999;
             text-align: right;
           }
         }
