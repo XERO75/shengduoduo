@@ -13,13 +13,12 @@
     </van-tabs>
     <van-swipe :autoplay="3000">
       <!-- <van-swipe-item v-for="n in bannerList" :key="n.id"><a :href="n.h5Url" v-if="n.type=='Link'"><img :src="n.image"></a><img v-if="n.type=='H5'" :src="n.image" @click="onClickH5(n.id,0)"></van-swipe-item> -->
-      <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
-      <van-swipe-item><a><img src="./../../pic/banner.png"></a></van-swipe-item>
+      <van-swipe-item v-for="(n, i) in banners" :key="i"><a :href="n.url"><img :src="n.image"></a></van-swipe-item>
     </van-swipe>
     <div class="nav-container">
       <template v-for="(item, index) in categories">
         <div class="nav-box" @click="onClickSecond(item.id)" :key="index">
-          <img :src="item.image">
+          <img :src="item.icon">
           <p>{{item.name}}</p>
         </div>
       </template>
@@ -54,22 +53,10 @@
       </div>
     </div>
     <div class="product-list">
-      <div class="product-container" @click="onClickDetail">
-        <div class="product-img"><img src="./../../pic/p1.png"></div>
-        <p class="name van-ellipsis">袋装坚果</p>
-        <p class="money">&yen;511</p>
-      </div><div class="product-container" @click="onClickDetail">
-        <div class="product-img"><img src="./../../pic/p1.png"></div>
-        <p class="name van-ellipsis">袋装坚果</p>
-        <p class="money">&yen;511</p>
-      </div><div class="product-container" @click="onClickDetail">
-        <div class="product-img"><img src="./../../pic/p1.png"></div>
-        <p class="name van-ellipsis">袋装坚果</p>
-        <p class="money">&yen;511</p>
-      </div><div class="product-container" @click="onClickDetail">
-        <div class="product-img"><img src="./../../pic/p1.png"></div>
-        <p class="name van-ellipsis">袋装坚果</p>
-        <p class="money">&yen;511</p>
+      <div v-for="(item, index) in products" :key="index" class="product-container" @click="onClickDetail">
+        <div class="product-img"><img :src="item.pictureUrl"></div>
+        <p class="name van-ellipsis">{{item.productName}}</p>
+        <p class="money">&yen;{{item.minPrice}}</p>
       </div>
     </div>
   </div>
@@ -77,7 +64,7 @@
 <script>
 import { Tab, Tabs, Swipe, SwipeItem, Toast } from 'vant';
 import HeaderBar from "@/components/HeaderBar";
-import { list } from '@/api/sort'
+import { list, findProductByCategoryId } from '@/api/sort'
 export default {
   components: {
     [Toast.name]: Toast,
@@ -92,7 +79,9 @@ export default {
       active: 0,
       classes: [],
       categories: [],
-      firstClass: ''
+      banners: [],
+      firstClass: '', // 一级分类名，用于传到二级分类显示用
+      products: []
     }
   },
   methods: {
@@ -102,10 +91,13 @@ export default {
     onClickCart(){
       this.$router.push({path:'/cart'})
     },
+    // 点击更改一级分类 点击vant组件会执行active = index的操作
     onClickClass(index) {
       // 点击根据index修改一二级分类
       this.firstClass = this.classes[index].name
       this.categories = this.classes[index].categories
+      this.banners = this.classes[index].imageUrl
+      this.findProductByCategoryId()
     },
     onClickMine(id){
       this.$router.push({path:'/mine'})
@@ -126,8 +118,22 @@ export default {
           if (that.classes.length > 0) {
             // 设置默认一级分类为第一个， 默认二级分类为该一级分类下的默认二级分类
             that.firstClass = that.classes[0].name
-            that.categories = that.classes[0].categories
+            that.categories = that.classes[0].categoryLv2
+            that.banners = that.classes[0].imageUrl
           }
+          that.findProductByCategoryId()
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 根据分类id获取分类商品
+    async findProductByCategoryId() {
+      let that = this
+      let id = this.classes[this.active].id
+      await findProductByCategoryId(id).then(res => {
+        if (res.data.code === 0) {
+          that.products = res.data.data
         } else {
           Toast(res.data.errmsg)
         }

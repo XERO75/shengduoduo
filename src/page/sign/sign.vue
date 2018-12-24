@@ -3,15 +3,15 @@
     <img src="./../../image/miduoduo@2x.png" class="sign-avatar" alt="">
     <div class="sign-form">
       <form action="" class="f-column">
-        <input type="text" placeholder="请输入您的手机号码" >
+        <input type="text" placeholder="请输入您的手机号码" v-model="phoneNum">
         <div class="sign-verify">
-          <input class="sign-verify__input" type="text" placeholder="请输入验证码">
+          <input class="sign-verify__input" type="text" placeholder="请输入验证码" v-model="varifyCode">
           <span v-show="sendAuthCode" @click="getAuthCode">获取验证码</span>
           <span v-show="!sendAuthCode">{{auth_time}}秒后重新发送</span>
         </div>
-        <input type="text" placeholder="请输入登录密码">
-        <input type="password" placeholder="请再次输入登录密码">
-        <button class="sign-button">立即注册</button>
+        <input type="password" placeholder="请输入登录密码" v-model="userPwd">
+        <input type="password" placeholder="请再次输入登录密码" v-model="userPwdAgain">
+        <button class="sign-button" @click="onClickSign">立即注册</button>
       </form>
     </div>
     <p @click="onClickLogin" class="sign-tips">
@@ -23,22 +23,29 @@
   </div>
 </template>
 <script>
-import { Field, Button } from 'vant';
+import { Field, Button, Toast } from 'vant';
+import { register, sendCode } from '@/api/login'
 export default {
   components: {
+    [Toast.name]: Toast,
     [Field.name]: Field,
     [Button.name]: Button
   },
   data() {
     return{
       sendAuthCode: true,
-      auth_time: 0
+      auth_time: 0,
+      phoneNum: '',
+      userPwd: '',
+      userPwdAgain: '',
+      varifyCode: ''
     }
   },
   methods: {
     getAuthCode:function () {
       this.sendAuthCode = false;
-      this.auth_time = 6;
+      this.auth_time = 60;
+      this.sendCode()
       var auth_timetimer =  setInterval(()=>{
           this.auth_time--;
           if(this.auth_time<=0){
@@ -47,8 +54,43 @@ export default {
           }
       }, 1000);
     },
+    // 已有账号，跳转登录
     onClickLogin() {
       this.$router.push({path:'/login'})
+    },
+    // 注册
+    async onClickSign() {
+      if (this.userPwd !== this.userPwdAgain) {
+        Toast('密码不一致，请重新输入')
+        this.userPwd = ''
+        this.userPwdAgain = ''
+        return
+      }
+      let formdata = new FormData();
+      formdata.append('userName', this.phoneNum);
+      formdata.append('password', this.userPwd);
+      formdata.append('varifyCode', this.varifyCode);
+      let that = this
+      await register(formdata).then(res => {
+        if (res.data.code === 0) {
+          Toast('注册成功')
+          // that.$router.push({path:'/index'})
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
+    },
+    // 发送验证码
+    async sendCode() {
+      let formdata = new FormData();
+      formdata.append('userName', this.phoneNum);
+      await sendCode(formdata).then(res => {
+        if (res.data.code === 0) {
+          Toast('发送成功，请注意查收')
+        } else {
+          Toast(res.data.errmsg)
+        }
+      })
     }
   }
 }
@@ -67,8 +109,8 @@ export default {
     }
     .sign-form {
       margin: 0 1.066667rem;
-      input::-webkit-input-placeholder { 
-        color: #c5c5c5; 
+      input::-webkit-input-placeholder {
+        color: #c5c5c5;
       }
       .sign-verify {
         position: relative;

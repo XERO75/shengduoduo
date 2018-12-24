@@ -2,7 +2,7 @@
   <div id="order-list">
     <van-tabs v-model="active" :swipe-threshold="tabNum" @click="tabClick">
       <van-tab title="全部">
-        <div v-for="(item, index) in orderList" :key="index" class="order-container" @click="onClickInfo">
+        <div v-for="(item, index) in orderList" :key="index" class="order-container" @click="onClickInfo(item.sn)">
           <div class="order-header">
             <div class="f-vertical">
               <img mode="widthFix" src="../../image/订单详情-小店@2x.png" style="width: 15px; hetght:auto;"/>
@@ -71,8 +71,8 @@ export default {
     tabClick(index, title) {
       this.getOrderList(title);
     },
-    onClickInfo() {
-      this.$router.push({path:'/order/info'});
+    onClickInfo(sn) {
+      this.$router.push({path:'/order/info', query: {sn}});
     },
     // 加载我的所有订单
     async myOrders() {

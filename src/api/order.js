@@ -3,7 +3,8 @@ var baseUrl = process.env.BASE_API;
 const urls = {
   initOrders: '/app/orders/initOrders',
   createOrders: '/app/orders/createOrders',
-  myOrders: '/app/member/myOrders'
+  myOrders: '/app/member/myOrders',
+  ordersDetail: '/app/orders/ordersDetail'
 };
 // 合并请求链接
 const apis = Object.keys(urls)
@@ -35,5 +36,14 @@ export const myOrders = (pageNum, pageSize) => {
     url: apis.myOrders,
     method: 'get',
     params: { pageNum: 1, pageSize: 10 }
+  });
+};
+
+// 订单详情
+export const ordersDetail = (sn) => {
+  return axios({
+    url: apis.ordersDetail,
+    method: 'get',
+    params: { sn }
   });
 };
