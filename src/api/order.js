@@ -2,6 +2,7 @@ import axios from 'axios';
 var baseUrl = process.env.BASE_API;
 const urls = {
   initOrders: '/app/orders/initOrders',
+  createOrders: '/app/orders/createOrders',
   myOrders: '/app/member/myOrders',
   ordersDetail: '/app/orders/ordersDetail'
 };
@@ -17,6 +18,15 @@ export const initOrders = () => {
   return axios({
     url: apis.initOrders,
     method: 'get'
+  });
+};
+
+// 生成订单
+export const createOrders = (data) => {
+  return axios({
+    url: apis.createOrders,
+    method: 'post',
+    data
   });
 };
 
