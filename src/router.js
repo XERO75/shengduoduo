@@ -9,9 +9,16 @@ const routes = [
   //   redirect: '/shop'
   // },
   {
+    path: '/index',
+    name: 'index',
+    component: resolve => require(['./page/index/index'], resolve),
+    meta: {
+      title: '米多多'
+    }
+  },
+  {
     path: '/',
-    component: resolve => require(['./page/home/index'], resolve),
-    // component: () => import('./page/home/index'),
+    component: resolve => require(['./page/index/index'], resolve),
     meta: {
       title: '米多多'
     },
@@ -19,15 +26,24 @@ const routes = [
       name: 'index'
     }
   },
-  {
-    path: '/index',
-    name: 'index',
-    component: resolve => require(['./page/home/index'], resolve),
-    // component: () => import('./page/home/index'),
-    meta: {
-      title: '米多多'
-    }
-  },
+  // {
+  //   path: '/',
+  //   component: resolve => require(['./page/home/index'], resolve),
+  //   meta: {
+  //     title: '米多多'
+  //   },
+  //   redirect: {
+  //     name: 'index'
+  //   }
+  // },
+  // {
+  //   path: '/index',
+  //   name: 'index',
+  //   component: resolve => require(['./page/home/index'], resolve),
+  //   meta: {
+  //     title: '米多多'
+  //   }
+  // },
   {
     path: '/home/list',
     name: 'homeList',

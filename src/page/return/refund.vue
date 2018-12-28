@@ -284,7 +284,7 @@ export default {
         font-size: .4rem;
         color: #2e2d2d;
         span {
-          color: #e64a19;
+          color: #8FC221;
         }
       }
       p.select{
@@ -422,7 +422,7 @@ export default {
     button{
       width: 90%;
       height: 50px;
-      background-color: #e64a19;
+      background-color: #8FC221;
       color: #fff;
       border-radius: 25px;
       margin: 0 auto;
@@ -504,7 +504,7 @@ export default {
         .btn-get{
           @extend .btn-got;
           border: none;
-          background-color: #e64a19;
+          background-color: #8FC221;
           color: #fffeff;
         }
       }
@@ -545,7 +545,7 @@ export default {
       width: 90%;
       height: 44px;
       border: 0;
-      background-color: #e64a19;
+      background-color: #8FC221;
       color: #fff;
       border-radius: 22px;
       // position: absolute;
@@ -558,7 +558,7 @@ export default {
       width: 90%;
       height: 44px;
       border: 0;
-      background-color: #e64a19;
+      background-color: #8FC221;
       color: #fff;
       border-radius: 22px;
       position: absolute;

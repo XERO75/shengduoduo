@@ -1,27 +1,28 @@
 <template>
   <div id="comments">
-    <HeaderBar title="我的评价" @back="onClickBack" @cart="onClickCart"></HeaderBar> 
-    <div class="comment-wrapper" v-for="(item, index) in 3" :key="index">
-      <div class="comment-header">Lorem ipsum dolor sit amet.!</div>
-      <div class="comment-content">
-        <div class="comment-content__img">
-          <img src="./../../pic/p2.png">
-        </div>
-        <div class="comment-content__desc">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, qui.</p><br/>
-          <span>lorem100g</span>
-        </div>
+    <div class="comment-wrapper" v-for="(item, index) in 2" :key="index">
+      <div class="comment-header">
+        <img src="../../assets/img/icon_miaosha@2x.png" alt="">
+        <span>jane</span>
+      </div>
+      <div class="comment-statistic">
+        2018-01-21
+        颜色: 红色
+        规格500g
+      </div>
+      <div class="comment-comments">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, sequi?
+      </div>
+      <div class="comments-productWrap">
+        <img src="../../assets/img/icon_miaosha@2x.png" alt="">
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum, rerum.</p>
       </div>
     </div>
   </div>
 </template>
 <script>
-import HeaderBar from "@/components/HeaderBar";
-import { getCommentList } from "@/api/sort";
-
 export default {
   components: {
-    HeaderBar
   },
   data(){
     return{
@@ -30,59 +31,57 @@ export default {
     }
   },
   methods:{
-
   },
   mounted(){
-    let id = this.$route.query.id;
-    getCommentList(1,10,id).then(res=>{
-      this.commentList = res.data.data;
-    })
   }
 }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-  $fzm: PingFang-SC-Medium;
-  $fzr: PingFang-SC-Medium;
   #comments {
-    padding-top: 1.2rem;
-    box-sizing: border-box;
-    position: relative;
+    border-bottom: 10px solid #F5F5F4;
+    // box-sizing: border-box;
+    // position: relative;
     .comment-wrapper {
-      margin: .8rem;
+      padding: .4rem;
+      margin-bottom: .2rem;
+      background: #fff;
     }
     .comment-header {
-      font-family: $fzm;
-      font-size: .373333rem;
-      color: #2d2e2d;
-    }
-    .comment-content {
       display: flex;
-      padding: .5rem 0;
-      border-bottom: 1px solid #e5e5e5;
-      .comment-content__img {
-        width: 1.253333rem;
-        height: 1.253333rem;
-        margin-right: .3rem;
-        img {
-          width: 1.253333rem;
-          height: 1.253333rem;
-        }
+      align-items: center;
+      img {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%; 
+        border: 0.053333rem solid #ffffff;
+        margin-right: .2rem;
       }
-      .comment-content__desc {
-        p {
-          display: inline-block;
-          font-family: $fzr;
-          font-size: .293333rem;
-          color: #e64a19;
-          text-align: left;
-        }
-        span {
-          font-family: $fzr;
-          font-size: .293333rem;
-          color: #afaeaf;
-          text-align: left;
-        }
+      span {
+        font-size: .45rem;
+        font-weight: bold;
       }
     }
+    .comment-statistic {
+      margin: .3rem 0;
+      font-size: .35rem;
+      color: #8C8C8C;
+    }
+    .comment-comments {
+      font-size: .4rem;
+    }
+    .comments-productWrap {
+      display: flex;
+      align-items: center;
+      background: #F5F5F4;
+      margin: .2rem 0;
+      img {
+        width: 3rem;
+        margin-right: .2rem;
+      }
+      p {
+        font-size: .4rem;
+      }
+    }
+   
   }
 </style>

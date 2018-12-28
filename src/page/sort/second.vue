@@ -101,7 +101,7 @@ export default {
     width: 100%;
     height: 1.2rem;
     text-align: center;
-    background-color: #e64a19;
+    background-color: #8FC221;
     color: #fff;
     position: fixed;
     top: 0;
@@ -213,8 +213,8 @@ export default {
         font-size: 0.32rem;
         color: #2d2d2d;
         &.active{
-          color: #e64a19;
-          border: 1px solid #e64a19;
+          color: #8FC221;
+          border: 1px solid #8FC221;
         }
       }
     }
@@ -284,7 +284,7 @@ export default {
         padding-left: 0.106667rem;
         font-size: 0.4rem;
         font-weight: bold;
-        color: #e64a19;
+        color: #8FC221;
         text-align: left;
       }
     }

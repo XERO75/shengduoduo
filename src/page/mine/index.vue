@@ -1,6 +1,5 @@
 <template>
   <div id="mine">
-    <HeaderBar title="个人中心" @back="onClickBack" @cart="onClickCart"></HeaderBar>
     <div class="avatar-container">
       <div class="avatar-box">
         <img :src="info.avatar">
@@ -9,90 +8,92 @@
       </div>
     </div>
     <div class="order-container container" @click="onClickOrder">
-      <p class="title">我的订单<span>查看更多</span></p>
+      <p class="title">我的订单</p>
       <div class="status-list">
         <div class="status-item">
           <div class="status-img">
-            <img src="./../../image/待评价@2x.png">
-            <span v-if="info.unPaidCount > 0" class="numberIcon">{{info.unPaidCount}}</span>
+            <img src="../../assets/img/icon_fahuo@2x.png">
+            <!-- <span v-if="info.unPaidCount > 0" class="numberIcon">{{info.unPaidCount}}</span> -->
           </div>
           <p>待付款</p>
         </div><div class="status-item">
           <div class="status-img">
-            <img src="./../../image/待分享@2x.png">
+            <img src="../../assets/img/icon_fenxiang@2x.png">
           </div>
           <p>待分享</p>
         </div><div class="status-item">
           <div class="status-img">
-            <img src="./../../image/代发货@2x.png">
-            <span v-if="info.unSendCount > 0" class="numberIcon">{{info.unSendCount}}</span>
+            <img src="../../assets/img/icon_shouhuo@2x.png">
+            <!-- <span v-if="info.unSendCount > 0" class="numberIcon">{{info.unSendCount}}</span> -->
           </div>
           <p>待发货</p>
         </div><div class="status-item">
           <div class="status-img">
-            <img src="./../../image/待收货@2x.png">
-            <span v-if="info.unSignCount > 0" class="numberIcon">{{info.unSignCount}}</span>
+            <img src="../../assets/img/icon_shouhuo@2x.png">
+            <!-- <span v-if="info.unSignCount > 0" class="numberIcon">{{info.unSignCount}}</span> -->
           </div>
           <p>待收货</p>
         </div><div class="status-item">
           <div class="status-img">
-            <img src="./../../image/待评价@2x.png">
-            <span v-if="info.unCommentCount > 0" class="numberIcon">{{info.unCommentCount}}</span>
+            <img src="../../assets/img/icon_pingjia@2x.png">
+            <!-- <span v-if="info.unCommentCount > 0" class="numberIcon">{{info.unCommentCount}}</span> -->
           </div>
           <p>待评价</p>
         </div>
       </div>
     </div>
     <div class="service-container container">
+      <p class="title">我的足迹</p>
       <div class="service-list">
         <div class="service-item"  @click="onClickCoupon">
           <div class="service-img">
-            <img src="./../../image/优惠券@2x.png">
+            <img src="../../assets/img/icon_youhuiquan@2x.png">
           </div>
           <p>优惠券</p>
         </div><div class="service-item"  @click="onClickCollect">
           <div class="service-img">
-            <img src="./../../image/我的收藏@2x.png">
+            <img src="../../assets/img/icon_shoucang@2x.png">
           </div>
           <p>我的收藏</p>
         </div><div class="service-item"  @click="onClickCollect2">
           <div class="service-img">
-            <img src="./../../image/店铺收藏@2x.png">
+            <img src="../../assets/img/icon_dianpu@2x.png">
           </div>
           <p>店铺收藏</p>
         </div><div class="service-item"  @click="onClickHistory">
           <div class="service-img">
-            <img src="./../../image/历史浏览@2x.png">
+            <img src="../../assets/img/icon_lishi@2x.png">
           </div>
           <p>历史浏览</p>
         </div><div class="service-item"  @click="onClickSale">
           <div class="service-img">
-            <img src="./../../image/退款售后@2x.png">
+            <img src="../../assets/img/icon_shouhou@2x.png">
           </div>
           <p>退款售后</p>
         </div>
       </div>
     </div>
     <div class="function-container container">
+      <p class="title">必备工具</p>
       <div class="function-list">
         <div @click="onClickRedPacket" class="function-item">
           <div class="function-img">
-            <img src="./../../image/打卡@2x.png">
+            <img src="../../assets/img/icon_daka@2x.png">
           </div>
           <p>打卡领红包</p>
         </div><div @click="onClickBargain" class="function-item">
           <div class="function-img">
-            <img src="./../../image/砍价@2x.png">
+            <img src="../../assets/img/icon_kanjia@2x.png">
           </div>
           <p>砍价免费拿</p>
         </div><div @click="onClickTreasure" class="function-item">
           <div class="function-img">
-            <img style="padding-top:.15rem; width:.7rem;" src="./../../image/夺宝@2x.png">
+            <img  src="../../assets/img/icon_duobao@2x.png">
           </div>
           <p>每日夺宝</p>
         </div><div @click="onClickOreYard" class="function-item">
           <div class="function-img">
-            <img style="width:.65rem;" src="./../../image/矿场@2x.png">
+            <img src="../../assets/img/icon_kuangchang@2x.png">
           </div>
           <p>米多多矿场</p>
         </div>
@@ -100,22 +101,22 @@
       <div class="function-list">
         <div class="function-item" @click="onClickAddress">
           <div class="function-img">
-            <img src="./../../image/收货地址@2x.png">
+            <img src="../../assets/img/icon_lishi@2x.png">
           </div>
           <p>收货地址</p>
         </div><div @click="onClickCustomerService" class="function-item">
           <div class="function-img">
-            <img src="./../../image/官方客服@2x.png">
+            <img src="../../assets/img/icon_guangfang@2x.png">
           </div>
           <p>官方客服</p>
         </div><div @click="onClickComments" class="function-item">
           <div class="function-img">
-            <img src="./../../image/我的评价@2x.png">
+            <img src="../../assets/img/icon_wodepingjia@2x.png">
           </div>
           <p>我的评价</p>
         </div><div @click="onClickHelp" class="function-item">
           <div class="function-img">
-            <img src="./../../image/帮助@2x.png">
+            <img src="../../assets/img/icon_bangzhu@2x.png">
           </div>
           <p>帮助</p>
         </div>
@@ -222,12 +223,20 @@ $fzm: PingFang-SC-Medium;
 $fzr: PingFang-SC-Regular;
 $fzb: PingFang-SC-Bold;
 #mine{
-  padding-top: 1.2rem;
   box-sizing: border-box;
   position: relative;
+  p.title{
+      padding: 0 15px;
+      height: 1.2rem;
+      line-height: 1.2rem;
+      font-family: $fzb;
+      font-size: .4rem;
+      color: #202020;
+      position: relative;
+  }
   .avatar-container{
     height: 2.666667rem;
-    background: url(./../../image/img_beijin@2x.png) no-repeat;
+    background: url(../../assets/img/img_beijin@2x.png) no-repeat;
     background-size: 100%;
     position: relative;
     // border-bottom: 0.266667rem solid #f6f6f6;
@@ -274,28 +283,27 @@ $fzb: PingFang-SC-Bold;
   }
   .order-container{
     p.title{
-      padding: 0 15px;
-      height: 1.2rem;
-      line-height: 1.2rem;
-      font-family: $fzb;
-      font-size: .4rem;
-      font-weight: bold;
-      color: #202020;
-      position: relative;
-      border-bottom: 1px solid #f6f6f6;
-      &:after{
-        content: '';
-        width: 10px;
-        height: 11px;
-        display: block;
-        background: url(./../../image/MORE@2x.png) no-repeat;
-        -webkit-background-size: 7px 11px;
-        background-size: 7px 11px;
-        position: absolute;
-        top: 50%;
-        margin-top: -6px;
-        right: 10px;
-      }
+      // padding: 0 15px;
+      // height: 1.2rem;
+      // line-height: 1.2rem;
+      // font-family: $fzb;
+      // font-size: .4rem;
+      // color: #202020;
+      // position: relative;
+      // border-bottom: 1px solid #f6f6f6;
+      // &:after{
+      //   content: '';
+      //   width: 10px;
+      //   height: 11px;
+      //   display: block;
+      //   background: url(./../../image/MORE@2x.png) no-repeat;
+      //   -webkit-background-size: 7px 11px;
+      //   background-size: 7px 11px;
+      //   position: absolute;
+      //   top: 50%;
+      //   margin-top: -6px;
+      //   right: 10px;
+      // }
       span{
         font-family: $fzr;
         font-size: .293333rem;
@@ -306,7 +314,9 @@ $fzb: PingFang-SC-Bold;
       }
     }
     div.status-list{
-      height: 2.346667rem;
+      // height: 1.9rem;
+      // padding: .4rem 0;
+      padding-bottom: .4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -334,7 +344,7 @@ $fzb: PingFang-SC-Bold;
   }
   .service-container{
     .service-list{
-      height: 2.346666rem;
+      height: 1.8rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -343,8 +353,8 @@ $fzb: PingFang-SC-Bold;
         text-align: center;
         .service-img{
           display: inline-block;
-          width: .6rem;
-          height: .6rem;
+          width: .7rem;
+          // height: .6rem;
           margin-bottom: .24rem;
         }
         img {
@@ -360,7 +370,7 @@ $fzb: PingFang-SC-Bold;
   }
   .function-container{
     .function-list{
-      height: 2.56rem;
+      height: 2.2rem;
       display: flex;
       align-items: center;
       &:first-child{
@@ -379,9 +389,9 @@ $fzb: PingFang-SC-Bold;
         }
         .function-img{
           display: inline-block;
-          width: .6rem;
-          height: .6rem;
-          margin-bottom: .45rem;
+          width: 1rem;
+          // height: .6rem;
+          margin-bottom: .25rem;
         }
         img {
           width: 100%;
@@ -398,12 +408,12 @@ $fzb: PingFang-SC-Bold;
 // 圆形数字icon
 .numberIcon{
   background-color: #fff;
-  border: 1px solid #e64a19;
+  border: 1px solid #8FC221;
   border-radius: 50%;
   height: .346667rem;
   width: .346667rem;
   font-size: .266667rem;
-  color: #e64a19;
+  color: #8FC221;
   position: absolute;
   top: -30%;
   right: -36%;

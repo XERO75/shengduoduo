@@ -222,7 +222,7 @@ export default {
             height: 20px;
             display: block;
             margin: 0 auto;
-            background-color: #e64a19;
+            background-color: #8FC221;
             color: #fff;
             border-radius: 20px;
             line-height: 20px;

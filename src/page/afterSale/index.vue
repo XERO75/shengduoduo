@@ -1,14 +1,16 @@
 <template>
   <div id="after-sale">
     <div class="order-list" >
-      <div class="order-container" v-for="n in orderLists" :key="n.index">
+      <div class="order-container" v-for="n in 3" :key="n.index">
+        <div class="order-list__header">lorem</div>
         <div class="product-container">
           <img :src="n.image">
-          <p class="name">{{n.product}}</p>
-          <p class="price">&yen;<span>{{n.actualPay}}</span></p>
-          <p class="type">{{(n.specifications).replace(/[；]/g," ")}} <span>更多</span></p>
+          <p class="name">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, omnis.</p>
+          <!-- <p class="price">&yen;<span>1</span></p> -->
+          <p class="type">颜色:1 规格:2 <span>X2</span></p>
+          <!-- <p class="type">{{(n.specifications).replace(/[；]/g," ")}} <span>更多</span></p> -->
         </div>
-        <p class="status">{{n.refundType}} {{n.refundStatus}}<span @click="onClickDetail(n.paidCode)" class="btn-detail">查看详情</span></p>
+        <p class="status">Lorem, ipsum dolor.<span @click="onClickDetail(n.paidCode)" class="btn-detail">查看详情</span></p>
       </div>
     </div>
   </div>
@@ -59,13 +61,21 @@ export default {
 #after-sale{
   min-height: 100%;
   .order-list{
-    padding: 0.533333rem;
+    .order-list__header {
+      line-height: 1.2rem;
+      padding-left: .4rem;
+      border-bottom: 1px solid #efefef;
+    }
     .order-container{
-      padding-bottom: 0.933333rem;
+      margin-bottom: 0.3rem;
+      background: #fff;
       .product-container{
         position: relative;
+        margin: 0 .533333rem;
         padding-left: 2.4rem;
-        padding-bottom: 0.346667rem;
+        padding-bottom: 1rem;
+        padding-top: .3rem;
+        // padding-bottom: 0.346667rem;
         img{
           width: 2.2rem;
           height: 2.2rem;
@@ -99,8 +109,9 @@ export default {
       }
       .status{
         line-height: 0.826667rem;
+        margin: 0 .533333rem;
         border-top: 1px solid #e5e5e5;
-        border-bottom: 1px solid #e5e5e5;
+        // border-bottom: 1px solid #e5e5e5;
         color: #2d2e2d;
         font-size: 0.266667rem;
         padding-left: 0.4rem;
@@ -124,9 +135,9 @@ export default {
           display: inline-block;
           text-align: center;
           line-height: 0.56rem;
-          border: 1px solid #e64a19;
+          border: 1px solid #efefef;
           border-radius: 0.28rem;
-          color: #e64a19;
+          color: #000;
           font-size: 0.266667rem;
           position: absolute;
           right: 0;

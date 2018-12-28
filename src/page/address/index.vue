@@ -136,7 +136,7 @@ export default {
     button{
       width: 100%;
       height: 100%;
-      background-color: #e64a19;
+      background-color: #8FC221;
       border-radius: 0.586667rem;
       line-height: 1.173333rem;
       text-align: center;

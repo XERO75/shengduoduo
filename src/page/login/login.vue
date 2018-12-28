@@ -79,10 +79,10 @@ export default {
       .login-button {
         height: 1.173333rem;
         margin-bottom: .266667rem;
-        background: #e64a19;
+        background: #8FC221;
         color: #ffffff;
         font-size: .426667rem;
-        border: 1px solid #e64a19;
+        border: 1px solid #8FC221;
         border-radius: .586667rem;
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <div id="cart">
-    <HeaderBar title="购物车" @back="onClickBack" isCart></HeaderBar>
+    <!-- <HeaderBar title="购物车" @back="onClickBack" isCart></HeaderBar> -->
     <div class="cart-item" v-for="(n,i) in cartList">
       <p class="store-name">
         <i v-if="n.isSelected" class="icon-checked" @click="handleStoreCheck(i)"></i>
@@ -250,7 +250,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 #cart{
   min-height: 100%;
-  padding-top: 1.2rem;
+  // padding-top: 1.2rem;
   padding-bottom: 1.306667rem;
   box-sizing: border-box;
   position: relative;
@@ -274,7 +274,7 @@ export default {
   }
   .cart-item{
     padding-left: 0.32rem;
-    border-top: 0.266667rem solid #f6f6f6;
+    border-bottom: 0.266667rem solid #f6f6f6;
     background-color: #fff;
     .store-name{
       padding-left: 1.2rem;
@@ -384,7 +384,7 @@ export default {
         padding-top: 0.32rem;
         font-size: 0.4rem;
         font-weight: bold;
-        color: #e64a19;
+        color: #8FC221;
       }
     }
   }
@@ -392,7 +392,7 @@ export default {
     width: 100%;
     height: 1.306667rem;
     position: fixed;
-    bottom: 0;
+    bottom: 1.34rem;
     i.icon-nocheck,
     i.icon-checked{
       top: 50%;
@@ -413,7 +413,7 @@ export default {
       background-color: #fff;
       strong{
         font-size: 0.48rem;
-        color: #e64a19;
+        color: #8FC221;
       }
     }
     div.btn-pay{
@@ -421,7 +421,7 @@ export default {
       height: 100%;
       display: inline-block;
       line-height: 1.306667rem;
-      background-color: #e64a19;
+      background-color: #8FC221;
       color: #fff;
       font-size: 0.4rem;
       text-align: center;
@@ -524,8 +524,8 @@ export default {
             span.btn-get{
               width: 1.893333rem;
               height: 0.613333rem;
-              border: 1px solid #e64a19;
-              background-color: #e64a19;
+              border: 1px solid #8FC221;
+              background-color: #8FC221;
               color: #fff;
               border-radius: 0.306667rem;
               display: inline-block;
@@ -543,7 +543,7 @@ export default {
         height: 44px;
         margin: 0 auto;
         border: 0;
-        background-color: #e64a19;
+        background-color: #8FC221;
         color: #fff;
         border-radius: 22px;
         position: absolute;

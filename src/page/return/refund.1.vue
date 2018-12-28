@@ -283,7 +283,7 @@ export default {
     button{
       width: 90%;
       height: 50px;
-      background-color: #e64a19;
+      background-color: #8FC221;
       color: #fff;
       border-radius: 25px;
       margin: 0 auto;
@@ -347,7 +347,7 @@ export default {
       height: 44px;
       margin: 0 auto;
       border: 0;
-      background-color: #e64a19;
+      background-color: #8FC221;
       color: #fff;
       border-radius: 22px;
       position: absolute;

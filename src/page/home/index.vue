@@ -1,100 +1,130 @@
 <template>
   <div id="home-index">
-    <div class="search-bar">
-      <img class="icon-item" @click="onClickSort" src="../../image/分类@2x.png">
-      <van-search
-        placeholder="搜索"
-        v-model="value"
-        background="#e64a19"
-        @search="gotoList"
-      />
-      <img class="icon-user" @click="onClickMine" src="./../../image/我@2x.png">
-    </div>
-    <van-swipe :autoplay="3000">
-      <!-- <van-swipe-item v-for="n in bannerList" :key="n.id"><a :href="n.h5Url" v-if="n.type=='Link'"><img :src="n.image"></a><img v-if="n.type=='H5'" :src="n.image" @click="onClickH5(n.id,0)"></van-swipe-item> -->
+    <van-tabs v-model="activeOne">
+      <van-tab title="热门">
+        <img class="van-tab__hot" src="../../assets/img/banner@2x.png" alt="">
+        <div class="nav-container">
+          <div class="nav" @click="">
+            <img src="../../assets/img/icon_miaosha@2x.png">
+            <p>限时秒杀</p>
+          </div><div class="nav" @click="">
+            <img src="../../assets/img/icon_temai@2x.png">
+            <p>一元特卖</p>
+          </div><div class="nav" @click="">
+            <img src="../../assets/img/icon_qianggou@2x.png">
+            <p>拼团抢购</p>
+          </div><div class="nav" @click="">
+            <img src="../../assets/img/icon_qingcang@2x.png">
+            <p>每日清仓</p>
+          </div><div class="nav" @click="">
+            <img src="../../assets/img/icon_tijian@2x.png">
+            <p>体检中心</p>
+          </div><div class="nav" @click="">
+            <img src="../../assets/img/icon_jiangtang@2x.png">
+            <p>养生讲堂</p>
+          </div><div class="nav" @click="">
+            <img src="../../assets/img/icon_luntan@2x.png">
+            <p>养生论坛</p>
+          </div><div class="nav" @click="">
+            <img src="../../assets/img/icon_baojian@2x.png">
+            <p>养生保健</p>
+          </div>
+        </div>
+        <div class="pin">
+          <div class="img-title">
+            <img src="./../../pic/title1.png">
+            <span class="more" @click="">更多</span>
+          </div>
+          <div class="ad">
+            <img src="../../assets/img/img_banner@2x.png"/>
+          </div>
+          <!-- <div v-for="(item, index) in zhanweiAdsHeng" :key="index" class="ad">
+            <img :src="item.picture"/>
+          </div> -->
+          <div class="pin-list">
+            <div class="pin-container" v-for="n in 3" :key="n.index">
+              <div class="pin-box">
+                <p class="name">网红美味</p>
+                <p class="price">&yen;12.8</p>
+                <img src="./../../pic/p1.png">
+                <span class="btn-pin" @click="onClickDetail">去拼团</span>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="pin-list"> -->
+            <!-- <div v-for="(item, index) in zhanweiAdsShu" :key="index" class="pin-container">
+              <img :src="item.picture"/> -->
+              <!-- <div class="pin-box">
+                <p class="name">网红美味</p>
+                <p class="price">&yen;12.8</p>
+                <img src="./../../pic/p1.png">
+                <span class="btn-pin" @click="onClickDetail">去拼团</span>
+              </div> -->
+            <!-- </div>
+          </div> -->
+        </div>
+        <div class="new">
+          <div class="img-title">
+            <img src="./../../pic/title1.png">
+            <span class="more" @click="">更多</span>
+          </div>
+          <div class="ad-list">
+            <!-- <div v-for="n in productAdLists" :key="n.index" class="ad-container" @click="onClickDetail">
+              <img :src="n.picture">
+            </div> -->
+            <div class="ad-container" @click="onClickDetail">
+              <img src="../../assets/img/banner@2x.png">
+            </div>
+            <div class="ad-container" @click="onClickDetail">
+              <img src="../../assets/img/banner@2x.png">
+            </div>
+          </div>
+          <div class="product-list">
+            <div class="product-container" @click="onClickDetail(p.productId)">
+              <div class="product-img"><img src="../../assets/img/miduoduo@2x.png"></div>
+              <p class="name van-ellipsis">Lorem, ipsum.</p>
+              <p class="money">&yen;1</p>
+            </div>
+            <div class="product-container"  @click="onClickDetail(p.productId)">
+              <div class="product-img"><img src="../../assets/img/miduoduo@2x.png"></div>
+              <p class="name van-ellipsis">Lorem, ipsum.</p>
+              <p class="money">&yen;1</p>
+            </div>
+          </div>
+          <!-- <div class="product-list">
+            <div class="product-container" v-for="p in products" @click="onClickDetail(p.productId)">
+              <div class="product-img"><img :src="p.pictureUrl"></div>
+              <p class="name van-ellipsis">{{p.productName}}</p>
+              <p class="money">&yen;{{p.minPrice}}</p>
+            </div>
+          </div> -->
+        </div>
+      </van-tab>
+    <van-tab title="补血养血"></van-tab>
+    <van-tab title="清肺润肺"></van-tab>
+    <van-tab title="补肺壮阳"></van-tab>
+    <van-tab title="润肠通便"></van-tab>
+  </van-tabs>
+    <!-- <van-swipe :autoplay="3000">
       <template v-for="(item, index) in banners">
         <van-swipe-item :key="index"><a><img :src="item.picture"></a></van-swipe-item>
       </template>
-    </van-swipe>
-    <div class="nav-container">
-      <div class="nav" @click="">
-        <img src="./../../image/A1@2x.png">
-        <p>限时秒杀</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A2@2x.png">
-        <p>清仓专场</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A3@2x.png">
-        <p>天天拼团</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A4@2x.png">
-        <p>1元抢购</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A5@2x.png">
-        <p>当地特产</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A6@2x.png">
-        <p>高米易购</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A7@2x.png">
-        <p>高米餐饮</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A8@2x.png">
-        <p>高米洗车</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A9@2x.png">
-        <p>高米洗衣</p>
-      </div><div class="nav" @click="">
-        <img src="./../../image/A10@2x.png">
-        <p>附近高米</p>
-      </div>
-    </div>
-    <div class="pin">
-      <div class="img-title">
-        <img src="./../../pic/title1.png">
-        <span class="more" @click="">更多</span>
-      </div>
-      <div v-for="(item, index) in zhanweiAdsHeng" :key="index" class="ad">
-        <img :src="item.picture"/>
-      </div>
-      <div class="pin-list">
-        <div v-for="(item, index) in zhanweiAdsShu" :key="index" class="pin-container">
-          <img :src="item.picture"/>
-          <!-- <div class="pin-box">
-            <p class="name">网红美味</p>
-            <p class="price">&yen;12.8</p>
-            <img src="./../../pic/p1.png">
-            <span class="btn-pin" @click="onClickDetail">去拼团</span>
-          </div> -->
-        </div>
-      </div>
-    </div>
-    <div class="new">
-      <div class="img-title">
-        <img src="./../../pic/title1.png">
-        <span class="more" @click="">更多</span>
-      </div>
-      <div class="ad-list">
-        <div v-for="n in productAdLists" :key="n.index" class="ad-container" @click="onClickDetail">
-          <img :src="n.picture">
-        </div>
-        <!-- <div class="ad-container" @click="onClickDetail">
-          <img src="./../../pic/ad2.png">
-        </div> -->
-      </div>
-      <div class="product-list">
-        <div class="product-container" v-for="p in products" @click="onClickDetail(p.productId)">
-          <div class="product-img"><img :src="p.pictureUrl"></div>
-          <p class="name van-ellipsis">{{p.productName}}</p>
-          <p class="money">&yen;{{p.minPrice}}</p>
-        </div>
-      </div>
-    </div>
+    </van-swipe> -->
+<!--     
+    <div class="home-tabbar">
+      <van-tabbar v-model="active">
+        <van-tabbar-item icon="home">首页</van-tabbar-item>
+        <van-tabbar-item icon="search">分类</van-tabbar-item>
+        <van-tabbar-item icon="setting">搜索</van-tabbar-item>
+        <van-tabbar-item icon="setting" >购物车</van-tabbar-item>
+        <van-tabbar-item icon="setting" >我</van-tabbar-item>
+      </van-tabbar>
+    </div> -->
   </div>
 </template>
 
 <script>
-import { Search, Swipe, SwipeItem, Row, Col, Toast } from 'vant';
+import { Search, Swipe, SwipeItem, Row, Col, Toast, Tab, Tabs, Tabbar, TabbarItem } from 'vant';
 import { getProductList, bannerAdList, positionAdList, productAdList, positionAdParallelList, positionAdVerticalList } from "@/api/home";
 export default {
   components: {
@@ -103,7 +133,11 @@ export default {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [Row.name]: Row,
-    [Col.name]: Col
+    [Col.name]: Col,
+    [Tab.name]: Tab,
+    [Tabs.name]: Tabs,
+    [Tabbar.name]: Tabbar,
+    [TabbarItem.name]: TabbarItem,
     // [Loading.name]: Loading,
   },
   data(){
@@ -114,7 +148,10 @@ export default {
       zhanweiAds: [],
       productAdLists: [],
       zhanweiAdsHeng: [],
-      zhanweiAdsShu: []
+      zhanweiAdsShu: [],
+
+      activeOne: 0,
+      active: 0
     }
   },
   methods: {
@@ -123,7 +160,6 @@ export default {
     },
     onClickDetail(id) {
       this.$router.push({path:'/sort/detail',query:{id:id}});
-      // this.$router.push({path:'/shop/sort',query:''});
     },
     onClickMine() {
       this.$router.push({path:'/mine'});
@@ -190,6 +226,11 @@ export default {
 
 <style lang="scss">
 #home-index{
+  background: #fff;
+  .van-tab--active:after {
+    background-color: #8FC221;
+    height: 0.06rem;
+  }
   .van-search .van-icon-search{
     left: 14% !important;
   }
@@ -200,8 +241,11 @@ export default {
 </style>
 <style rel="stylesheet/scss" lang="scss" scoped>
 #home-index{
-  padding-top: 1.2rem;
   box-sizing: border-box;
+  margin-bottom: 1.2rem;
+  .van-tab__hot {
+    width: 100%;
+  }
   .search-bar{
     position: fixed;
     top: 0;
@@ -258,7 +302,7 @@ export default {
     flex-wrap: wrap;
     .nav{
       padding-top: 0.333333rem;
-      width: 20%;
+      width: 21%;
       text-align: center;
       img{
         width: 1.253333rem;
@@ -303,7 +347,7 @@ export default {
   }
   .pin{
     .ad{
-      border-bottom: 0.266667rem solid #f6f6f6;
+      // border-bottom: 0.266667rem solid #f6f6f6;
       padding-bottom: 0.48rem;
       img{
         width: 100%;
@@ -347,7 +391,7 @@ export default {
             height: 0.56rem;
             display: block;
             margin: 0 auto;
-            background-color: #e64a19;
+            background-color: #8FC221;
             color: #fff;
             font-size: 0.32rem;
             border-radius: 0.28rem;
@@ -362,6 +406,7 @@ export default {
     .ad-list{
       height: 2.186667rem;
       padding: 0 0.28rem 0.373333rem 0.28rem;
+      display: flex;
       .ad-container{
         width: 50%;
         height: 100%;
@@ -380,6 +425,7 @@ export default {
     .product-list{
       padding: 0 0.2rem;
       width: 100%;
+      display: flex;
       box-sizing: border-box;
       .product-container{
         width: 50%;
@@ -417,7 +463,7 @@ export default {
           padding-left: 0.106667rem;
           font-size: 0.4rem;
           font-weight: bold;
-          color: #e64a19;
+          color: #8FC221;
           text-align: left;
         }
       }

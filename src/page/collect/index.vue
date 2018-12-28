@@ -1,19 +1,16 @@
 <template>
   <div id="collect">
     <div class="product-list">
-      <div class="product-container">
+      <div class="product-container" v-for="(item, index) in 2" :key="index">
         <img src="./../../pic/box.png">
-        <p class="name">哦来看哈阿萨德哈吉看时间哈斯柯达按时大叔大婶大所多</p>
-        <p class="price">&yen;<span>500</span></p>
-        <p class="type">红色1kg <span>更多</span></p>
-        <span class="btn-pin">发起订单</span>
-      </div>
-      <div class="product-container">
-        <img src="./../../pic/box.png">
-        <p class="name">哦来看哈阿萨德哈吉看时间哈斯柯达按时大叔大婶大所多</p>
-        <p class="price">&yen;<span>500</span></p>
-        <p class="type">红色1kg <span>更多</span></p>
-        <span class="btn-pin">发起订单</span>
+        <p class="name">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, accusantium.</p>
+        <div class="product-bottom clearfloat">
+          <p class="price fl">&yen;<span>500</span></p>
+          <div class="product-bottom__button fr">发起拼单</div>
+          <div class="product-bottom__button fr">取消收藏</div>
+        </div>
+        <!-- <p class="type">红色1kg <span>更多</span></p> -->
+        <!-- <span class="btn-pin">发起订单</span> -->
       </div>
     </div>
   </div>
@@ -45,12 +42,15 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 #collect{
   min-height: 100%;
+  background: #fff;
   .product-list{
-    padding: 0.533333rem;
+    padding: 0 0.533333rem;
     .product-container{
       position: relative;
       padding-left: 2.4rem;
-      padding-bottom: 1.2rem;
+      padding-bottom: .4rem;
+      margin-top: .4rem;
+      border-bottom: 1px solid #efefef;
       img{
         width: 2.2rem;
         height: 2.2rem;
@@ -68,11 +68,19 @@ export default {
       }
       .price{
         font-size: 0.293333rem;
-        color: #2d2e2d;
+        color: #FE7000;
         margin-top: 0.266667rem;
         span{
           font-size: 0.453333rem;
+          color: #FE7000;
         }
+      }
+      .product-bottom__button {
+        border: 1px solid #E5E5E5;
+        padding: .12rem .2rem;
+        border-radius: 50px;
+        margin-top: .2rem;
+        margin-left: .2rem;
       }
       .type{
         font-size: 0.266667rem;
@@ -88,7 +96,7 @@ export default {
         font-size: 0.266667rem;
         line-height: 0.506667rem;
         color: #fff;
-        background-color: #e64a19;
+        background-color: #8FC221;
         text-align: center;
         position: absolute;
         bottom: 1.2rem;

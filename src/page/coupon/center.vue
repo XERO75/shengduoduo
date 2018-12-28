@@ -1,12 +1,12 @@
 <template>
   <div id="coupon-center">
     <van-tabs v-model="active">
-      <van-tab title="精选"></van-tab>
-      <van-tab title="服饰"></van-tab>
-      <van-tab title="鞋包"></van-tab>
-      <van-tab title="母婴"></van-tab>
-      <van-tab title="特产"></van-tab>
-      <van-tab title="百货"></van-tab>
+      <van-tab title="热门"></van-tab>
+      <van-tab title="补血"></van-tab>
+      <van-tab title="润肺"></van-tab>
+      <van-tab title="壮阳"></van-tab>
+      <van-tab title="补肾"></van-tab>
+      <van-tab title="通便"></van-tab>
     </van-tabs>
     <div class="coupon-list">
       <div class="coupon-container">
@@ -68,6 +68,10 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 #coupon-center{
+  .van-tab--active:after {
+    background-color: #8FC221;
+    height: 0.06rem;
+  }
   min-height: 100%;
   background-color: #f6f6f6;
   .coupon-list{
@@ -96,7 +100,7 @@ export default {
         }
         .name{
           font-size: 0.266667rem;
-          color: #fdbb49;
+          // color: #fdbb49;
           overflow:hidden; 
           text-overflow:ellipsis;
           display:-webkit-box; 
@@ -132,7 +136,7 @@ export default {
           padding-bottom: 0.08rem;
         }
         span.btn{
-          width: 1.2rem;
+          width: 1.6rem;
           height: 0.4rem;
           display: inline-block;
           border: 1px solid #fff;

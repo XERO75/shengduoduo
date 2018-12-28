@@ -1,6 +1,6 @@
 <template>
   <div id="order-detail">
-    <HeaderBar title="订单详情" @back="onClickBack" @cart="onClickCart"></HeaderBar>
+    <!-- <HeaderBar title="订单详情" @back="onClickBack" @cart="onClickCart"></HeaderBar> -->
     <div class="address-container container" @click="onClickAddress">
       <!-- <div class="noAddress"><p>添加收货地址</p></div> -->
       <div class="defalutAddress">
@@ -8,11 +8,13 @@
         <p class="address">按时发发生发发呆</p>
       </div>
     </div>
-    <div v-for="(n,i) in info">
+    <div v-for="(n,i) in 1" :key="n.index">
+    <!-- <div v-for="(n,i) in info"> -->
       <div class="product-container container">
         <p class="productStatus title">{{n.shopName}}<i class="icon-right"></i><span class="fr">{{n.paymentStatus}}</span></p>
         <div></div>
-        <div v-for="(m,j) in info[i].items" class="product-box">
+        <div v-for="(m,j) in 1" :key="n.index" class="product-box">
+        <!-- <div v-for="(m,j) in info[i].items" class="product-box"> -->
           <img :src="m.image">
           <div class="product-item">
             <div class="item-left">
@@ -38,8 +40,8 @@
         <p class="title">微信支付</p>
         <div class="content">
           <p class="select" @click="showUseCouponBox(i)">使用优惠券</p>
-          <!-- <p class="input">使用e币<input type="number" placeholder="输入使用e币，当前可用780"></p> -->
-          <!-- <p class="select" @click="showDelivery=true">配送方式<span>快递 免邮费</span></p> -->
+          <p class="input">使用e币<input type="number" placeholder="输入使用e币，当前可用780"></p>
+          <p class="select" @click="showDelivery=true">配送方式<span>快递 免邮费</span></p>
           <p class="input">买家留言<input type="text" placeholder="填写内容和卖家协商确定"></p>
           <P class="total">共2件商品 合计：<span>&yen; 500</span></P>
         </div>
@@ -81,7 +83,7 @@
       </div>
     </van-popup>
     <!-- 配送方式弹出层 -->
-    <!-- <van-popup class="delivery-popup" position="bottom" v-model="showDelivery">
+    <van-popup class="delivery-popup" position="bottom" v-model="showDelivery">
       <div class="popup-box">
         <p class="title f-center">配送方式</p>
         <div class="content">
@@ -103,7 +105,7 @@
         </div>
         <van-button @click="showDelivery=false">关闭</van-button>
       </div>
-    </van-popup> -->
+    </van-popup>
     <!-- 使用优惠券弹出层 -->
     <van-popup class="useCoupon-popup" position="bottom" v-model="showUseCoupon">
       <div class="popup-box">
@@ -382,7 +384,7 @@ export default {
   min-height: 100%;
   padding-bottom: 50px;
   position: relative;
-  padding-top: .6rem;
+  // padding-top: .6rem;
   box-sizing: border-box;
   .container {
     border-top: 0.266667rem solid #f6f6f6;
@@ -446,7 +448,7 @@ export default {
         color: #2d2d2d;
         span{
           font-size: 0.293333rem;
-          color: #e64a19;
+          color: #8FC221;
           line-height: 0.56rem;
           vertical-align: top;
         }
@@ -486,7 +488,7 @@ export default {
         vertical-align: middle;
       }
       span{
-        color: #e64a19;
+        color: #8FC221;
         font-size: 0.32rem;
         font-weight: normal;
       }
@@ -529,7 +531,7 @@ export default {
           p.price{
             font-size: 0.4rem;
             font-weight: bold;
-            color: #e64a19;
+            color: #8FC221;
             text-align: right;
           }
           p.count{    
@@ -585,7 +587,7 @@ export default {
         line-height: 1.466667rem;
         span{
           font-size: 0.373333rem;
-          color: #e64a19;
+          color: #8FC221;
           float: right;
           padding-right: 0.4rem;
         }
@@ -660,7 +662,7 @@ export default {
           span{
             font-size: 0.4rem;
             font-weight: bold;
-            color: #e64a19;
+            color: #8FC221;
           }
         }
       }
@@ -684,7 +686,7 @@ export default {
       box-sizing: border-box;
       span{
         font-size: 0.48rem;
-        color: #e64a19;
+        color: #8FC221;
         font-weight: bold;
       }
     }
@@ -705,7 +707,7 @@ export default {
       text-align: center;
       display: inline-block;
       color: #fff;
-      background-color: #e64a19;
+      background-color: #8FC221;
     }
   }
   .popup-box{
@@ -787,7 +789,7 @@ export default {
         .btn-get{
           @extend .btn-got;
           border: none;
-          background-color: #e64a19;
+          background-color: #8FC221;
           color: #fffeff;
         }
       }
@@ -829,7 +831,7 @@ export default {
       height: 44px;
       margin: 0 auto;
       border: 0;
-      background-color: #e64a19;
+      background-color: #8FC221;
       color: #fff;
       border-radius: 22px;
       position: absolute;

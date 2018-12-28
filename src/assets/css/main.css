@@ -86,7 +86,7 @@
 }
 /* switch按钮的颜色 */
 .van-switch--on {
-  background-color: #e64a19!important;
+  background-color: #8FC221!important;
 }
 
 /* flex布局 */
@@ -198,6 +198,12 @@ textarea{
   font-size: 0.26rem;
   color: #202020;
   font-family: PingFang Regular;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
 }
 .clearfloat:after{
   display: block;

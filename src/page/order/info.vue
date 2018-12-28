@@ -1,6 +1,6 @@
 <template>
   <div id="order-info" class="orderinfo">
-    <HeaderBar title="订单详情" @back="onClickBack" @cart="onClickCart"></HeaderBar>
+    <!-- <HeaderBar title="订单详情" @back="onClickBack" @cart="onClickCart"></HeaderBar> -->
     <!-- 等待商家付款倒计时部分 -->
     <div class="orderinfo-second">
       <div class="orderinfo-second-content f-space-between">
@@ -14,10 +14,10 @@
     </div>
     <!-- 用户地址部分 -->
     <div class="orderinfo-third f-vertical">
-      <img mode="widthFix" src="../../image/地址-@2x.png"/>
+      <img mode="widthFix" src="../../assets/img/icon_dizhi@2x.png"/>
       <div class="orderinfo-third-text f-column">
-        <p>{{info.contact}}&nbsp;&nbsp;&nbsp;{{info.phone}}</p>
-        <p>{{info.area}}{{info.specificAddress}}</p>
+        <p>jane&nbsp;&nbsp;&nbsp;213313123213</p>
+        <p>Lorem ipsum dolor sit amet.</p>
       </div>
     </div>
     <!-- 商家、商品、各种数据部分 -->
@@ -25,11 +25,11 @@
       <!-- 商户名 -->
       <div class="orderinfo-fourth-bname f-vertical">
         <img mode="widthFix" src="../../image/订单详情-小店@2x.png"/>
-        <p>{{info.shopName}}</p>
+        <p>lorem</p>
       </div>
       <!-- 商品 -->
       <div class="f-column">
-        <div v-for="(item, index) in info.items" :key="index" class="orderinfo-fourth-prod f-space-between">
+        <div v-for="(item, index) in 1" :key="index" class="orderinfo-fourth-prod f-space-between">
           <img mode="widthFix" :src="item.image"/>
           <div class="prod-text">
             <p class="overTwoLine">{{item.productName}}</p>
@@ -118,7 +118,7 @@ export default {
   min-height: 100%;
   padding-bottom: 50px;
   position: relative;
-  padding-top: 1.2rem;
+  // padding-top: 1.2rem;
   box-sizing: border-box;
 }
 // 第二部分(等待卖家付款倒计时)
@@ -236,7 +236,7 @@ export default {
       }
       p:nth-child(1){
         margin: 0;
-        color: #e64a19;
+        color: #8FC221;
         font-weight: bold;
       }
     }
@@ -260,7 +260,7 @@ export default {
     font-size: .373333rem;
     color: #333;
     p:nth-child(2){
-      color: #e64a19;
+      color: #8FC221;
       font-size: .4rem;
       margin-right: .4rem;
     }
@@ -277,7 +277,7 @@ export default {
     color: #2e2e2d;
     p:nth-child(2){
       font-size: .48rem;
-      color: #e64a19;
+      color: #8FC221;
     }
   }
   &-btn{
@@ -286,7 +286,7 @@ export default {
     color: #fff;
     span{
       border-radius: .386667rem;
-      background: #e64a19;
+      background: #8FC221;
       margin-left: .16rem;
       width: 2.133333rem;
       height: .773333rem;

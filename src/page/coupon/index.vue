@@ -47,8 +47,10 @@
               <p class="price">&yen;<span>5</span></p>
               <p class="tips">满100可用</p>
             </div><div class="coupon-right">
-              <p class="name">仅限LOVO集团官方旗舰店</p>
-              <p class="date">2018.08.09-2019.10.22</p>
+              <div class="coupon-right__content">
+                <p class="name">仅限LOVO集团官方旗舰店</p>
+                <p class="date">2018.08.09-2019.10.22</p>
+              </div>
               <span class="btn btn-passed">已过期</span>
             </div>
           </div>
@@ -100,17 +102,30 @@ export default {
   }
 };
 </script>
-
+<style lang="scss">
+#coupon{
+  .van-tab--active:after {
+    background-color: #8FC221;
+    height: 0.06rem;
+  }
+}
+</style>
 <style rel="stylesheet/scss" lang="scss">
 #coupon{
   min-height: 100%;
   background-color: #f6f6f6;
   p.header-bar{
-    line-height: 0.64rem;
-    font-size: 0.293333rem;
-    color: #f7ab07;
-    background-color: #fff2dd;
+    width: 8rem;
+    margin: .3rem auto;
+    border-radius: 5px;
+    background: #fff;
+    line-height: 1rem;
     padding-left: 1.2rem;
+    // line-height: 0.64rem;
+    // font-size: 0.293333rem;
+    // color: #000;
+    // background-color: #fff2dd;
+    // padding-left: 1.2rem;
     position: relative;
     &:before{
       content: '';
@@ -142,10 +157,12 @@ export default {
   .coupon-list{
     .coupon-container{
       margin: 0 auto;
-      margin-top: 0.266667rem;
-      width: 8.933333rem;
+      // margin-top: 0.266667rem;
+      width: 9.2rem;
       height: 2.533333rem;
-      background: url(./../../image/img_youhuiquan@2x.png) no-repeat;
+      background: #fff;
+      border-radius: 10px;
+      // background: url(./../../image/img_youhuiquan@2x.png) no-repeat;
       -webkit-background-size: 8.933333rem 2.533333rem;
       background-size: 8.933333rem 2.533333rem;
       .coupon-left{
@@ -157,17 +174,18 @@ export default {
           padding-top: 0.266667rem;
           font-size: 0.453333rem;
           font-weight: bold;
-          color: #fff;
+          color: #FE7D14;
           span{
             font-size: 1.066667rem;
           }
         }
         .tips{
           font-size: 0.32rem;
-          color: #fff;
+          color: #FE7D14;
         }
       }
       .coupon-right{
+        display: flex;
         width: 67%;
         height: 100%;
         display: inline-block;
@@ -197,7 +215,7 @@ export default {
         }
       }
       &.used{
-        background: url(./../../image/img_yishiyongquan@2x.png) no-repeat;
+        // background: url(./../../image/img_yishiyongquan@2x.png) no-repeat;
         -webkit-background-size: 8.933333rem 2.533333rem;
         background-size: 8.933333rem 2.533333rem;
         .coupon-right{
@@ -214,7 +232,7 @@ export default {
         }
       }
       &.passed{
-        background: url(./../../image/img_yiguoqiquan@2x.png) no-repeat;
+        // background: url(./../../image/img_yiguoqiquan@2x.png) no-repeat;
         -webkit-background-size: 8.933333rem 2.533333rem;
         background-size: 8.933333rem 2.533333rem;
         .coupon-right{

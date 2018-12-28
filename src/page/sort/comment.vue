@@ -256,7 +256,7 @@ export default {
           margin-bottom: 0.266667rem;
         }
         span.tag.active{
-          background-color: #e64a19!important;
+          background-color: #8FC221!important;
           color: #fff!important;
         }
         span.tag.bad{
@@ -289,7 +289,7 @@ export default {
           }
           p.type{
             font-size: 0.32rem;
-            color: #e64a19;
+            color: #8FC221;
 
           }
           /*.star-container{
@@ -365,7 +365,7 @@ export default {
       p.price{
         padding-top: 0.8rem;
         font-size: 0.64rem;
-        color: #e64a19;
+        color: #8FC221;
         font-weight: bold;
         del{
           font-size: 0.48rem;
@@ -405,8 +405,8 @@ export default {
           border-radius: 0.053333rem;
           margin-right: 0.133333rem;
           &.active{
-            color: #e64a19;
-            border-color: #e64a19;
+            color: #8FC221;
+            border-color: #8FC221;
           }
         }
       }
@@ -482,7 +482,7 @@ export default {
           background-color: #ffb548;
         }
         &.btn-pin {
-          background-color: #e64a19;
+          background-color: #8FC221;
         }
       }
     }
@@ -506,7 +506,7 @@ export default {
       text-align: center;
       line-height: 1.306667rem;
       vertical-align: top;
-      background-color: #e64a19;
+      background-color: #8FC221;
     }
   }
 }
