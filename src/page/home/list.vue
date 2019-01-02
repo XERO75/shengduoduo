@@ -1,6 +1,6 @@
 <template>
   <div id="home-list">
-    <HeaderBar title="搜索商品" @back="onClickBack" @cart="onClickCart"></HeaderBar>
+    <!-- <HeaderBar title="搜索商品" @back="onClickBack" @cart="onClickCart"></HeaderBar> -->
     <div class="product-container">
 			<p class="title title-product">全部商品</p>
 			<div class="tab-container f-vertical">
@@ -10,7 +10,7 @@
         <div class="tab" :class="productTabIndex === 2 ? 'active' : ''" @click="onClickProTab(2)"><span>价格</span></div>
 			</div>
 	    <div class="product-list">
-	      <div v-for="(item, index) in products" :key="index" class="product-container" @click="onClickDetail">
+	      <div v-for="(item, index) in 1" :key="index" class="product-container" @click="onClickDetail">
 	        <div class="product-img"><img :src="item.pictureUrl"></div>
 	        <p class="name van-ellipsis">{{item.name}}</p>
 	        <p class="money">&yen;{{item.minPrice}}</p>

@@ -56,6 +56,7 @@ export default {
   #login {
     position: relative;
     height: 100%;
+    background: #fff;
     .login-avatar {
       display: block;
       width: 2rem;

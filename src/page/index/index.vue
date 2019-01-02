@@ -53,6 +53,8 @@ import { Tabbar, TabbarItem } from 'vant'
 import Home from '@/page/home/index'
 import Cart from '@/page/cart/index'
 import Mine from '@/page/mine/index'
+import Category from '@/page/category/index'
+import Search from '@/page/search/index'
 
 export default {
   components: {
@@ -60,7 +62,9 @@ export default {
     [TabbarItem.name]: TabbarItem,
     'home': Home,
     'cart': Cart,
-    'mine': Mine
+    'mine': Mine,
+    'category': Category,
+    'search': Search
   },
   data() {
     return {
@@ -79,10 +83,10 @@ export default {
           this.currentView = 'home'
           break;
         case 1:
-          this.currentView = ''
+          this.currentView = 'category'
           break;
         case 2:
-          this.currentView = ''
+          this.currentView = 'search'
           break;
         case 3:
           this.currentView = 'cart'

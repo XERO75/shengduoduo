@@ -99,6 +99,7 @@ export default {
   #sign {
     position: relative;
     height: 100%;
+    background: #fff;
     .sign-avatar {
       display: block;
       width: 2rem;

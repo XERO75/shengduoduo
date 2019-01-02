@@ -12,14 +12,17 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "better-scroll": "^1.13.2",
     "node-sass": "^4.9.3",
     "qrcodejs2": "0.0.2",
     "sass-loader": "^7.1.0",
     "vant": "^1.1.5",
     "vue": "^2.5.16",
     "vue-amap": "^0.5.8",
+    "vue-i18n": "^8.6.0",
     "vue-router": "^3.0.0",
     "vuex": "^3.0.1",
+    "vuex-i18n": "^1.10.9",
     "weixin-js-sdk": "^1.4.0-test"
   },
   "devDependencies": {

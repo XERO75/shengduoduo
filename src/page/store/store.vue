@@ -2,36 +2,61 @@
   <div id="store">
 		<div class="store-container">
 			<div class="bg-container">
-				<img class="img-bg" src="./../../image/顶部背景@2x.png">
-				<img class="img-store" src="./../../image/顶部背景@2x.png">
+        <div class="store-container__search">
+          <input type="text" placeholder="搜索店内商品">
+        </div>
+        <div class="store-container__right">
+          <div class="store-container__bg"></div>
+          <div class="store-container__kefu f-vertical"><img mode="widthFix" src="../../assets/img/icon_kefu@2x.png"/></div>
+          <div class="store-container__share f-vertical"><img mode="widthFix" src="../../assets/img/icon_fenxiang@2x.png"/></div>
+        </div>
+        <div class="store-detail">
+          <div class="store-detail__left">
+            <div class="avatar">
+              <img src="../../assets/img/icon_miaosha@2x.png" alt="">
+            </div>
+            <div class="store-detail__left__data">
+              <span class="name">大保健会所</span><br/>
+              <span class="data">商品数量:1 已拼:10</span>
+            </div>
+          </div>
+          <div class="store-detail__right">收藏</div>
+        </div>
 			</div>
-			<p class="name">1111</p>
-			<p class="info">商品数量：1<span> </span> 已拼：<span>1</span></p>
-			<div class="btn-container f-vertical f-center">
-        <span class="client f-center"><img mode="widthFix" src="../../image/客服@2x.png"/><a src="./../../image/顶部背景@2x.png">客服</a></span>
+      <div class="store-couponList">
+        <div class="store-couponWrap" v-for="(item, index) in 3" :key="index">
+          <div class="store-coupon">
+            <span class="price">&yen11</span>
+            <span class="rule">满100减1</span>
+            <span class="butt">领取</span>
+          </div>
+        </div>
+      </div>
+			<!-- <p class="name">{{storeInfo.shopName}}</p>
+			<p class="info">商品数量：<span>{{storeInfo.productNumber}} </span> 已拼：<span>{{storeInfo.collageNumber}}</span></p> -->
+			<!-- <div class="btn-container f-vertical f-center">
+        <span class="client f-center"><img mode="widthFix" src="../../image/客服@2x.png"/><a :href="storeInfo.hotLine">客服</a></span>
         <span v-if="!isFavorite" class="collect f-center" @click="addFavorite"><img mode="widthFix" src="../../image/收藏@2x.png"/>收藏</span>
         <span v-else class="alredyCollect f-center" @click="removeFavorite"><img mode="widthFix" src="../../image/订单评价-星星-红@2x.png"/>已收藏</span>
         <span class="share f-center"><img mode="widthFix" src="../../image/分享@2x.png"/>分享</span>
-			</div>
-			<div class="ticket-container">
-				<div  class="ticket">1<span  @click="takeShopCoupon(item.id)">领取</span><span >已领取</span></div>
-				<!-- <div class="ticket used">满100减5 <span>已领取</span></div>
-				<div class="ticket">满100减5 <span>领取</span></div> -->
-			</div>
+			</div> -->
+			<!-- <div class="ticket-container">
+				<div v-for="(item, index) in coupons" :key="index" class="ticket" :class="item.status === '已领取' ? 'used' : ''">{{item.couponName}} <span v-if="item.status === '领取中'" @click="takeShopCoupon(item.id)">领取</span><span v-else>已领取</span></div>
+			</div> -->
 		</div>
     <div class="pin-container">
-      <p class="title title-pin title-more">大家正在拼<span class="more">查看更多</span></p>
+      <p class="title title-pin ">大家正在拼</p>
       <div class="pin-list">
 
-        <div  class="pin-box">
+        <div v-for="(item, index) in 2" :key="index" class="pin-box">
           <div class="member">
-          	<img class="member-img" src="../../image/订单评价-星星-红@2x.png">
-          	<p>1111</p>
+          	<img class="member-img" src="../../assets/img/icon_miaosha@2x.png">
+          	<p>1</p>
           </div>
           <p class="timeout">剩余 <span>15:05:55</span></p>
-          <img class="pin-img" src="../../image/订单评价-星星-红@2x.png">
+          <!-- <img class="pin-img" src="../../assets/img/icon_miaosha@2x.png"> -->
           <p class="name">11</p>
-          <p class="price">&yen;1111</p>
+          <p class="price">&yen; 121</p>
         </div>
 
       </div>
@@ -45,10 +70,10 @@
         <div class="tab" :class="productTabIndex === 2 ? 'active' : ''" @click="onClickProTab(2)"><span>价格</span></div>
 			</div>
 	    <div class="product-list">
-	      <div   class="product-container" @click="onClickDetail">
-	        <div class="product-img"><img src="../../image/订单评价-星星-红@2x.png"></div>
-	        <p class="name van-ellipsis">111</p>
-	        <p class="money">&yen;111</p>
+	      <div v-for="(item, index) in products" :key="index" class="product-container" @click="onClickDetail">
+	        <div class="product-img"><img :src="item.pictureUrl"></div>
+	        <p class="name van-ellipsis">{{item.name}}</p>
+	        <p class="money">&yen;{{item.minPrice}}</p>
 	      </div>
 	    </div>
     </div>
@@ -56,11 +81,12 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
+import { Toast, Search } from 'vant';
 import { shopInfo, shopCollage, shopCouponList, takeShopCoupon, findProductByShopId, myFavoriteShop, removeFavorite, addFavorite } from '@/api/store'
 export default {
   components: {
-    [Toast.name]: Toast
+    [Toast.name]: Toast,
+    [Search.name]: Search
   },
   data(){
     return{
@@ -209,15 +235,15 @@ export default {
     }
   },
   mounted(){
-    // if (this.$route.query.code) {
-    //   this.code = this.$route.query.code
-    //   this.shopInfo()  // 获取商铺信息
-    //   this.shopCollage()  // 获取拼团信息
-    //   this.findProductByShopId('综合') // 获取商品信息
-    //   this.myFavoriteShop() // 是否已收藏该店铺
-    // } else {
-    //   Toast('无店铺信息')
-    // }
+    if (this.$route.query.code) {
+      this.code = this.$route.query.code
+      this.shopInfo()  // 获取商铺信息
+      this.shopCollage()  // 获取拼团信息
+      this.findProductByShopId('综合') // 获取商品信息
+      this.myFavoriteShop() // 是否已收藏该店铺
+    } else {
+      Toast('无店铺信息')
+    }
   }
 };
 </script>
@@ -225,12 +251,14 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 #store{
 	min-height: 100%;
-	background-color: #f6f6f6;
+  background-color: #f6f6f6;
+  overflow: hidden;
   p.title{
     line-height: 1.2rem;
-    padding-left: 0.9rem;
-    padding-right: 0.64rem;
-    border-bottom: 1px solid #f6f6f6;
+    // padding-left: 0.9rem;
+    // padding-right: 0.64rem;
+    text-align: center;
+    // border-bottom: 1px solid #f6f6f6;
     font-size: 0.4rem;
     font-weight: bold;
     position: relative;
@@ -240,26 +268,26 @@ export default {
       height: 0.4rem;
       display: block;
       position: absolute;
-      left: 0.4rem;
+      left: 6.3rem;
       top: 50%;
       margin-top: -0.2rem;
       background: url(./../../image/大家在拼@2x.png) no-repeat;
       -webkit-background-size: 0.333333rem 0.4rem;
       background-size: 0.333333rem 0.4rem;
     }
-    &.title-product:before{
-    	content: '';
-    	width: 0.373333rem;
-    	height: 0.4rem;
-			display: block;
-			position: absolute;
-			left: 0.4rem;
-			top: 50%;
-			margin-top: -0.186667rem;
-			background: url(./../../image/全部商品@2x.png) no-repeat;
-			-webkit-background-size: 0.373333rem 0.4rem;
-			background-size: 0.373333rem 0.4rem;
-    }
+    // &.title-product:before{
+    // 	content: '';
+    // 	width: 0.373333rem;
+    // 	height: 0.4rem;
+		// 	display: block;
+		// 	position: absolute;
+		// 	left: 0.4rem;
+		// 	top: 50%;
+		// 	margin-top: -0.186667rem;
+		// 	background: url(./../../image/全部商品@2x.png) no-repeat;
+		// 	-webkit-background-size: 0.373333rem 0.4rem;
+		// 	background-size: 0.373333rem 0.4rem;
+    // }
     &.title-more:after{
     	content: '';
     	width: 0.133333rem;
@@ -286,10 +314,98 @@ export default {
 		border-bottom: 0.266667rem solid #f6f6f6;
 		padding-bottom: 0.4rem;
 		.bg-container{
-			width: 100%;
-			height: 2.666667rem;
-			position: relative;
-			padding-bottom: 0.4rem;
+      width: 100%;
+      height: 100px;
+      background: url(../../assets/img/img_beijing@2x.png) no-repeat;
+      background-size: 100% 100%;
+      display: flex;
+      flex-direction: space-between;
+      flex-wrap: wrap;
+      padding: 10px 10px;
+      padding-bottom: 0.4rem;
+      input {
+        padding: 2px 6px;
+        opacity: .4;
+        color: #fff;
+        width: 255px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+      }
+      .store-container__right {
+        display: flex;
+        margin: 0 7px;
+        position: relative;
+        img {
+          width: 17px;
+        }
+        .store-container__bg {
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: 0;
+          width: 78px;
+          height: 23px;
+          background-color:#fff;
+          filter:Alpha(opacity=50);
+          background-color: rgba(255, 255, 255, 0.3);
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+        .store-container__kefu {
+          padding: 2px 11px;
+          height: 20px;
+          position: relative;
+          z-index: 1;
+          color: #FFFFFF;
+        }
+        .store-container__share {
+          border-left: 1px solid rgba(255, 255, 255, .5);
+          padding: 2px 10px;
+          height: 20px;
+          position: relative;
+          z-index: 1;
+          color: #FFFFFF;
+        }
+      }
+      .store-detail {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 94%;
+        img {
+          width: 50px;
+          height: 50px;
+        }
+        .store-detail__left {
+          display: flex;
+          .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+          .name {
+            font-size: 16px;
+          }
+          .data {
+            font-size: 13px;
+          }
+        }
+        .store-detail__left__data {
+          text-align: left;
+          padding-left: 10px;
+          color: #fff;
+        }
+        .store-detail__right {
+          border: 1px solid rgba(250,250,250,.5);
+          border-radius: 15px;
+          color: #fff;
+          opacity: .7;
+          padding: 2px 15px;
+          background: rgba(131,155,80,1);
+        }
+      }
 			img.img-bg{
 				width: 100%;
 				height: 100%;
@@ -317,7 +433,50 @@ export default {
 				left: 50%;
 				margin-left: -1rem;
 			}
-		}
+    
+    
+    }
+    .store-couponList {
+      display: flex;
+    }
+    .store-couponWrap {
+      display: flex;
+      padding: 5px 0;
+      position: relative;
+      width: 35%;
+      .store-coupon {
+        display: flex;
+        flex-direction: column;
+        padding: 0 25px;
+        .price {
+          font-size: 18px;
+          font-weight: bold;
+        }
+        .rule {
+          font-size: 16px;
+        }
+        .butt {
+          color: #fff;
+          padding: 4px 16px;
+          border-radius: 15px;
+          background: #8FC221;
+          margin-top: 2px;
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          left: auto;
+          top: auto;
+          bottom: 14px;
+          right: 0;
+          height: 40%;
+          width: 1px;
+          background-color: #8FC221;
+        }
+      }
+      
+    }
+
 		p.name{
       padding-top: 0.293333rem;
       font-size: 0.426667rem;
@@ -384,7 +543,12 @@ export default {
 	}
   .pin-container{
 		background-color: #fff;
-		border-bottom: 0.266667rem solid #f6f6f6;
+    border-bottom: 0.266667rem solid #f6f6f6;
+    background: #F6F6F6;
+}
+    .title-pin {
+      color: #FE7300;
+    }
     .pin-list{
     	width: 100%;
       padding: 0 0.32rem;
@@ -434,7 +598,10 @@ export default {
     }
   }
   .product-container{
-  	background-color: #fff;
+    background-color: #fff;
+    .title-product {
+      color:#7EBB00;
+    }
   	.tab-container{
   		width: 100%;
   		height: 1.066667rem;
@@ -536,6 +703,4 @@ export default {
       }
     }
   }
-
-}
 </style>

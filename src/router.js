@@ -26,6 +26,24 @@ const routes = [
       name: 'index'
     }
   },
+  {
+    path: '/category',
+    name: 'category',
+    component: resolve => require(['./page/category'], resolve),
+    // component: () => import('./page/mine'),
+    meta: {
+      title: '分类'
+    }
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: resolve => require(['./page/search'], resolve),
+    // component: () => import('./page/mine'),
+    meta: {
+      title: '搜索'
+    }
+  },
   // {
   //   path: '/',
   //   component: resolve => require(['./page/home/index'], resolve),

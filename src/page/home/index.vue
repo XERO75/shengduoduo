@@ -100,8 +100,49 @@
           </div> -->
         </div>
       </van-tab>
-    <van-tab title="补血养血"></van-tab>
-    <van-tab title="清肺润肺"></van-tab>
+    <van-tab title="补血养血">
+      <div class="product-list">
+        <div class="product-container" @click="onClickDetail(p.productId)">
+          <div class="product-img"><img src="../../assets/img/miduoduo@2x.png"></div>
+          <p class="name van-ellipsis">Lorem, ipsum.</p>
+          <p class="money">&yen;1</p>
+        </div>
+        <div class="product-container"  @click="onClickDetail(p.productId)">
+          <div class="product-img"><img src="../../assets/img/miduoduo@2x.png"></div>
+          <p class="name van-ellipsis">Lorem, ipsum.</p>
+          <p class="money">&yen;1</p>
+        </div>
+      </div>
+    </van-tab>
+    <van-tab title="清肺润肺">
+      <div class="nav-container">
+        <div class="nav" @click="">
+          <img src="../../assets/img/icon_miaosha@2x.png">
+          <p>限时秒杀</p>
+        </div><div class="nav" @click="">
+          <img src="../../assets/img/icon_temai@2x.png">
+          <p>一元特卖</p>
+        </div><div class="nav" @click="">
+          <img src="../../assets/img/icon_qianggou@2x.png">
+          <p>拼团抢购</p>
+        </div><div class="nav" @click="">
+          <img src="../../assets/img/icon_qingcang@2x.png">
+          <p>每日清仓</p>
+        </div>
+      </div>
+      <div class="product-list">
+        <div class="product-container" @click="onClickDetail(p.productId)">
+          <div class="product-img"><img src="../../assets/img/miduoduo@2x.png"></div>
+          <p class="name van-ellipsis">Lorem, ipsum.</p>
+          <p class="money">&yen;1</p>
+        </div>
+        <div class="product-container"  @click="onClickDetail(p.productId)">
+          <div class="product-img"><img src="../../assets/img/miduoduo@2x.png"></div>
+          <p class="name van-ellipsis">Lorem, ipsum.</p>
+          <p class="money">&yen;1</p>
+        </div>
+      </div>
+    </van-tab>
     <van-tab title="补肺壮阳"></van-tab>
     <van-tab title="润肠通便"></van-tab>
   </van-tabs>
@@ -469,6 +510,52 @@ export default {
       }
     }
   }
+  .product-list{
+      padding: 0 0.2rem;
+      width: 100%;
+      display: flex;
+      box-sizing: border-box;
+      .product-container{
+        width: 50%;
+        padding: 0.48rem 0.12rem;
+        // padding-bottom: 0.48rem;
+        box-sizing: border-box;
+        display: inline-block;
+        text-align: center;
+        .product-img{
+          position: relative;
+          p.double{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 0.693333rem;
+            line-height: 0.693333rem;
+            font-size: 0.4rem;
+            color: #fff;
+            background-color: #e70012;
+          }
+          img{
+            width: 3.533333rem;
+            height: 3.533333rem;
+            border-radius: 0.08rem;
+          }
+
+        }
+        p.name{
+          font-size: 0.373333rem;
+          color: #2d2d2d;
+          padding: 0.32rem 0 0 0.186667rem;
+          text-align: left;
+        }
+        p.money{
+          padding-left: 0.106667rem;
+          font-size: 0.4rem;
+          font-weight: bold;
+          color: #8FC221;
+          text-align: left;
+        }
+      }
+    }
 
 }
 </style>

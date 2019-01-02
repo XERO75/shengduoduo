@@ -61,10 +61,12 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 #return{
+  background: #fff;
   .product-container{
     padding: 0.373333rem 15px;
     position: relative;
     border-bottom: 10px solid #f6f6f6;
+    // background: #fff;
     img{
       position: absolute;
       width: 1.52rem;

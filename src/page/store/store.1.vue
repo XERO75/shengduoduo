@@ -3,18 +3,18 @@
 		<div class="store-container">
 			<div class="bg-container">
 				<img class="img-bg" src="./../../image/顶部背景@2x.png">
-				<img class="img-store" :src="storeInfo.logo">
+				<img class="img-store" src="./../../image/顶部背景@2x.png">
 			</div>
-			<p class="name">{{storeInfo.shopName}}</p>
-			<p class="info">商品数量：<span>{{storeInfo.productNumber}} </span> 已拼：<span>{{storeInfo.collageNumber}}</span></p>
+			<p class="name">1111</p>
+			<p class="info">商品数量：1<span> </span> 已拼：<span>1</span></p>
 			<div class="btn-container f-vertical f-center">
-        <span class="client f-center"><img mode="widthFix" src="../../image/客服@2x.png"/><a :href="storeInfo.hotLine">客服</a></span>
+        <span class="client f-center"><img mode="widthFix" src="../../image/客服@2x.png"/><a src="./../../image/顶部背景@2x.png">客服</a></span>
         <span v-if="!isFavorite" class="collect f-center" @click="addFavorite"><img mode="widthFix" src="../../image/收藏@2x.png"/>收藏</span>
         <span v-else class="alredyCollect f-center" @click="removeFavorite"><img mode="widthFix" src="../../image/订单评价-星星-红@2x.png"/>已收藏</span>
         <span class="share f-center"><img mode="widthFix" src="../../image/分享@2x.png"/>分享</span>
 			</div>
 			<div class="ticket-container">
-				<div v-for="(item, index) in coupons" :key="index" class="ticket" :class="item.status === '已领取' ? 'used' : ''">{{item.couponName}} <span v-if="item.status === '领取中'" @click="takeShopCoupon(item.id)">领取</span><span v-else>已领取</span></div>
+				<div  class="ticket">1<span  @click="takeShopCoupon(item.id)">领取</span><span >已领取</span></div>
 				<!-- <div class="ticket used">满100减5 <span>已领取</span></div>
 				<div class="ticket">满100减5 <span>领取</span></div> -->
 			</div>
@@ -23,15 +23,15 @@
       <p class="title title-pin title-more">大家正在拼<span class="more">查看更多</span></p>
       <div class="pin-list">
 
-        <div v-for="(item, index) in collage" :key="index" class="pin-box">
+        <div  class="pin-box">
           <div class="member">
-          	<img class="member-img" :src="item.avatar">
-          	<p>{{item.name}}</p>
+          	<img class="member-img" src="../../image/订单评价-星星-红@2x.png">
+          	<p>1111</p>
           </div>
           <p class="timeout">剩余 <span>15:05:55</span></p>
-          <img class="pin-img" :src="item.productImage">
-          <p class="name">{{item.productName}}</p>
-          <p class="price">&yen; {{item.minPrice}}</p>
+          <img class="pin-img" src="../../image/订单评价-星星-红@2x.png">
+          <p class="name">11</p>
+          <p class="price">&yen;1111</p>
         </div>
 
       </div>
@@ -45,10 +45,10 @@
         <div class="tab" :class="productTabIndex === 2 ? 'active' : ''" @click="onClickProTab(2)"><span>价格</span></div>
 			</div>
 	    <div class="product-list">
-	      <div v-for="(item, index) in products" :key="index" class="product-container" @click="onClickDetail">
-	        <div class="product-img"><img :src="item.pictureUrl"></div>
-	        <p class="name van-ellipsis">{{item.name}}</p>
-	        <p class="money">&yen;{{item.minPrice}}</p>
+	      <div   class="product-container" @click="onClickDetail">
+	        <div class="product-img"><img src="../../image/订单评价-星星-红@2x.png"></div>
+	        <p class="name van-ellipsis">111</p>
+	        <p class="money">&yen;111</p>
 	      </div>
 	    </div>
     </div>
@@ -209,15 +209,15 @@ export default {
     }
   },
   mounted(){
-    if (this.$route.query.code) {
-      this.code = this.$route.query.code
-      this.shopInfo()  // 获取商铺信息
-      this.shopCollage()  // 获取拼团信息
-      this.findProductByShopId('综合') // 获取商品信息
-      this.myFavoriteShop() // 是否已收藏该店铺
-    } else {
-      Toast('无店铺信息')
-    }
+    // if (this.$route.query.code) {
+    //   this.code = this.$route.query.code
+    //   this.shopInfo()  // 获取商铺信息
+    //   this.shopCollage()  // 获取拼团信息
+    //   this.findProductByShopId('综合') // 获取商品信息
+    //   this.myFavoriteShop() // 是否已收藏该店铺
+    // } else {
+    //   Toast('无店铺信息')
+    // }
   }
 };
 </script>

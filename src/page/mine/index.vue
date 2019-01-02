@@ -18,25 +18,22 @@
           <p>待付款</p>
         </div><div class="status-item">
           <div class="status-img">
-            <img src="../../assets/img/icon_fenxiang@2x.png">
+            <img src="../../assets/img/mine_fenxiang@2x.png">
           </div>
           <p>待分享</p>
         </div><div class="status-item">
           <div class="status-img">
-            <img src="../../assets/img/icon_shouhuo@2x.png">
-            <!-- <span v-if="info.unSendCount > 0" class="numberIcon">{{info.unSendCount}}</span> -->
+            <img src="../../assets/img/icon_fahuo@2x.png">
           </div>
           <p>待发货</p>
         </div><div class="status-item">
           <div class="status-img">
             <img src="../../assets/img/icon_shouhuo@2x.png">
-            <!-- <span v-if="info.unSignCount > 0" class="numberIcon">{{info.unSignCount}}</span> -->
           </div>
           <p>待收货</p>
         </div><div class="status-item">
           <div class="status-img">
             <img src="../../assets/img/icon_pingjia@2x.png">
-            <!-- <span v-if="info.unCommentCount > 0" class="numberIcon">{{info.unCommentCount}}</span> -->
           </div>
           <p>待评价</p>
         </div>
