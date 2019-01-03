@@ -2,13 +2,15 @@
   <div id="store">
 		<div class="store-container">
 			<div class="bg-container">
-        <div class="store-container__search">
-          <input type="text" placeholder="搜索店内商品">
-        </div>
-        <div class="store-container__right">
-          <div class="store-container__bg"></div>
-          <div class="store-container__kefu f-vertical"><img mode="widthFix" src="../../assets/img/icon_kefu@2x.png"/></div>
-          <div class="store-container__share f-vertical"><img mode="widthFix" src="../../assets/img/icon_fenxiang@2x.png"/></div>
+        <div class="bg-header">
+          <div class="store-container__search">
+            <input type="text" placeholder="搜索店内商品">
+          </div>
+          <div class="store-container__right">
+            <div class="store-container__bg"></div>
+            <div class="store-container__kefu f-vertical"><img mode="widthFix" src="../../assets/img/icon_kefu@2x.png"/></div>
+            <div class="store-container__share f-vertical"><img mode="widthFix" src="../../assets/img/icon_fenxiang@2x.png"/></div>
+          </div>
         </div>
         <div class="store-detail">
           <div class="store-detail__left">
@@ -252,7 +254,7 @@ export default {
 #store{
 	min-height: 100%;
   background-color: #f6f6f6;
-  overflow: hidden;
+  // overflow: hidden;
   p.title{
     line-height: 1.2rem;
     // padding-left: 0.9rem;
@@ -313,21 +315,36 @@ export default {
 		background-color: #fff;
 		border-bottom: 0.266667rem solid #f6f6f6;
 		padding-bottom: 0.4rem;
-		.bg-container{
+    .bg-header {
       width: 100%;
+      display: flex;
+      justify-content: space-between
+    }
+    .store-container__search {
+      flex:1;
+      margin-right: .4rem;
+      // width: 70%;
+      // margin-right: 1rem ;
+    }
+    .store-container__right {
+      // width: 30%;
+    }
+		.bg-container{
       height: 100px;
       background: url(../../assets/img/img_beijing@2x.png) no-repeat;
       background-size: 100% 100%;
       display: flex;
       flex-direction: space-between;
       flex-wrap: wrap;
-      padding: 10px 10px;
+      padding: 10px;
       padding-bottom: 0.4rem;
       input {
         padding: 2px 6px;
         opacity: .4;
         color: #fff;
-        width: 255px;
+        width: 100%;
+        // width: 255px;
+        // width: 70%;
         border: 1px solid transparent;
         border-radius: 10px;
       }
@@ -444,6 +461,21 @@ export default {
       padding: 5px 0;
       position: relative;
       width: 35%;
+      // &:nth-last-child(1) {
+      &:not(:last-child) {
+        // background: #000;
+        &:after {
+          content: '';
+          position: absolute;
+          left: auto;
+          top: auto;
+          bottom: 14px;
+          right: 0;
+          height: 40%;
+          width: 1px;
+          background-color: #8FC221;
+        }
+      }
       .store-coupon {
         display: flex;
         flex-direction: column;
@@ -462,19 +494,18 @@ export default {
           background: #8FC221;
           margin-top: 2px;
         }
-        &:after {
-          content: '';
-          position: absolute;
-          left: auto;
-          top: auto;
-          bottom: 14px;
-          right: 0;
-          height: 40%;
-          width: 1px;
-          background-color: #8FC221;
-        }
+        // &:after {
+        //   content: '';
+        //   position: absolute;
+        //   left: auto;
+        //   top: auto;
+        //   bottom: 14px;
+        //   right: 0;
+        //   height: 40%;
+        //   width: 1px;
+        //   background-color: #8FC221;
+        // }
       }
-      
     }
 
 		p.name{
